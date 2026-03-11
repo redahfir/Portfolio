@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio BTS SIO SISR — Reda Bouali — Technicien Systèmes et Réseaux" />
+  <title>Reda Bouali — Portfolio BTS SIO SISR</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts : Inter + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+  <!-- ========================================================
+       NAVIGATION
+  ======================================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#accueil" class="nav-logo">RB<span class="accent">.</span></a>
+
+      <!-- Bouton burger (mobile) -->
+      <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#accueil"     class="nav-link">Accueil</a></li>
+        <li><a href="#apropos"     class="nav-link">À Propos</a></li>
+        <li><a href="#cv"          class="nav-link">CV</a></li>
+        <li><a href="#pix"         class="nav-link">Certification Pix</a></li>
+        <li><a href="#experiences" class="nav-link">Expériences</a></li>
+        <li><a href="#competences" class="nav-link">Compétences</a></li>
+        <li><a href="#bts-sio"     class="nav-link">BTS SIO</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========================================================
+       SECTION ACCUEIL (HERO)
+  ======================================================== -->
+  <section id="accueil" class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">BTS SIO &mdash; Option SISR</div>
+      <h1 class="hero-name">Reda <span class="accent">Bouali</span></h1>
+      <p class="hero-subtitle">Technicien en Systèmes et Réseaux</p>
+      <p class="hero-description">
+        Étudiant en BTS SIO option SISR, passionné par l'administration système,
+        la supervision réseau et l'automatisation des infrastructures informatiques.
+        Fort d'expériences en entreprise, je maîtrise des outils professionnels comme
+        Zabbix, n8n et Power BI.
+      </p>
+      <div class="hero-actions">
+        <a href="docs/CV REDA BOUALI.pdf" download class="btn btn-primary">
+          <!-- Icône téléchargement -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Télécharger mon CV
+        </a>
+        <a href="#bts-sio" class="btn btn-secondary">
+          Voir mes compétences BTS SIO
+        </a>
+      </div>
+
+      <!-- Stack technologique visuelle -->
+      <div class="tech-stack">
+        <span class="tech-item">Zabbix</span>
+        <span class="tech-item">n8n</span>
+        <span class="tech-item">Power BI</span>
+        <span class="tech-item">ClickUp</span>
+        <span class="tech-item">Linux</span>
+        <span class="tech-item">Windows Server</span>
+        <span class="tech-item">TCP/IP</span>
+      </div>
+    </div>
+
+    <!-- Indicateur de défilement -->
+    <div class="hero-scroll">
+      <span>Défiler</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION À PROPOS
+  ======================================================== -->
+  <section id="apropos" class="section">
+    <div class="container">
+      <h2 class="section-title">À Propos</h2>
+      <p class="section-subtitle">Mon parcours, ma formation et mon projet professionnel</p>
+
+      <div class="about-grid">
+        <!-- Texte -->
+        <div class="about-text">
+          <h3>Mon Parcours</h3>
+          <p>
+            Je suis actuellement étudiant en BTS SIO (Services Informatiques aux Organisations),
+            option SISR (Solutions d'Infrastructure, Systèmes et Réseaux). Cette formation me
+            prépare à administrer des systèmes, gérer des réseaux, assurer la supervision
+            d'infrastructure et fournir un support de qualité aux utilisateurs.
+          </p>
+          <p>
+            Mes stages m'ont permis de travailler avec des outils professionnels comme
+            <strong>Zabbix</strong> pour la supervision réseau,
+            <strong>n8n</strong> pour l'automatisation de workflows,
+            <strong>Power BI</strong> pour l'analyse et la visualisation de données, et
+            <strong>ClickUp</strong> pour la gestion de projets en équipe.
+          </p>
+
+          <h3>Projet Professionnel</h3>
+          <p>
+            Mon projet professionnel s'oriente vers l'administration de systèmes et réseaux,
+            avec un intérêt particulier pour la supervision d'infrastructure, la cybersécurité
+            et l'automatisation des tâches. Je souhaite évoluer vers des postes d'administrateur
+            systèmes et réseaux ou d'ingénieur infrastructure.
+          </p>
+          <p>
+            Ma certification Pix, obtenue en mars 2026, atteste de mes compétences numériques
+            transversales, complémentaires à ma spécialisation technique.
+          </p>
+        </div>
+
+        <!-- Cartes informatives -->
+        <div class="about-cards">
+          <div class="about-card">
+            <div class="about-card-icon">🎓</div>
+            <div class="about-card-content">
+              <h4>Formation</h4>
+              <p>BTS SIO — SISR</p>
+              <span class="tag tag-blue">En cours</span>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon">🖥️</div>
+            <div class="about-card-content">
+              <h4>Spécialité</h4>
+              <p>Systèmes &amp; Réseaux</p>
+              <span class="tag">SISR</span>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon">✅</div>
+            <div class="about-card-content">
+              <h4>Certification</h4>
+              <p>Pix — Mars 2026</p>
+              <span class="tag tag-green">Validée</span>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon">🚀</div>
+            <div class="about-card-content">
+              <h4>Objectif</h4>
+              <p>Admin Sys &amp; Réseaux</p>
+              <span class="tag tag-blue">Projet Pro</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION CV
+  ======================================================== -->
+  <section id="cv" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Curriculum Vitae</h2>
+      <p class="section-subtitle">Mon parcours académique et professionnel</p>
+
+      <!--
+        ⚠️  COMPLÉTER AVEC VOTRE CV RÉEL
+        Remplacez les zones <!-- [À COMPLÉTER] --> avec vos vraies données.
+      -->
+
+      <div class="cv-grid">
+        <!-- Colonne Formation -->
+        <div class="cv-column">
+          <h3 class="cv-heading">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            Formation
+          </h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h4>BTS SIO — Option SISR</h4>
+                <!-- [À COMPLÉTER] Année de début — En cours -->
+                <span class="timeline-date"><!-- ANNÉE --> — En cours</span>
+                <p>
+                  Services Informatiques aux Organisations, spécialité Solutions
+                  d'Infrastructure, Systèmes et Réseaux.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <!-- [À COMPLÉTER] Diplôme précédent -->
+                <h4><!-- DIPLÔME PRÉCÉDENT (ex : Baccalauréat) --></h4>
+                <span class="timeline-date"><!-- ANNÉES --></span>
+                <p><!-- DESCRIPTION DE LA FORMATION --></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne Expériences -->
+        <div class="cv-column">
+          <h3 class="cv-heading">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+            Expériences
+          </h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <!-- [À COMPLÉTER] Stage principal -->
+                <h4>Stage — <!-- NOM ENTREPRISE / POSTE --></h4>
+                <span class="timeline-date"><!-- DATES DU STAGE --></span>
+                <ul>
+                  <li>Supervision d'infrastructure avec Zabbix</li>
+                  <li>Automatisation de workflows avec n8n</li>
+                  <li>Analyse de données et reporting avec Power BI</li>
+                  <li>Gestion de projet avec ClickUp</li>
+                  <!-- [À COMPLÉTER] Autres missions -->
+                </ul>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <!-- [À COMPLÉTER] Autre expérience -->
+                <h4><!-- AUTRE EXPÉRIENCE / EMPLOI --></h4>
+                <span class="timeline-date"><!-- DATES --></span>
+                <p><!-- DESCRIPTION --></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bouton téléchargement CV -->
+      <div class="cv-download">
+        <a href="docs/CV REDA BOUALI.pdf" download class="btn btn-primary btn-large">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Télécharger mon CV complet (PDF)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION CERTIFICATION PIX
+  ======================================================== -->
+  <section id="pix" class="section">
+    <div class="container">
+      <h2 class="section-title">Certification Pix</h2>
+      <p class="section-subtitle">Compétences numériques évaluées et certifiées</p>
+
+      <div class="pix-grid">
+        <!-- Présentation + téléchargement -->
+        <div class="pix-info">
+          <h3>Qu'est-ce que Pix&nbsp;?</h3>
+          <p>
+            <strong>Pix</strong> est la plateforme nationale française d'évaluation, de
+            développement et de certification des compétences numériques. Elle est
+            reconnue par le Ministère de l'Éducation Nationale et le Ministère du Travail.
+            La certification Pix évalue les compétences dans 5 domaines clés et est
+            reconnue par les employeurs comme attestation de maturité numérique.
+          </p>
+
+          <!-- Carte de certification -->
+          <div class="pix-cert-box">
+            <div class="pix-cert-header">
+              <div class="pix-logo">PIX</div>
+              <div class="pix-cert-details">
+                <h4>Certification Pix</h4>
+                <p class="pix-name">Bouali Reda</p>
+                <span class="tag tag-green">Certifié — 6 mars 2026</span>
+              </div>
+            </div>
+            <p class="pix-cert-note">
+              Certification validée après évaluation sur la plateforme officielle Pix.
+              Ce document atteste de compétences numériques professionnelles reconnues.
+            </p>
+          </div>
+
+          <a href="docs/certification-pix-20260306.pdf" download class="btn btn-primary pix-dl-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Télécharger ma certification Pix
+          </a>
+        </div>
+
+        <!-- Les 5 domaines de compétences Pix -->
+        <div class="pix-domains">
+          <h3>Les 5 domaines de compétences</h3>
+          <div class="pix-domain-list">
+            <div class="pix-domain">
+              <div class="pix-domain-icon">1</div>
+              <div class="pix-domain-content">
+                <h4>Informations et données</h4>
+                <p>
+                  Rechercher et sélectionner des informations, gérer des données,
+                  traiter et analyser des ressources numériques.
+                </p>
+              </div>
+            </div>
+            <div class="pix-domain">
+              <div class="pix-domain-icon">2</div>
+              <div class="pix-domain-content">
+                <h4>Communication et collaboration</h4>
+                <p>
+                  Interagir et partager dans des espaces numériques, collaborer
+                  et participer à des projets avec des outils numériques.
+                </p>
+              </div>
+            </div>
+            <div class="pix-domain">
+              <div class="pix-domain-icon">3</div>
+              <div class="pix-domain-content">
+                <h4>Création de contenu</h4>
+                <p>
+                  Développer des contenus numériques variés (texte, image, vidéo),
+                  savoir programmer et respecter les droits d'auteur.
+                </p>
+              </div>
+            </div>
+            <div class="pix-domain">
+              <div class="pix-domain-icon">4</div>
+              <div class="pix-domain-content">
+                <h4>Protection et sécurité</h4>
+                <p>
+                  Protéger ses données personnelles et sa vie privée, sécuriser
+                  ses équipements et adopter des comportements responsables en ligne.
+                </p>
+              </div>
+            </div>
+            <div class="pix-domain">
+              <div class="pix-domain-icon">5</div>
+              <div class="pix-domain-content">
+                <h4>Environnement numérique</h4>
+                <p>
+                  Résoudre des problèmes techniques, comprendre les environnements
+                  numériques, logiciels et matériels informatiques.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION EXPÉRIENCES
+  ======================================================== -->
+  <section id="experiences" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Expériences</h2>
+      <p class="section-subtitle">Mes stages et missions professionnelles</p>
+
+      <!--
+        ⚠️  COMPLÉTER AVEC VOS EXPÉRIENCES RÉELLES
+        Remplacez les zones [À COMPLÉTER] avec vos vraies informations.
+      -->
+
+      <div class="exp-grid">
+
+        <!-- Expérience 1 -->
+        <div class="exp-card">
+          <div class="exp-card-header">
+            <div>
+              <!-- [À COMPLÉTER] Nom de l'entreprise et poste -->
+              <h3>Stage — <!-- NOM DE L'ENTREPRISE --></h3>
+              <span class="timeline-date"><!-- DATES DU STAGE --></span>
+            </div>
+            <span class="exp-badge">Stage</span>
+          </div>
+          <div class="exp-card-body">
+            <h4>Missions réalisées</h4>
+            <ul class="exp-missions">
+              <li>
+                <span class="mission-dot"></span>
+                Mise en place et configuration de la supervision d'infrastructure avec
+                <strong>Zabbix</strong> : déploiement d'agents, création de tableaux
+                de bord de monitoring et paramétrage des alertes.
+              </li>
+              <li>
+                <span class="mission-dot"></span>
+                Création et automatisation de workflows métier avec
+                <strong>n8n</strong> : intégration d'APIs, automatisation de tâches
+                répétitives et orchestration de processus.
+              </li>
+              <li>
+                <span class="mission-dot"></span>
+                Conception de tableaux de bord et analyse de données avec
+                <strong>Power BI</strong> : extraction, transformation et visualisation
+                des données pour le reporting.
+              </li>
+              <li>
+                <span class="mission-dot"></span>
+                Suivi et planification des tâches et projets via
+                <strong>ClickUp</strong> : organisation des sprints, gestion des priorités
+                et communication sur l'avancement.
+              </li>
+              <!-- [À COMPLÉTER] Autres missions spécifiques -->
+            </ul>
+            <div class="exp-tags">
+              <span class="tech-tag">Zabbix</span>
+              <span class="tech-tag">n8n</span>
+              <span class="tech-tag">Power BI</span>
+              <span class="tech-tag">ClickUp</span>
+              <!-- [À COMPLÉTER] Autres technologies -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Expérience 2 — [À COMPLÉTER] -->
+        <div class="exp-card">
+          <div class="exp-card-header">
+            <div>
+              <!-- [À COMPLÉTER] Nom de l'entreprise / type d'expérience -->
+              <h3><!-- AUTRE EXPÉRIENCE / STAGE --></h3>
+              <span class="timeline-date"><!-- DATES --></span>
+            </div>
+            <!-- [À COMPLÉTER] Badge : Stage, CDD, Bénévolat, Projet... -->
+            <span class="exp-badge"><!-- TYPE --></span>
+          </div>
+          <div class="exp-card-body">
+            <h4>Missions réalisées</h4>
+            <ul class="exp-missions">
+              <li><span class="mission-dot"></span><!-- [À COMPLÉTER] Mission 1 --></li>
+              <li><span class="mission-dot"></span><!-- [À COMPLÉTER] Mission 2 --></li>
+              <li><span class="mission-dot"></span><!-- [À COMPLÉTER] Mission 3 --></li>
+            </ul>
+            <div class="exp-tags">
+              <!-- [À COMPLÉTER] Technologies utilisées -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION COMPÉTENCES TECHNIQUES
+  ======================================================== -->
+  <section id="competences" class="section">
+    <div class="container">
+      <h2 class="section-title">Compétences Techniques</h2>
+      <p class="section-subtitle">Technologies et outils maîtrisés</p>
+
+      <div class="skills-grid">
+
+        <div class="skills-category">
+          <h3><span class="skills-icon">🖥️</span> Systèmes</h3>
+          <div class="skill-tags">
+            <span class="skill-badge">Windows Server</span>
+            <span class="skill-badge">Linux (Debian / Ubuntu)</span>
+            <span class="skill-badge">Active Directory</span>
+            <span class="skill-badge">Virtualisation</span>
+            <!-- [À COMPLÉTER] Autres systèmes depuis votre CV -->
+          </div>
+        </div>
+
+        <div class="skills-category">
+          <h3><span class="skills-icon">🌐</span> Réseaux</h3>
+          <div class="skill-tags">
+            <span class="skill-badge">TCP / IP</span>
+            <span class="skill-badge">VLAN</span>
+            <span class="skill-badge">VPN</span>
+            <span class="skill-badge">DNS &amp; DHCP</span>
+            <span class="skill-badge">Routage &amp; Commutation</span>
+            <!-- [À COMPLÉTER] Autres protocoles/équipements -->
+          </div>
+        </div>
+
+        <div class="skills-category">
+          <h3><span class="skills-icon">📡</span> Supervision</h3>
+          <div class="skill-tags">
+            <span class="skill-badge skill-highlight">Zabbix</span>
+            <span class="skill-badge">Monitoring</span>
+            <span class="skill-badge">Alertes &amp; Triggers</span>
+            <span class="skill-badge">Dashboards</span>
+          </div>
+        </div>
+
+        <div class="skills-category">
+          <h3><span class="skills-icon">⚙️</span> Automatisation</h3>
+          <div class="skill-tags">
+            <span class="skill-badge skill-highlight">n8n</span>
+            <span class="skill-badge">Scripting Shell</span>
+            <span class="skill-badge">Workflows</span>
+            <span class="skill-badge">Intégration API</span>
+          </div>
+        </div>
+
+        <div class="skills-category">
+          <h3><span class="skills-icon">📊</span> Analyse de données</h3>
+          <div class="skill-tags">
+            <span class="skill-badge skill-highlight">Power BI</span>
+            <span class="skill-badge">Tableaux de bord</span>
+            <span class="skill-badge">Visualisation</span>
+            <span class="skill-badge">Reporting</span>
+          </div>
+        </div>
+
+        <div class="skills-category">
+          <h3><span class="skills-icon">📋</span> Gestion de projet</h3>
+          <div class="skill-tags">
+            <span class="skill-badge skill-highlight">ClickUp</span>
+            <span class="skill-badge">Planification</span>
+            <span class="skill-badge">Suivi de tâches</span>
+            <span class="skill-badge">Mode Agile</span>
+          </div>
+        </div>
+
+        <!-- [À COMPLÉTER] Ajoutez d'autres catégories selon votre CV -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION COMPÉTENCES BTS SIO — BLOC 1
+  ======================================================== -->
+  <section id="bts-sio" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Compétences BTS SIO</h2>
+      <p class="section-subtitle">
+        Bloc 1 &mdash; Support et mise à disposition de services informatiques
+      </p>
+
+      <div class="bts-grid">
+
+        <!-- ===== B1.1 ===== -->
+        <div class="bts-card" data-competence="b1-1">
+          <div class="bts-card-header bts-color-1">
+            <span class="bts-code">B1.1</span>
+            <h3>Gérer le patrimoine informatique</h3>
+          </div>
+          <div class="bts-card-body">
+            <p class="bts-description">
+              Recenser et identifier les ressources numériques, exploiter des référentiels,
+              mettre en place les niveaux d'habilitation, vérifier la continuité de service
+              et gérer les sauvegardes.
+            </p>
+            <div class="bts-evidence">
+              <h4>Comment cette compétence est validée</h4>
+              <ul>
+                <li>
+                  <strong>Supervision avec Zabbix :</strong>
+                  Recensement et suivi en temps réel de l'ensemble des ressources
+                  (serveurs, équipements réseau, services). Déploiement d'agents sur
+                  le parc et configuration des moniteurs pour inventorier et surveiller
+                  l'infrastructure.
+                </li>
+                <li>
+                  <strong>Continuité de service :</strong>
+                  Configuration d'alertes Zabbix pour détecter immédiatement toute
+                  interruption de service et garantir la disponibilité de l'infrastructure.
+                </li>
+                <li>
+                  <!-- [À COMPLÉTER] Activités liées à la gestion des droits ou sauvegardes depuis votre CV -->
+                  <strong><!-- À COMPLÉTER depuis votre CV --></strong>
+                </li>
+              </ul>
+            </div>
+            <div class="bts-validation">
+              <span class="validation-badge">Zabbix</span>
+              <span class="validation-badge">Inventaire</span>
+              <span class="validation-badge">Supervision</span>
+              <span class="validation-badge">Continuité de service</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== B1.2 ===== -->
+        <div class="bts-card" data-competence="b1-2">
+          <div class="bts-card-header bts-color-2">
+            <span class="bts-code">B1.2</span>
+            <h3>Répondre aux incidents et aux demandes d'assistance</h3>
+          </div>
+          <div class="bts-card-body">
+            <p class="bts-description">
+              Collecter, suivre et orienter des demandes ; traiter des incidents liés
+              aux services réseau, système et applicatifs ; assurer le support utilisateur.
+            </p>
+            <div class="bts-evidence">
+              <h4>Comment cette compétence est validée</h4>
+              <ul>
+                <li>
+                  <strong>Gestion des alertes Zabbix :</strong>
+                  Configuration et traitement des alertes sur l'infrastructure —
+                  identification, qualification et résolution des incidents systèmes
+                  et réseaux détectés par la supervision.
+                </li>
+                <li>
+                  <strong>Automatisation des notifications d'incidents avec n8n :</strong>
+                  Mise en place de workflows n8n pour automatiser la remontée, le
+                  routage et le traitement des alertes et tickets d'incidents.
+                </li>
+                <li>
+                  <strong>Support utilisateur :</strong>
+                  Prise en charge des demandes d'assistance, diagnostic et résolution
+                  de problèmes techniques auprès des utilisateurs en environnement professionnel.
+                </li>
+                <!-- [À COMPLÉTER] Préciser avec vos interventions de support réelles -->
+              </ul>
+            </div>
+            <div class="bts-validation">
+              <span class="validation-badge">Zabbix</span>
+              <span class="validation-badge">n8n</span>
+              <span class="validation-badge">Support</span>
+              <span class="validation-badge">Gestion des incidents</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== B1.3 ===== -->
+        <div class="bts-card" data-competence="b1-3">
+          <div class="bts-card-header bts-color-3">
+            <span class="bts-code">B1.3</span>
+            <h3>Développer la présence en ligne de l'organisation</h3>
+          </div>
+          <div class="bts-card-body">
+            <p class="bts-description">
+              Participer à la valorisation de l'image numérique de l'organisation,
+              référencer les services en ligne, participer à l'évolution d'un site web
+              exploitant les données de l'organisation.
+            </p>
+            <div class="bts-evidence">
+              <h4>Comment cette compétence est validée</h4>
+              <ul>
+                <li>
+                  <strong>Création de ce portfolio :</strong>
+                  Développement et publication d'un portfolio professionnel en
+                  HTML / CSS / JS, hébergé sur GitHub Pages — maîtrise des technologies
+                  web et gestion de l'identité numérique professionnelle.
+                </li>
+                <li>
+                  <strong>Reporting et visualisation avec Power BI :</strong>
+                  Exploitation des données de l'organisation pour concevoir des
+                  tableaux de bord et indicateurs — contribution à la communication
+                  interne et à la visibilité des informations métier.
+                </li>
+                <li>
+                  <!-- [À COMPLÉTER] Activités web / présence en ligne depuis votre CV -->
+                  <strong><!-- À COMPLÉTER : activités liées au web ou à la visibilité en ligne --></strong>
+                </li>
+              </ul>
+            </div>
+            <div class="bts-validation">
+              <span class="validation-badge">Power BI</span>
+              <span class="validation-badge">HTML / CSS / JS</span>
+              <span class="validation-badge">GitHub Pages</span>
+              <span class="validation-badge">Portfolio</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== B1.4 ===== -->
+        <div class="bts-card" data-competence="b1-4">
+          <div class="bts-card-header bts-color-4">
+            <span class="bts-code">B1.4</span>
+            <h3>Travailler en mode projet</h3>
+          </div>
+          <div class="bts-card-body">
+            <p class="bts-description">
+              Analyser les objectifs et les modalités d'organisation d'un projet,
+              planifier les activités, évaluer les indicateurs de suivi et analyser les écarts.
+            </p>
+            <div class="bts-evidence">
+              <h4>Comment cette compétence est validée</h4>
+              <ul>
+                <li>
+                  <strong>Utilisation de ClickUp :</strong>
+                  Outil de gestion de projet utilisé en stage pour organiser les
+                  tâches, planifier les sprints, définir les priorités et suivre
+                  l'avancement des missions. ClickUp a permis une gestion claire
+                  des délais et une communication efficace sur l'état d'avancement.
+                </li>
+                <li>
+                  <strong>Planification et suivi des projets :</strong>
+                  Décomposition des projets techniques (déploiement Zabbix, mise en
+                  place n8n, création des rapports Power BI) en tâches planifiées,
+                  avec suivi des indicateurs et ajustements en cours de projet.
+                </li>
+                <li>
+                  <strong>Coordination et communication :</strong>
+                  Participation active aux réunions de suivi, mise à jour régulière
+                  des tableaux de bord projet et communication sur les écarts et
+                  les risques identifiés.
+                </li>
+              </ul>
+            </div>
+            <div class="bts-validation">
+              <span class="validation-badge">ClickUp</span>
+              <span class="validation-badge">Planification</span>
+              <span class="validation-badge">Mode Projet</span>
+              <span class="validation-badge">Suivi &amp; Indicateurs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== B1.5 ===== -->
+        <div class="bts-card" data-competence="b1-5">
+          <div class="bts-card-header bts-color-5">
+            <span class="bts-code">B1.5</span>
+            <h3>Mettre à disposition un service informatique</h3>
+          </div>
+          <div class="bts-card-body">
+            <p class="bts-description">
+              Réaliser les tests d'intégration et d'acceptation d'un service,
+              déployer un service, accompagner les utilisateurs dans sa mise en place.
+            </p>
+            <div class="bts-evidence">
+              <h4>Comment cette compétence est validée</h4>
+              <ul>
+                <li>
+                  <strong>Déploiement de Zabbix :</strong>
+                  Installation, configuration et mise en service de la solution
+                  de supervision — déploiement d'agents sur les équipements cibles,
+                  tests de remontée des métriques et validation du fonctionnement
+                  avant mise en production.
+                </li>
+                <li>
+                  <strong>Déploiement et configuration de n8n :</strong>
+                  Mise en service de la plateforme d'automatisation, création et
+                  test des workflows, validation des intégrations avec les APIs
+                  tierces et livraison aux utilisateurs.
+                </li>
+                <li>
+                  <strong>Mise en place de rapports Power BI :</strong>
+                  Déploiement de tableaux de bord à destination des utilisateurs
+                  finaux — accompagnement et formation à l'utilisation de l'outil,
+                  prise en compte des retours et ajustements.
+                </li>
+                <li>
+                  <strong>Tests d'intégration :</strong>
+                  Réalisation de tests fonctionnels et de non-régression pour valider
+                  le bon fonctionnement des services déployés avant mise en production.
+                </li>
+              </ul>
+            </div>
+            <div class="bts-validation">
+              <span class="validation-badge">Zabbix</span>
+              <span class="validation-badge">n8n</span>
+              <span class="validation-badge">Power BI</span>
+              <span class="validation-badge">Déploiement</span>
+              <span class="validation-badge">Tests</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== B1.6 ===== -->
+        <div class="bts-card" data-competence="b1-6">
+          <div class="bts-card-header bts-color-6">
+            <span class="bts-code">B1.6</span>
+            <h3>Organiser son développement professionnel</h3>
+          </div>
+          <div class="bts-card-body">
+            <p class="bts-description">
+              Mettre en place son environnement d'apprentissage, mettre en œuvre des
+              outils de veille informationnelle, gérer son identité professionnelle
+              et développer son projet professionnel.
+            </p>
+            <div class="bts-evidence">
+              <h4>Comment cette compétence est validée</h4>
+              <ul>
+                <li>
+                  <strong>Certification Pix (6 mars 2026) :</strong>
+                  Obtention de la certification nationale Pix attestant des compétences
+                  numériques dans 5 domaines. Démarche volontaire d'évaluation et de
+                  certification, démontrant une approche proactive du développement
+                  des compétences numériques professionnelles.
+                </li>
+                <li>
+                  <strong>Veille technologique active :</strong>
+                  Suivi régulier des évolutions dans les domaines de la supervision
+                  réseau, de l'automatisation et des infrastructures cloud — apprentissage
+                  continu des outils du marché (Zabbix, n8n, Power BI).
+                </li>
+                <li>
+                  <strong>Portfolio professionnel (ce site) :</strong>
+                  Création et publication de ce portfolio sur GitHub Pages — gestion
+                  de l'identité numérique professionnelle, mise en valeur des compétences
+                  acquises et démonstration de la maîtrise des technologies web.
+                </li>
+                <li>
+                  <strong>Projet professionnel défini :</strong>
+                  Orientation claire vers l'administration systèmes et réseaux, avec
+                  intérêt pour les infrastructures cloud et la cybersécurité.
+                </li>
+              </ul>
+            </div>
+            <div class="bts-validation">
+              <span class="validation-badge">Certification Pix</span>
+              <span class="validation-badge">Veille techno.</span>
+              <span class="validation-badge">Portfolio</span>
+              <span class="validation-badge">GitHub Pages</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.bts-grid -->
+    </div>
+  </section>
+
+  <!-- ========================================================
+       FOOTER
+  ======================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <h3>Reda Bouali</h3>
+          <p>BTS SIO — Option SISR</p>
+          <p>Technicien en Systèmes et Réseaux</p>
+        </div>
+        <div class="footer-center">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#apropos">À Propos</a></li>
+            <li><a href="#cv">CV</a></li>
+            <li><a href="#pix">Certification Pix</a></li>
+            <li><a href="#experiences">Expériences</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#bts-sio">BTS SIO</a></li>
+          </ul>
+        </div>
+        <div class="footer-right">
+          <h4>Contact &amp; Liens</h4>
+          <!-- [À COMPLÉTER] Votre email et liens GitHub / LinkedIn -->
+          <p class="footer-email"><!-- VOTRE EMAIL --></p>
+          <div class="footer-links">
+            <a href="<!-- URL GITHUB -->" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="<!-- URL LINKEDIN -->" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Reda Bouali &mdash; Portfolio BTS SIO SISR &mdash; Hébergé sur GitHub Pages</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
