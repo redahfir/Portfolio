@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Projets et realisations techniques de Reda Bouali en BTS SIO SISR.">
+  <title>Projets | Reda Bouali</title>
+  <script>
+    (function () {
+      var r = document.documentElement;
+      r.setAttribute("data-theme", localStorage.getItem("rb-theme") || "dark");
+      r.setAttribute("data-accent", localStorage.getItem("rb-accent") || "indigo");
+      r.setAttribute("data-font", localStorage.getItem("rb-font") || "inter");
+      r.setAttribute("data-size", localStorage.getItem("rb-size") || "medium");
+      r.classList.add("preload");
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu</a>
+
+  <header class="site-header">
+    <nav class="navbar" id="navbar" aria-label="Navigation principale">
+      <div class="nav-shell">
+        <a href="index.html" class="brand"><span class="brand-mark">RB</span><span class="brand-text"><strong>Reda Bouali</strong><span>BTS SIO SISR</span></span></a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+        <div class="nav-panel" id="navPanel">
+          <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link" data-page="index">Accueil</a></li>
+            <li><a href="about.html" class="nav-link" data-page="about">A propos</a></li>
+            <li><a href="experiences.html" class="nav-link" data-page="experiences">Experiences</a></li>
+            <li><a href="skills.html" class="nav-link" data-page="skills">Competences</a></li>
+            <li><a href="projects.html" class="nav-link" data-page="projects">Projets</a></li>
+            <li><a href="bts-competences.html" class="nav-link" data-page="bts-competences">BTS SIO</a></li>
+            <li><a href="cv.html" class="nav-link" data-page="cv">CV</a></li>
+            <li><a href="pix.html" class="nav-link" data-page="pix">Pix</a></li>
+            <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
+          </ul>
+          <div class="nav-actions">
+            <button class="icon-button quick-theme-toggle" id="quickThemeToggle" type="button" aria-label="Basculer le theme"><span aria-hidden="true">&#9684;</span></button>
+            <button class="icon-button" id="settingsTrigger" type="button" aria-label="Personnalisation" aria-expanded="false"><span aria-hidden="true">&#9881;</span></button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="page-main">
+    <section class="section page-section page-hero-section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Realisations</p>
+          <h1 class="section-title">Projets et realisations techniques</h1>
+          <p class="section-subtitle">
+            Realisations concretes issues de mes stages au Cinema Imagix et de mon travail personnel, presentees comme de vrais projets techniques.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Projet 1 -->
+          <article class="project-card reveal">
+            <div class="panel-heading">
+              <div>
+                <p class="panel-label">Projet 01</p>
+                <h3>Supervision d'infrastructure avec Zabbix</h3>
+              </div>
+              <span class="chip">Cinema Imagix</span>
+            </div>
+            <p class="project-text">
+              Mise en place et exploitation d'une solution de supervision d'infrastructure pour suivre les serveurs, les services et les equipements reseau dans un environnement professionnel.
+            </p>
+            <div class="project-columns">
+              <div class="detail-block">
+                <h4>Objectif</h4>
+                <p>Surveiller l'etat de l'infrastructure en temps reel, remonter les alertes et ameliorer le suivi technique quotidien.</p>
+              </div>
+              <div class="detail-block">
+                <h4>Resultat</h4>
+                <p>Configuration d'agents Zabbix, tableaux de bord de monitoring operationnels et mise en place d'alertes utiles a l'exploitation.</p>
+              </div>
+            </div>
+            <div class="badge-list">
+              <span class="skill-badge highlight">Zabbix</span>
+              <span class="skill-badge">Monitoring</span>
+              <span class="skill-badge">Alertes</span>
+              <span class="skill-badge">Dashboards</span>
+            </div>
+          </article>
+
+          <!-- Projet 2 -->
+          <article class="project-card reveal reveal-delay-1">
+            <div class="panel-heading">
+              <div>
+                <p class="panel-label">Projet 02</p>
+                <h3>Automatisation de workflows avec n8n</h3>
+              </div>
+              <span class="chip">Cinema Imagix</span>
+            </div>
+            <p class="project-text">
+              Creation de flux automatises pour traiter des taches recurrentes et structurer l'orchestration de processus internes.
+            </p>
+            <div class="project-columns">
+              <div class="detail-block">
+                <h4>Objectif</h4>
+                <p>Reduire les manipulations manuelles et fluidifier la circulation d'informations et d'alertes entre les outils.</p>
+              </div>
+              <div class="detail-block">
+                <h4>Resultat</h4>
+                <p>Workflows operationnels integrant des automatisations, notifications et enchainements de taches automatiques.</p>
+              </div>
+            </div>
+            <div class="badge-list">
+              <span class="skill-badge highlight">n8n</span>
+              <span class="skill-badge">Workflows</span>
+              <span class="skill-badge">Automatisation</span>
+              <span class="skill-badge">API</span>
+            </div>
+          </article>
+
+          <!-- Projet 3 -->
+          <article class="project-card reveal">
+            <div class="panel-heading">
+              <div>
+                <p class="panel-label">Projet 03</p>
+                <h3>Reporting et visualisation avec Power BI</h3>
+              </div>
+              <span class="chip">Cinema Imagix</span>
+            </div>
+            <p class="project-text">
+              Conception de tableaux de bord pour analyser des donnees d'activite et produire des indicateurs visuels exploitables.
+            </p>
+            <div class="project-columns">
+              <div class="detail-block">
+                <h4>Objectif</h4>
+                <p>Transformer les donnees brutes disponibles en indicateurs visuels comprehensibles et utiles a la prise de decision.</p>
+              </div>
+              <div class="detail-block">
+                <h4>Resultat</h4>
+                <p>Creation de visualisations et d'indicateurs facilitant la lecture des informations metier au quotidien.</p>
+              </div>
+            </div>
+            <div class="badge-list">
+              <span class="skill-badge highlight">Power BI</span>
+              <span class="skill-badge">Reporting</span>
+              <span class="skill-badge">Visualisation</span>
+              <span class="skill-badge">Analyse</span>
+            </div>
+          </article>
+
+          <!-- Projet 4 -->
+          <article class="project-card reveal reveal-delay-1">
+            <div class="panel-heading">
+              <div>
+                <p class="panel-label">Projet 04</p>
+                <h3>Support et gestion de parc avec GLPI</h3>
+              </div>
+              <span class="chip">Cinema Imagix</span>
+            </div>
+            <p class="project-text">
+              Mise en place et utilisation d'un environnement GLPI pour l'inventaire du parc informatique et le traitement des demandes de support.
+            </p>
+            <div class="project-columns">
+              <div class="detail-block">
+                <h4>Objectif</h4>
+                <p>Structurer le support technique et centraliser le suivi des equipements et des incidents.</p>
+              </div>
+              <div class="detail-block">
+                <h4>Resultat</h4>
+                <p>Inventaire exploitable, tickets suivis et meilleure organisation du support technique au sein de la structure.</p>
+              </div>
+            </div>
+            <div class="badge-list">
+              <span class="skill-badge highlight">GLPI</span>
+              <span class="skill-badge">Support</span>
+              <span class="skill-badge">Inventaire</span>
+              <span class="skill-badge">Tickets</span>
+            </div>
+          </article>
+
+          <!-- Projet 5 -->
+          <article class="project-card reveal">
+            <div class="panel-heading">
+              <div>
+                <p class="panel-label">Projet 05</p>
+                <h3>Administration reseau et acces securises</h3>
+              </div>
+              <span class="chip">Cinema Imagix</span>
+            </div>
+            <p class="project-text">
+              Configuration de pare-feux, mise en place d'acces distants securises et administration d'annuaires pour structurer les acces reseau.
+            </p>
+            <div class="project-columns">
+              <div class="detail-block">
+                <h4>Objectif</h4>
+                <p>Renforcer la gestion des acces et la securite des services reseau et d'authentification.</p>
+              </div>
+              <div class="detail-block">
+                <h4>Resultat</h4>
+                <p>Configuration OPNsense, VPN operationnel et administration Active Directory / OpenLDAP en contexte reel.</p>
+              </div>
+            </div>
+            <div class="badge-list">
+              <span class="skill-badge highlight">OPNsense</span>
+              <span class="skill-badge highlight">VPN</span>
+              <span class="skill-badge highlight">Active Directory</span>
+              <span class="skill-badge highlight">OpenLDAP</span>
+            </div>
+          </article>
+
+          <!-- Projet 6 -->
+          <article class="project-card reveal reveal-delay-1">
+            <div class="panel-heading">
+              <div>
+                <p class="panel-label">Projet 06</p>
+                <h3>Creation de ce portfolio sur GitHub Pages</h3>
+              </div>
+              <span class="chip">Projet personnel</span>
+            </div>
+            <p class="project-text">
+              Conception et publication d'un portfolio statique multi-pages pour presenter mon parcours, mes competences et mes acquis BTS SIO de maniere professionnelle.
+            </p>
+            <div class="project-columns">
+              <div class="detail-block">
+                <h4>Objectif</h4>
+                <p>Disposer d'un support professionnel pour un jury BTS SIO, un professeur ou un recruteur.</p>
+              </div>
+              <div class="detail-block">
+                <h4>Resultat</h4>
+                <p>Portfolio multi-pages structure, responsive, personnalisable et compatible GitHub Pages.</p>
+              </div>
+            </div>
+            <div class="badge-list">
+              <span class="skill-badge highlight">HTML</span>
+              <span class="skill-badge highlight">CSS</span>
+              <span class="skill-badge highlight">JavaScript</span>
+              <span class="skill-badge highlight">GitHub Pages</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-layout">
+      <div>
+        <p class="panel-label">Portfolio</p>
+        <h3>Reda Bouali</h3>
+        <p>BTS SIO - Option SISR</p>
+        <p>Technicien systemes et reseaux en formation</p>
+      </div>
+      <div>
+        <p class="panel-label">Navigation</p>
+        <ul class="footer-links-list">
+          <li><a href="about.html">A propos</a></li>
+          <li><a href="experiences.html">Experiences</a></li>
+          <li><a href="skills.html">Competences</a></li>
+          <li><a href="bts-competences.html">Competences BTS</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="panel-label">Liens</p>
+        <ul class="footer-links-list">
+          <li><a href="cv.html">CV</a></li>
+          <li><a href="pix.html">Certification Pix</a></li>
+          <li><a href="https://github.com/redahfir" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="mailto:reda.bouali59@gmail.com">reda.bouali59@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Reda Bouali - Portfolio BTS SIO SISR. Heberge sur GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <div class="settings-overlay" id="settingsOverlay" hidden></div>
+  <aside class="settings-panel" id="settingsPanel" aria-hidden="true" aria-labelledby="settingsTitle">
+    <div class="settings-header">
+      <div><p class="panel-label">Personnalisation</p><h2 id="settingsTitle">Preferences d'affichage</h2></div>
+      <button class="icon-button" id="settingsClose" type="button" aria-label="Fermer"><span aria-hidden="true">&#10005;</span></button>
+    </div>
+    <div class="settings-body">
+      <section class="settings-group"><h3>Mode</h3><div class="control-row"><button class="choice-button" data-theme="dark" type="button">Sombre</button><button class="choice-button" data-theme="light" type="button">Clair</button></div></section>
+      <section class="settings-group"><h3>Accent</h3><div class="accent-grid"><button class="accent-button" data-accent="indigo" type="button"><span class="accent-dot accent-indigo"></span>Indigo</button><button class="accent-button" data-accent="cyan" type="button"><span class="accent-dot accent-cyan"></span>Cyan</button><button class="accent-button" data-accent="amber" type="button"><span class="accent-dot accent-amber"></span>Ambre</button></div></section>
+      <section class="settings-group"><h3>Police</h3><div class="font-grid"><button class="font-button" data-font="inter" type="button"><strong>Inter</strong><span>Moderne</span></button><button class="font-button" data-font="manrope" type="button"><strong>Manrope</strong><span>Editoriale</span></button><button class="font-button" data-font="plex" type="button"><strong>IBM Plex</strong><span>Technique</span></button></div></section>
+      <section class="settings-group"><h3>Taille</h3><div class="control-row"><button class="choice-button" data-size="small" type="button">A-</button><button class="choice-button" data-size="medium" type="button">A</button><button class="choice-button" data-size="large" type="button">A+</button></div></section>
+      <button class="btn btn-ghost settings-reset" id="settingsReset" type="button">Reinitialiser</button>
+    </div>
+  </aside>
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Retour en haut">&uarr;</button>
+  <script src="script.js"></script>
+</body>
+</html>
