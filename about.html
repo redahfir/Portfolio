@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-accent="indigo" data-size="md" data-font="sf">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="À propos de Reda Bouali — étudiant BTS SIO SISR, formation, parcours et motivations.">
+  <title>À propos | Reda Bouali — BTS SIO SISR</title>
+  <script>
+    (function(){var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);r.setAttribute('data-size',s);r.setAttribute('data-font',f);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-mark">RB</span>
+      <span class="brand-name">Reda Bouali</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html"           class="nav-link">Accueil</a></li>
+      <li><a href="about.html"           class="nav-link">À propos</a></li>
+      <li><a href="experiences.html"     class="nav-link">Expériences</a></li>
+      <li><a href="skills.html"          class="nav-link">Compétences</a></li>
+      <li><a href="projects.html"        class="nav-link">Projets</a></li>
+      <li><a href="bts-competences.html" class="nav-link">E4 BTS SIO</a></li>
+      <li><a href="e5.html"              class="nav-link">E5 SISR</a></li>
+      <li><a href="cv.html"              class="nav-link">CV</a></li>
+      <li><a href="pix.html"             class="nav-link">Pix</a></li>
+      <li><a href="contact.html"         class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Basculer le thème"><span id="theme-icon">🌙</span></button>
+      <button id="settings-btn" class="nav-icon-btn" aria-label="Paramètres">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button id="nav-burger" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<aside id="settings-panel" class="settings-panel" aria-hidden="true">
+  <div class="settings-header">
+    <span class="settings-title">Apparence</span>
+    <button id="settings-close" class="settings-close">✕</button>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Couleur d'accent</p>
+    <div class="settings-row">
+      <button class="accent-dot indigo" data-set-accent="indigo" aria-label="Indigo"></button>
+      <button class="accent-dot cyan"   data-set-accent="cyan"   aria-label="Cyan"></button>
+      <button class="accent-dot amber"  data-set-accent="amber"  aria-label="Ambre"></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="settings-row">
+      <button class="size-btn" data-set-size="sm">A<small>A</small></button>
+      <button class="size-btn active" data-set-size="md">A</button>
+      <button class="size-btn" data-set-size="lg"><big>A</big></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Police</p>
+    <div class="settings-row">
+      <button class="font-btn active" data-set-font="sf">SF / Inter</button>
+      <button class="font-btn" data-set-font="manrope">Manrope</button>
+      <button class="font-btn" data-set-font="mono">Mono</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ PAGE HERO ════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner reveal">
+      <p class="section-eyebrow">À propos</p>
+      <h1 class="page-title">Mon profil</h1>
+      <p class="page-subtitle">Étudiant, technicien réseau en devenir, passionné par l'IT depuis le collège.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT LAYOUT ═════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="about-layout">
+
+      <!-- Main column -->
+      <div class="about-main">
+        <div class="ios-card reveal">
+          <h2 class="card-title">Qui suis-je ?</h2>
+          <p>Je m'appelle <strong>Reda Bouali</strong>, étudiant en 2ème année de <strong>BTS SIO option SISR</strong> (Solutions d'Infrastructure, Systèmes et Réseaux). Passionné par les technologies de l'information depuis le collège, j'ai choisi cette filière pour allier théorie et pratique dans un domaine en constante évolution.</p>
+          <p style="margin-top:1rem">Mon quotidien tourne autour de l'administration réseau, de la sécurisation des systèmes et de l'automatisation des tâches. J'aime comprendre comment les choses fonctionnent — des couches OSI jusqu'aux politiques de sécurité applicatives.</p>
+        </div>
+
+        <div class="ios-card reveal">
+          <h2 class="card-title">Ma formation</h2>
+          <div class="timeline-mini">
+            <div class="timeline-mini-item">
+              <div class="timeline-mini-dot accent"></div>
+              <div>
+                <strong>BTS SIO — SISR</strong>
+                <span class="timeline-mini-meta">2023 – 2025 · Lycée [en cours]</span>
+                <p class="timeline-mini-desc">Option Systèmes et Réseaux. Compétences en infrastructure, cybersécurité, virtualisation, administration Windows/Linux.</p>
+              </div>
+            </div>
+            <div class="timeline-mini-item">
+              <div class="timeline-mini-dot"></div>
+              <div>
+                <strong>Baccalauréat STI2D</strong>
+                <span class="timeline-mini-meta">2020 – 2023</span>
+                <p class="timeline-mini-desc">Baccalauréat technologique Sciences et Technologies de l'Industrie et du Développement Durable — spécialité SIN (Systèmes d'Information et Numérique).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ios-card reveal">
+          <h2 class="card-title">Mes centres d'intérêt</h2>
+          <div class="interest-grid">
+            <div class="interest-item">
+              <span class="interest-icon">🔐</span>
+              <span>Cybersécurité</span>
+            </div>
+            <div class="interest-item">
+              <span class="interest-icon">🌐</span>
+              <span>Réseaux</span>
+            </div>
+            <div class="interest-item">
+              <span class="interest-icon">🐧</span>
+              <span>Linux</span>
+            </div>
+            <div class="interest-item">
+              <span class="interest-icon">⚡</span>
+              <span>Automatisation</span>
+            </div>
+            <div class="interest-item">
+              <span class="interest-icon">🎮</span>
+              <span>Gaming</span>
+            </div>
+            <div class="interest-item">
+              <span class="interest-icon">📱</span>
+              <span>Tech</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aside column -->
+      <aside class="about-aside">
+        <div class="ios-card info-card reveal">
+          <div class="info-avatar">
+            <span class="info-initials">RB</span>
+          </div>
+          <h3 class="info-name">Reda Bouali</h3>
+          <p class="info-title">Étudiant BTS SIO SISR</p>
+          <div class="info-list">
+            <div class="info-row">
+              <span class="info-icon">📍</span>
+              <span>France</span>
+            </div>
+            <div class="info-row">
+              <span class="info-icon">🎓</span>
+              <span>BTS SIO SISR — 2ème année</span>
+            </div>
+            <div class="info-row">
+              <span class="info-icon">💼</span>
+              <span>Disponible en alternance</span>
+            </div>
+            <div class="info-row">
+              <span class="info-icon">🌍</span>
+              <span>Français, Arabe</span>
+            </div>
+          </div>
+          <a href="contact.html" class="btn-primary" style="width:100%;justify-content:center;margin-top:1.25rem">Prendre contact</a>
+          <a href="cv.html" class="btn-secondary" style="width:100%;justify-content:center;margin-top:0.75rem">Voir mon CV</a>
+        </div>
+
+        <div class="ios-card reveal">
+          <h3 class="card-title-sm">Certifications</h3>
+          <div class="cert-list">
+            <div class="cert-item">
+              <span class="cert-icon">🏅</span>
+              <div>
+                <strong>Certification Pix</strong>
+                <span class="cert-date">Mars 2026</span>
+              </div>
+            </div>
+          </div>
+          <a href="pix.html" class="eco-link" style="margin-top:0.75rem;display:inline-block">Voir la certification →</a>
+        </div>
+
+        <div class="ios-card reveal">
+          <h3 class="card-title-sm">BTS SIO</h3>
+          <div class="bts-info-list">
+            <div class="bts-info-row">
+              <span class="chip chip-accent">E4</span>
+              <span>Support &amp; mise à disposition</span>
+            </div>
+            <div class="bts-info-row" style="margin-top:0.5rem">
+              <span class="chip chip-green">E5</span>
+              <span>Admin systèmes &amp; réseaux</span>
+            </div>
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <a href="bts-competences.html" class="btn-ghost">E4 →</a>
+            <a href="e5.html" class="btn-ghost">E5 →</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">Reda Bouali</span>
+      <nav class="footer-nav">
+        <a href="about.html">À propos</a>
+        <a href="bts-competences.html">E4</a>
+        <a href="e5.html">E5</a>
+        <a href="cv.html">CV</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2025 — BTS SIO SISR</span>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Retour en haut">↑</button>
+<script src="script.js"></script>
+</body>
+</html>

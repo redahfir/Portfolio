@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-accent="indigo" data-size="md" data-font="sf">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio de Reda Bouali — BTS SIO SISR">
+  <title>Reda Bouali — Portfolio macOS</title>
+  <script>
+    (function(){
+      var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',
+          s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;
+      r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);
+      r.setAttribute('data-size',s);r.setAttribute('data-font',f);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ════════════════════════════════════════════════════
+       BASE
+    ════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased; }
+    :root { --accent: #007AFF; }
+    [data-accent="indigo"] { --accent: #007AFF; }
+    [data-accent="cyan"]   { --accent: #06B6D4; }
+    [data-accent="amber"]  { --accent: #F59E0B; }
+
+    /* ════════════════════════════════════════════════════
+       WALLPAPER — SVG inline (Sonoma inspired)
+    ════════════════════════════════════════════════════ */
+    .wallpaper {
+      position: fixed; inset: 0; z-index: 0;
+      overflow: hidden;
+    }
+    .wallpaper svg {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    /* Dark wallpaper overlay */
+    [data-theme="dark"] .wallpaper-dark-overlay {
+      position: absolute; inset: 0;
+      background: rgba(5, 8, 18, 0.72);
+      z-index: 1;
+    }
+    [data-theme="light"] .wallpaper-dark-overlay { display: none; }
+
+    /* ════════════════════════════════════════════════════
+       DESKTOP CONTAINER
+    ════════════════════════════════════════════════════ */
+    .macos-desktop {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column;
+      z-index: 1;
+    }
+
+    /* ════════════════════════════════════════════════════
+       MENU BAR — authentic macOS
+    ════════════════════════════════════════════════════ */
+    .menubar {
+      height: 28px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 12px;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      position: relative; z-index: 200;
+    }
+    [data-theme="light"] .menubar {
+      background: rgba(230, 230, 235, 0.82);
+      border-bottom: 1px solid rgba(0,0,0,0.09);
+    }
+    [data-theme="dark"] .menubar {
+      background: rgba(30, 30, 32, 0.82);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .mb-l, .mb-r { display: flex; align-items: center; }
+    .mb-l { gap: 0; }
+    .mb-r { gap: 4px; }
+
+    .mb-item {
+      padding: 0 9px; height: 28px; display: flex; align-items: center;
+      font-size: 13px; cursor: default; border-radius: 4px;
+      transition: background 0.1s; white-space: nowrap; user-select: none;
+    }
+    .mb-item:hover { background: rgba(128,128,128,0.2); }
+    [data-theme="light"] .mb-item { color: #1d1d1f; }
+    [data-theme="dark"]  .mb-item { color: #f0f0f5; }
+    .mb-apple { font-size: 16px; padding: 0 10px; }
+    .mb-bold  { font-weight: 600; }
+
+    /* Right-side status items */
+    .mb-status {
+      display: flex; align-items: center; gap: 2px;
+      height: 28px; padding: 0 7px; border-radius: 4px;
+      font-size: 12.5px; cursor: default;
+      transition: background 0.1s; white-space: nowrap; user-select: none;
+    }
+    .mb-status:hover { background: rgba(128,128,128,0.2); }
+    [data-theme="light"] .mb-status { color: #1d1d1f; }
+    [data-theme="dark"]  .mb-status { color: #f0f0f5; }
+    .mb-status svg { vertical-align: middle; }
+
+    .mb-clock-full { font-size: 12.5px; font-variant-numeric: tabular-nums; }
+
+    /* Battery bar */
+    .battery-icon {
+      display: inline-flex; align-items: center; gap: 2px;
+    }
+    .battery-body {
+      width: 22px; height: 11px; border-radius: 2.5px;
+      border: 1.5px solid currentColor; position: relative;
+      display: flex; align-items: center; padding: 1.5px;
+    }
+    .battery-body::after {
+      content: ''; position: absolute; right: -4px; top: 50%;
+      transform: translateY(-50%);
+      width: 2px; height: 5px; background: currentColor; border-radius: 0 1px 1px 0;
+    }
+    .battery-fill {
+      height: 100%; background: #34C759; border-radius: 1px;
+      width: 90%;
+    }
+
+    /* ════════════════════════════════════════════════════
+       DESKTOP AREA
+    ════════════════════════════════════════════════════ */
+    .desktop {
+      flex: 1; position: relative;
+      display: flex; align-items: center; justify-content: center;
+      padding-bottom: 90px;
+      overflow: hidden;
+    }
+
+    /* ── Desktop icons (right side column, like macOS) ── */
+    .desktop-icons {
+      position: absolute;
+      top: 20px; right: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 80px);
+      gap: 8px 6px;
+      z-index: 10;
+    }
+
+    .dsk-icon {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 5px; padding: 4px; border-radius: 8px;
+      background: none; border: none; cursor: pointer; text-decoration: none;
+      transition: background 0.12s;
+    }
+    .dsk-icon:hover { background: rgba(100,130,200,0.22); }
+    .dsk-icon:focus { outline: 2px solid rgba(100,150,255,0.6); outline-offset: 1px; }
+    .dsk-icon-img {
+      width: 60px; height: 60px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.28), 0 1px 0 rgba(255,255,255,0.25) inset;
+      position: relative; overflow: hidden;
+      transition: transform .22s cubic-bezier(.34,1.56,.64,1);
+    }
+    .dsk-icon-img::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      background: linear-gradient(150deg, rgba(255,255,255,.26) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .dsk-icon:hover  .dsk-icon-img { transform: scale(1.08) translateY(-3px); }
+    .dsk-icon:active .dsk-icon-img { transform: scale(.9); transition-duration:.07s; }
+
+    .dsk-icon-label {
+      font-size: 10.5px; text-align: center; max-width: 72px;
+      word-break: break-word; line-height: 1.3;
+      text-shadow: 0 1px 4px rgba(0,0,0,.55), 0 0 8px rgba(0,0,0,.4);
+      color: #fff;
+    }
+
+    /* Stagger */
+    .dsk-icon:nth-child(1)  { animation: dskIn .4s cubic-bezier(.34,1.56,.64,1) .05s both; }
+    .dsk-icon:nth-child(2)  { animation: dskIn .4s cubic-bezier(.34,1.56,.64,1) .10s both; }
+    .dsk-icon:nth-child(3)  { animation: dskIn .4s cubic-bezier(.34,1.56,.64,1) .15s both; }
+    .dsk-icon:nth-child(4)  { animation: dskIn .4s cubic-bezier(.34,1.56,.64,1) .20s both; }
+    .dsk-icon:nth-child(5)  { animation: dskIn .4s cubic-bezier(.34,1.56,.64,1) .25s both; }
+    .dsk-icon:nth-child(6)  { animation: dskIn .4s cubic-bezier(.34,1.56,.64,1) .30s both; }
+    .dsk-icon:nth-child(7)  { animation: dskIn .4s cubic-bezier(.34,1.56,.64,1) .35s both; }
+    .dsk-icon:nth-child(8)  { animation: dskIn .4s cubic-bezier(.34,1.56,.64,1) .40s both; }
+    .dsk-icon:nth-child(9)  { animation: dskIn .4s cubic-bezier(.34,1.56,.64,1) .45s both; }
+    @keyframes dskIn {
+      from { opacity:0; transform:scale(.6) translateY(10px); }
+      to   { opacity:1; transform:scale(1) translateY(0); }
+    }
+
+    /* ── Profile / Hello widget (center-left) ─── */
+    .hello-widget {
+      position: absolute; left: 32px; top: 50%; transform: translateY(-50%);
+      z-index: 10;
+      animation: widgetIn .65s cubic-bezier(.34,1.56,.64,1) .1s both;
+    }
+    @keyframes widgetIn {
+      from { opacity:0; transform:translateY(-40%) scale(.9); }
+      to   { opacity:1; transform:translateY(-50%) scale(1); }
+    }
+    .hw-card {
+      backdrop-filter: blur(32px) saturate(200%);
+      -webkit-backdrop-filter: blur(32px) saturate(200%);
+      border-radius: 18px; padding: 22px 26px; min-width: 260px;
+    }
+    [data-theme="light"] .hw-card {
+      background: rgba(255,255,255,0.58);
+      border: 1px solid rgba(255,255,255,0.82);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14), 0 1px 0 rgba(255,255,255,.7) inset;
+    }
+    [data-theme="dark"] .hw-card {
+      background: rgba(28,28,30,0.62);
+      border: 1px solid rgba(255,255,255,0.09);
+      box-shadow: 0 8px 32px rgba(0,0,0,.55);
+    }
+    .hw-avatar {
+      width: 52px; height: 52px; border-radius: 50%; margin-bottom: 12px;
+      background: linear-gradient(135deg,#007AFF,#5AC8FA);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700; color: #fff;
+      box-shadow: 0 4px 14px rgba(0,122,255,.4);
+    }
+    .hw-label { font-size: 11px; font-weight: 600; opacity: .5;
+      text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; }
+    .hw-name  { font-size: 22px; font-weight: 700; margin-bottom: 8px; line-height:1.15; }
+    .hw-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11.5px; font-weight: 600; padding: 4px 10px;
+      border-radius: 20px; background: rgba(52,199,89,.15); color: #34C759;
+    }
+    .hw-dot { width:6px;height:6px;border-radius:50%;background:#34C759; }
+    [data-theme="light"] .hw-label,
+    [data-theme="light"] .hw-name  { color: #1d1d1f; }
+    [data-theme="dark"]  .hw-label,
+    [data-theme="dark"]  .hw-name  { color: #f5f5f7; }
+
+    /* ── Clock widget ─── */
+    .clock-widget {
+      position: absolute; left: 32px; bottom: 110px; z-index: 10;
+      backdrop-filter: blur(32px) saturate(180%);
+      -webkit-backdrop-filter: blur(32px) saturate(180%);
+      border-radius: 16px; padding: 14px 20px; min-width: 180px;
+      animation: widgetIn2 .6s cubic-bezier(.34,1.56,.64,1) .3s both;
+    }
+    @keyframes widgetIn2 {
+      from { opacity:0; transform:translateY(12px) scale(.9); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+    [data-theme="light"] .clock-widget {
+      background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.8);
+      box-shadow: 0 6px 24px rgba(0,0,0,.12);
+    }
+    [data-theme="dark"] .clock-widget {
+      background: rgba(28,28,30,.6); border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 6px 24px rgba(0,0,0,.5);
+    }
+    .cw-time { font-size: 32px; font-weight: 200; font-variant-numeric: tabular-nums; line-height: 1; margin-bottom: 4px; }
+    .cw-date { font-size: 12px; font-weight: 500; opacity: .65; }
+    [data-theme="light"] .cw-time,
+    [data-theme="light"] .cw-date { color: #1d1d1f; }
+    [data-theme="dark"]  .cw-time,
+    [data-theme="dark"]  .cw-date { color: #f5f5f7; }
+
+    /* ════════════════════════════════════════════════════
+       SPOTLIGHT SEARCH
+    ════════════════════════════════════════════════════ */
+    .spotlight-overlay {
+      position: fixed; inset: 0; z-index: 600;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding-top: 120px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s;
+    }
+    .spotlight-overlay.open { opacity: 1; pointer-events: all; }
+
+    .spotlight-box {
+      width: min(640px, 90vw);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border-radius: 14px; overflow: hidden;
+      transform: scale(.94) translateY(-10px);
+      transition: transform .22s cubic-bezier(.34,1.56,.64,1);
+      box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    }
+    [data-theme="light"] .spotlight-box {
+      background: rgba(230,230,235,.88);
+      border: 1px solid rgba(255,255,255,.75);
+    }
+    [data-theme="dark"] .spotlight-box {
+      background: rgba(38,38,42,.92);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .spotlight-overlay.open .spotlight-box { transform: scale(1) translateY(0); }
+
+    .spotlight-input-row {
+      display: flex; align-items: center; padding: 14px 18px; gap: 10px;
+    }
+    .spotlight-icon { font-size: 18px; opacity: .7; flex-shrink: 0; }
+    .spotlight-input {
+      flex: 1; background: none; border: none; outline: none;
+      font-size: 20px; font-weight: 300;
+    }
+    [data-theme="light"] .spotlight-input { color: #1d1d1f; }
+    [data-theme="dark"]  .spotlight-input { color: #f5f5f7; }
+    .spotlight-input::placeholder { opacity: .45; }
+
+    .spotlight-sep {
+      height: 1px; margin: 0 18px;
+      background: rgba(128,128,128,.2);
+    }
+
+    .spotlight-results { padding: 10px 0; max-height: 320px; overflow-y: auto; }
+    .spotlight-result {
+      display: flex; align-items: center; gap: 12px;
+      padding: 8px 18px; cursor: pointer;
+      transition: background .1s; border-radius: 0;
+    }
+    .spotlight-result:hover,
+    .spotlight-result.active {
+      background: var(--accent);
+    }
+    .spotlight-result:hover .sr-title,
+    .spotlight-result.active .sr-title { color: #fff; }
+    .spotlight-result:hover .sr-sub,
+    .spotlight-result.active .sr-sub   { color: rgba(255,255,255,.75); }
+
+    .sr-icon {
+      width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    }
+    .sr-title { font-size: 14px; font-weight: 600; }
+    .sr-sub   { font-size: 11.5px; opacity: .6; margin-top: 1px; }
+    [data-theme="light"] .sr-title { color: #1d1d1f; }
+    [data-theme="dark"]  .sr-title { color: #f0f0f5; }
+    [data-theme="light"] .sr-sub   { color: #1d1d1f; }
+    [data-theme="dark"]  .sr-sub   { color: #f0f0f5; }
+
+    .spotlight-footer {
+      padding: 8px 18px;
+      display: flex; align-items: center; justify-content: flex-end; gap: 6px;
+      border-top: 1px solid rgba(128,128,128,.15);
+    }
+    .sf-hint { font-size: 11px; opacity: .5; }
+    .sf-key {
+      font-size: 10.5px; font-weight: 600; padding: 2px 5px; border-radius: 4px;
+      background: rgba(128,128,128,.18); font-family: monospace;
+    }
+    [data-theme="light"] .sf-hint, [data-theme="light"] .sf-key { color: #1d1d1f; }
+    [data-theme="dark"]  .sf-hint, [data-theme="dark"]  .sf-key { color: #f0f0f5; }
+
+    /* ════════════════════════════════════════════════════
+       CONTROL CENTER DROPDOWN
+    ════════════════════════════════════════════════════ */
+    .cc-panel {
+      position: fixed; top: 34px; right: 10px; width: 300px; z-index: 400;
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border-radius: 14px; padding: 14px;
+      transform: scale(.9) translateY(-8px); opacity: 0; pointer-events: none;
+      transition: transform .22s cubic-bezier(.34,1.56,.64,1), opacity .18s;
+    }
+    [data-theme="light"] .cc-panel {
+      background: rgba(230,230,235,.88); border: 1px solid rgba(255,255,255,.75);
+      box-shadow: 0 20px 60px rgba(0,0,0,.22);
+    }
+    [data-theme="dark"] .cc-panel {
+      background: rgba(38,38,42,.92); border: 1px solid rgba(255,255,255,.09);
+      box-shadow: 0 20px 60px rgba(0,0,0,.55);
+    }
+    .cc-panel.open { transform: scale(1) translateY(0); opacity:1; pointer-events:all; }
+
+    .cc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .cc-tile {
+      border-radius: 11px; padding: 12px 14px; cursor: pointer;
+      transition: filter .15s;
+    }
+    [data-theme="light"] .cc-tile { background: rgba(255,255,255,.65); }
+    [data-theme="dark"]  .cc-tile { background: rgba(60,60,65,.65); }
+    .cc-tile:hover { filter: brightness(.92); }
+    .cc-tile-icon { font-size: 18px; margin-bottom: 6px; }
+    .cc-tile-label { font-size: 11.5px; font-weight: 600; opacity: .8; }
+    [data-theme="light"] .cc-tile-label { color: #1d1d1f; }
+    [data-theme="dark"]  .cc-tile-label { color: #f0f0f5; }
+    .cc-tile-val { font-size: 11px; opacity: .55; margin-top: 2px; }
+    [data-theme="light"] .cc-tile-val { color: #1d1d1f; }
+    [data-theme="dark"]  .cc-tile-val { color: #f0f0f5; }
+    .cc-tile.on .cc-tile-icon { color: var(--accent); }
+
+    .cc-slider-row { margin-bottom: 8px; }
+    .cc-slider-label { font-size: 11px; font-weight: 600; opacity:.6; margin-bottom:4px; display:flex; align-items:center; gap:6px; }
+    [data-theme="light"] .cc-slider-label { color: #1d1d1f; }
+    [data-theme="dark"]  .cc-slider-label { color: #f0f0f5; }
+    .cc-slider { width: 100%; height: 5px; border-radius: 3px; appearance: none; -webkit-appearance: none; cursor: pointer; background: rgba(128,128,128,.3); outline: none; }
+    .cc-slider::-webkit-slider-thumb { appearance:none;-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.35); }
+
+    /* Settings (accent/size/font) embed in CC panel */
+    .cc-section-title { font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;opacity:.4;margin:10px 0 6px; }
+    [data-theme="light"] .cc-section-title { color:#1d1d1f; }
+    [data-theme="dark"]  .cc-section-title { color:#f0f0f5; }
+    .cc-row { display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px; }
+
+    .adot { width:22px;height:22px;border-radius:50%;border:2.5px solid transparent;cursor:pointer;transition:transform .18s cubic-bezier(.34,1.56,.64,1); }
+    .adot:hover { transform:scale(1.22); }
+    .adot.indigo { background:#007AFF; }
+    .adot.cyan   { background:#06B6D4; }
+    .adot.amber  { background:#F59E0B; }
+    [data-accent="indigo"] .adot.indigo,
+    [data-accent="cyan"]   .adot.cyan,
+    [data-accent="amber"]  .adot.amber { border-color: rgba(0,0,0,.4); transform:scale(1.1); }
+
+    .sbtn,.fbtn {
+      background:rgba(128,128,128,.14);border:1px solid rgba(128,128,128,.18);
+      border-radius:7px;padding:3px 9px;font-size:11.5px;font-weight:500;cursor:pointer;
+      transition:background .14s;
+    }
+    [data-theme="light"] .sbtn,[data-theme="light"] .fbtn { color:#1d1d1f; }
+    [data-theme="dark"]  .sbtn,[data-theme="dark"]  .fbtn { color:#f0f0f5; }
+    .sbtn:hover,.fbtn:hover { background:rgba(128,128,128,.25); }
+    .sbtn.active,.fbtn.active { background:var(--accent);border-color:transparent;color:#fff; }
+
+    /* ════════════════════════════════════════════════════
+       RIGHT-CLICK CONTEXT MENU
+    ════════════════════════════════════════════════════ */
+    .ctx-menu {
+      position: fixed; z-index: 800; min-width: 220px;
+      border-radius: 10px; padding: 4px 0; overflow: hidden;
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      opacity: 0; pointer-events: none; transform: scale(.92);
+      transition: opacity .14s, transform .16s cubic-bezier(.34,1.56,.64,1);
+      box-shadow: 0 10px 40px rgba(0,0,0,.35), 0 0 0 .5px rgba(0,0,0,.15);
+    }
+    [data-theme="light"] .ctx-menu { background: rgba(240,240,245,.92); }
+    [data-theme="dark"]  .ctx-menu { background: rgba(44,44,48,.94); }
+    .ctx-menu.open { opacity:1; pointer-events:all; transform:scale(1); }
+
+    .ctx-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 6px 14px; font-size: 13px; cursor: default;
+      transition: background .08s;
+    }
+    [data-theme="light"] .ctx-item { color: #1d1d1f; }
+    [data-theme="dark"]  .ctx-item { color: #f0f0f5; }
+    .ctx-item:hover { background: var(--accent); color: #fff; }
+    .ctx-item.disabled { opacity: .4; pointer-events: none; }
+    .ctx-sep { height: 1px; margin: 3px 0; background: rgba(128,128,128,.2); }
+    .ctx-icon { font-size: 14px; width: 18px; text-align: center; }
+    .ctx-shortcut { margin-left: auto; font-size: 11px; opacity: .5; }
+
+    /* ════════════════════════════════════════════════════
+       DOCK
+    ════════════════════════════════════════════════════ */
+    .dock {
+      position: fixed; bottom: 8px; left: 50%; transform: translateX(-50%);
+      z-index: 200;
+      display: flex; align-items: flex-end; gap: 5px;
+      padding: 7px 10px 9px;
+      border-radius: 18px;
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      animation: dockIn .6s cubic-bezier(.34,1.56,.64,1) .15s both;
+    }
+    [data-theme="light"] .dock {
+      background: rgba(220,220,228,0.65);
+      border: 1px solid rgba(255,255,255,.8);
+      box-shadow: 0 8px 40px rgba(0,0,0,.22), 0 1px 0 rgba(255,255,255,.7) inset,
+                  0 0 0 .5px rgba(0,0,0,.06);
+    }
+    [data-theme="dark"] .dock {
+      background: rgba(40,40,44,.65);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 8px 40px rgba(0,0,0,.55), 0 0 0 .5px rgba(255,255,255,.05);
+    }
+    @keyframes dockIn {
+      from { opacity:0; transform:translateX(-50%) translateY(32px); }
+      to   { opacity:1; transform:translateX(-50%) translateY(0); }
+    }
+
+    .dk-sep { width:1px; height:38px; align-self:center; margin:0 3px; background:rgba(128,128,128,.3); }
+
+    .dk-btn {
+      display: flex; flex-direction: column; align-items: center;
+      background: none; border: none; cursor: pointer; text-decoration: none;
+      position: relative; flex-shrink: 0;
+    }
+    .dk-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.25), 0 1px 0 rgba(255,255,255,.25) inset;
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+      position: relative; overflow: hidden;
+    }
+    .dk-icon::after {
+      content:''; position:absolute; inset:0; border-radius:inherit;
+      background:linear-gradient(155deg,rgba(255,255,255,.24) 0%,transparent 55%);
+      pointer-events:none;
+    }
+    /* Finder icon: special blue folder */
+    .dk-finder { background: linear-gradient(155deg, #1D87F0, #0E5BBF); }
+    .dk-trash   { background: linear-gradient(155deg, #8E8E93, #636366); }
+
+    .dk-btn:hover .dk-icon { transform: translateY(-14px) scale(1.15); }
+    .dk-btn:active .dk-icon { transform: translateY(-4px) scale(.9); transition-duration:.07s; }
+
+    .dk-tip {
+      position: absolute; bottom: calc(100% + 12px); left: 50%;
+      transform: translateX(-50%) scale(.85);
+      background: rgba(30,30,32,.92); color: #fff;
+      font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px;
+      white-space: nowrap; opacity: 0; pointer-events: none;
+      transition: opacity .13s, transform .17s cubic-bezier(.34,1.56,.64,1);
+    }
+    .dk-tip::after {
+      content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+      border:5px solid transparent; border-top-color:rgba(30,30,32,.92);
+    }
+    .dk-btn:hover .dk-tip { opacity:1; transform:translateX(-50%) scale(1); }
+
+    .dk-dot { width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.6);margin-top:4px; }
+    [data-theme="light"] .dk-dot { background: rgba(0,0,0,.4); }
+
+    /* ════════════════════════════════════════════════════
+       macOS WINDOW
+    ════════════════════════════════════════════════════ */
+    .mac-window {
+      position: fixed;
+      top: 44px; left: 50%; transform: translateX(-50%) scale(.92);
+      width: min(92vw, 1120px);
+      height: calc(100vh - 64px - 14px);
+      z-index: 500;
+      border-radius: 12px;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 .5px rgba(0,0,0,.25),
+        0 40px 100px rgba(0,0,0,.4),
+        0 12px 32px rgba(0,0,0,.2);
+      opacity: 0; pointer-events: none;
+      transition: opacity .28s ease, transform .3s cubic-bezier(.34,1.15,.64,1);
+      will-change: transform, opacity;
+    }
+    [data-theme="dark"] .mac-window {
+      box-shadow: 0 0 0 .5px rgba(255,255,255,.1), 0 40px 100px rgba(0,0,0,.75), 0 12px 32px rgba(0,0,0,.4);
+    }
+    .mac-window.open {
+      opacity:1; pointer-events:all; transform:translateX(-50%) scale(1);
+    }
+    .mac-window.minimizing {
+      opacity:0; transform:translateX(-50%) scale(.05) translateY(70vh);
+      transition: opacity .3s ease, transform .35s cubic-bezier(.55,.05,.67,.19);
+    }
+    .mac-window.maximized {
+      top:28px; left:0; transform:none !important;
+      width:100vw; height:calc(100vh - 28px); border-radius:0;
+    }
+
+    /* Window titlebar */
+    .win-tb {
+      height: 40px; flex-shrink: 0;
+      display: flex; align-items: center;
+      padding: 0 14px; position: relative;
+      cursor: default;
+    }
+    [data-theme="light"] .win-tb {
+      background: rgba(236,236,240,.95);
+      border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+    [data-theme="dark"] .win-tb {
+      background: rgba(46,46,48,.98);
+      border-bottom: 1px solid rgba(0,0,0,.5);
+    }
+
+    /* Traffic lights */
+    .tl-grp { display:flex; gap:8px; align-items:center; z-index:2; }
+    .tl {
+      width:13px;height:13px;border-radius:50%;
+      border:none;cursor:pointer;
+      position:relative;transition:filter .1s;
+    }
+    .tl:hover { filter: brightness(.82); }
+    .tl:active { transform:scale(.88); }
+    .tl.red   { background:#FF5F57; box-shadow:0 0 0 .5px rgba(0,0,0,.12); }
+    .tl.yel   { background:#FEBC2E; box-shadow:0 0 0 .5px rgba(0,0,0,.12); }
+    .tl.grn   { background:#28C840; box-shadow:0 0 0 .5px rgba(0,0,0,.12); }
+    .tl-grp:hover .tl::before { position:absolute;font-size:8px;font-weight:800;top:50%;left:50%;transform:translate(-50%,-50%);color:rgba(0,0,0,.6); }
+    .tl-grp:hover .tl.red::before { content:'✕'; }
+    .tl-grp:hover .tl.yel::before { content:'−'; font-size:10px; }
+    .tl-grp:hover .tl.grn::before { content:'+'; font-size:9px; }
+
+    .win-title-center {
+      position:absolute; left:50%; transform:translateX(-50%);
+      display:flex; align-items:center; gap:7px; max-width:40%;
+    }
+    .win-fav { font-size:15px; }
+    .win-ttl { font-size:13px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    [data-theme="light"] .win-ttl { color:#3a3a3c; }
+    [data-theme="dark"]  .win-ttl { color:#e8e8ed; }
+
+    .win-nav { margin-left:auto; display:flex; gap:3px; z-index:2; }
+    .win-nav-btn {
+      background:none;border:none;cursor:pointer;
+      width:28px;height:26px;border-radius:6px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:17px;font-weight:300;line-height:1;
+      transition:background .1s;
+    }
+    [data-theme="light"] .win-nav-btn { color:#3a3a3c; }
+    [data-theme="dark"]  .win-nav-btn { color:#e8e8ed; }
+    .win-nav-btn:hover { background:rgba(128,128,128,.18); }
+    .win-nav-btn:disabled { opacity:.28; cursor:default; }
+
+    .win-body { flex:1; position:relative; overflow:hidden; }
+    [data-theme="light"] .win-body { background:#f2f2f7; }
+    [data-theme="dark"]  .win-body { background:#1c1c1e; }
+
+    .win-iframe { width:100%;height:100%;border:none;display:block; }
+
+    .win-loader {
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+      opacity:0;pointer-events:none;transition:opacity .18s;
+    }
+    [data-theme="light"] .win-loader { background:rgba(242,242,247,.75); }
+    [data-theme="dark"]  .win-loader { background:rgba(28,28,30,.75); }
+    .win-loader.show { opacity:1; }
+    .spinner {
+      width:30px;height:30px;border-radius:50%;
+      border:2.5px solid rgba(128,128,128,.22);
+      border-top-color:var(--accent);
+      animation:spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* ════════════════════════════════════════════════════
+       NOTIFICATION BADGE on dock icons
+    ════════════════════════════════════════════════════ */
+    .dk-badge {
+      position:absolute;top:-3px;right:-3px;
+      background:#FF3B30;color:#fff;
+      font-size:9px;font-weight:700;
+      width:15px;height:15px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      border:1.5px solid rgba(0,0,0,.1);
+      pointer-events:none;
+    }
+
+    /* ════════════════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .hello-widget { left:16px; }
+      .hw-card { padding:16px 18px; }
+      .desktop-icons { right:10px; top:14px; grid-template-columns:repeat(2,68px); gap:6px; }
+      .dsk-icon-img { width:52px;height:52px;border-radius:12px;font-size:22px; }
+      .clock-widget { display:none; }
+      .mb-item.mb-hide-sm { display:none; }
+    }
+    @media (max-width: 540px) {
+      .desktop-icons { grid-template-columns:repeat(2,60px); }
+      .dsk-icon-img { width:46px;height:46px;font-size:20px; }
+      .dsk-icon-label { font-size:9.5px; }
+      .dock { gap:3px; padding:5px 8px 7px; }
+      .dk-icon { width:44px;height:44px;font-size:24px;border-radius:10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ WALLPAPER SVG ════════════════════ -->
+<div class="wallpaper" aria-hidden="true">
+  <!-- LIGHT: macOS Big Sur colorful waves -->
+  <svg id="wallpaper-light" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg"
+       preserveAspectRatio="xMidYMid slice"
+       style="width:100%;height:100%;position:absolute;inset:0;transition:opacity .6s;">
+    <defs>
+      <!-- Purple/pink/magenta base gradient (bottom-left) -->
+      <linearGradient id="lBase" x1="0" y1="1" x2="1" y2="0" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="#7B28C8"/>
+        <stop offset="22%"  stop-color="#C41878"/>
+        <stop offset="50%"  stop-color="#E83060"/>
+        <stop offset="75%"  stop-color="#F04828"/>
+        <stop offset="100%" stop-color="#E84018"/>
+      </linearGradient>
+      <!-- Red/coral band gradient -->
+      <linearGradient id="lRed" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#F05030"/>
+        <stop offset="40%"  stop-color="#E83828"/>
+        <stop offset="100%" stop-color="#E03020"/>
+      </linearGradient>
+      <!-- Red band inner shadow -->
+      <linearGradient id="lRedShadow" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#C82018" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#C82018" stop-opacity="0"/>
+      </linearGradient>
+      <!-- Orange/amber band -->
+      <linearGradient id="lOrange" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#F8C020"/>
+        <stop offset="50%"  stop-color="#F8A818"/>
+        <stop offset="100%" stop-color="#F09010"/>
+      </linearGradient>
+      <!-- White/cream band -->
+      <linearGradient id="lWhite" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#F8F4F0"/>
+        <stop offset="100%" stop-color="#E8E0D8"/>
+      </linearGradient>
+      <!-- Blue sky gradient (top-right) -->
+      <linearGradient id="lBlue" x1="0.3" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="#5AC8F0"/>
+        <stop offset="40%"  stop-color="#3AAEE0"/>
+        <stop offset="100%" stop-color="#2898D0"/>
+      </linearGradient>
+      <!-- Pink overflow at bottom-left -->
+      <radialGradient id="lPink" cx="0%" cy="100%" r="65%" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="#E020A0" stop-opacity="0.7"/>
+        <stop offset="60%"  stop-color="#C01888" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#A01070" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- Base fill: purple → pink → red gradient -->
+    <rect width="1440" height="900" fill="url(#lBase)"/>
+
+    <!-- Pink bloom bottom-left -->
+    <rect width="1440" height="900" fill="url(#lPink)"/>
+
+    <!-- Large red/coral diagonal band (dominant center element) -->
+    <!-- Bottom edge of red band -->
+    <path d="
+      M -10,380
+      C 180,310  420,290  650,320
+      C 850,345  1050,410  1250,510
+      C 1360,565  1440,610  1450,640
+      L 1450,900  L -10,900  Z
+    " fill="url(#lRed)"/>
+
+    <!-- Top edge of red band (inner shadow) -->
+    <path d="
+      M -10,380
+      C 180,310  420,290  650,320
+      C 850,345  1050,410  1250,510
+      C 1360,565  1440,610  1450,640
+      L 1450,700  C 1440,670  1360,625  1250,570
+      C 1050,470  850,405  650,380
+      C 420,350  180,370  -10,440  Z
+    " fill="url(#lRedShadow)"/>
+
+    <!-- Orange/amber strip -->
+    <path d="
+      M 480,-10
+      C 680,-10  900,60   1120,175
+      C 1280,255  1400,320  1450,355
+      L 1450,440
+      C 1400,405  1280,340  1120,260
+      C 900,145   680,75   480,75
+      C 320,75   160,120  -10,195
+      L -10,115
+      C 160,40   320,-5   480,-10  Z
+    " fill="url(#lOrange)"/>
+
+    <!-- White/cream strip -->
+    <path d="
+      M 620,-10
+      C 800,-10  1000,55   1180,160
+      C 1320,240  1420,295  1450,315
+      L 1450,360
+      C 1420,340  1320,285  1180,205
+      C 1000,100  800,35   620,35
+      C 480,35   330,75   180,130
+      C 90,165   20,200  -10,220
+      L -10,175
+      C 20,155   90,120  180,85
+      C 330,30   480,-10  620,-10  Z
+    " fill="url(#lWhite)"/>
+
+    <!-- Blue sky (top-right) -->
+    <path d="
+      M -10,0  L 1450,0  L 1450,315
+      C 1420,295  1320,240  1180,160
+      C 1000,55   800,-10  620,-10
+      C 480,-10  330,30   180,85
+      C 90,120   20,155  -10,175  Z
+    " fill="url(#lBlue)"/>
+
+    <!-- Subtle inner glow on blue -->
+    <path d="
+      M 800,0  L 1450,0  L 1450,200
+      C 1350,160  1150,80   800,0  Z
+    " fill="#A8E8FF" opacity="0.18"/>
+  </svg>
+
+  <!-- DARK: macOS Big Sur dark — deep blue/purple/crimson glow -->
+  <svg id="wallpaper-dark" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg"
+       preserveAspectRatio="xMidYMid slice"
+       style="width:100%;height:100%;position:absolute;inset:0;opacity:0;transition:opacity .6s;">
+    <defs>
+      <!-- Very dark base -->
+      <linearGradient id="dBase" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#020510"/>
+        <stop offset="45%"  stop-color="#060a1e"/>
+        <stop offset="100%" stop-color="#08060f"/>
+      </linearGradient>
+      <!-- Left diagonal glow: deep purple/crimson -->
+      <linearGradient id="dGlow1" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="#1a0535" stop-opacity="0"/>
+        <stop offset="35%"  stop-color="#3a0868" stop-opacity="0.85"/>
+        <stop offset="60%"  stop-color="#6010a0" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#200540" stop-opacity="0"/>
+      </linearGradient>
+      <!-- Right top crimson glow -->
+      <radialGradient id="dGlow2" cx="92%" cy="8%" r="55%" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="#8a0828" stop-opacity="0.9"/>
+        <stop offset="30%"  stop-color="#c00830" stop-opacity="0.55"/>
+        <stop offset="60%"  stop-color="#600420" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#300210" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Bottom-left purple -->
+      <radialGradient id="dGlow3" cx="5%" cy="95%" r="60%" gradientUnits="objectBoundingBox">
+        <stop offset="0%"   stop-color="#5008c0" stop-opacity="0.6"/>
+        <stop offset="40%"  stop-color="#380890" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#180440" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Diagonal band left -->
+      <linearGradient id="dBand1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#0a0525" stop-opacity="0"/>
+        <stop offset="50%"  stop-color="#4808a8" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#0a0520" stop-opacity="0"/>
+      </linearGradient>
+      <!-- Diagonal band right -->
+      <linearGradient id="dBand2" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#900820" stop-opacity="0"/>
+        <stop offset="40%"  stop-color="#c00830" stop-opacity="0.45"/>
+        <stop offset="100%" stop-color="#300408" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Ultra-dark base -->
+    <rect width="1440" height="900" fill="url(#dBase)"/>
+
+    <!-- Bottom-left purple glow -->
+    <rect width="1440" height="900" fill="url(#dGlow3)"/>
+
+    <!-- Top-right crimson glow -->
+    <rect width="1440" height="900" fill="url(#dGlow2)"/>
+
+    <!-- Main left diagonal band (purple streak going upper-left to lower-right) -->
+    <path d="
+      M -10,200
+      C 100,160  250,180  400,260
+      C 600,360  800,480  1050,630
+      C 1200,710  1350,780  1450,830
+      L 1450,900  L -10,900  Z
+    " fill="url(#dBand1)" opacity="0.6"/>
+
+    <!-- Left diagonal band upper part -->
+    <path d="
+      M -10,0  L 350,0
+      C 250,40   150,100  -10,200  Z
+    " fill="#2808a0" opacity="0.3"/>
+
+    <!-- Right diagonal band (crimson, top-right going down) -->
+    <path d="
+      M 900,-10  L 1450,-10  L 1450,900
+      C 1350,780  1200,680  1000,560
+      C 800,440   600,320  400,220
+      C 250,145  100,90   -10,50
+      L -10,-10  Z
+    " fill="url(#dBand2)" opacity="0.55"/>
+
+    <!-- Soft center depth -->
+    <ellipse cx="720" cy="450" rx="700" ry="420" fill="#0c0420" opacity="0.4"/>
+
+    <!-- Subtle blue-navy mist (center) -->
+    <ellipse cx="400" cy="350" rx="500" ry="350" fill="#0810a8" opacity="0.06"/>
+  </svg>
+
+  <div class="wallpaper-dark-overlay"></div>
+</div>
+
+<!-- ════════════════════ DESKTOP ════════════════════════ -->
+<div class="macos-desktop">
+
+  <!-- ── Menu Bar ─────────────────────────────────────── -->
+  <div class="menubar">
+    <div class="mb-l">
+      <span class="mb-item mb-apple">&#xF8FF;</span>
+      <span class="mb-item mb-bold">Finder</span>
+      <span class="mb-item mb-hide-sm">Fichier</span>
+      <span class="mb-item mb-hide-sm">Édition</span>
+      <span class="mb-item mb-hide-sm">Présentation</span>
+      <span class="mb-item mb-hide-sm">Aller</span>
+      <span class="mb-item mb-hide-sm">Fenêtre</span>
+      <span class="mb-item mb-hide-sm">Aide</span>
+    </div>
+    <div class="mb-r">
+      <!-- Battery -->
+      <span class="mb-status">
+        <span class="battery-icon">
+          <span class="battery-body"><span class="battery-fill"></span></span>
+        </span>
+        &nbsp;100%
+      </span>
+      <!-- WiFi -->
+      <span class="mb-status">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+          <path d="M8 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-3.5a5 5 0 014.33 2.5l-1.5 1.06A3 3 0 005.17 8.56L3.67 7.5A5 5 0 018 5zm0-4a9 9 0 017.8 4.5l-1.5 1.06A7 7 0 001.7 6.56L.2 5.5A9 9 0 018 1z"/>
+        </svg>
+      </span>
+      <!-- Bluetooth -->
+      <span class="mb-status" style="font-size:13px; font-weight:600; letter-spacing:-.5px;">⌘</span>
+      <!-- Spotlight -->
+      <button class="mb-status" id="spotlight-btn" style="background:none;border:none;cursor:pointer;" aria-label="Spotlight">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <!-- Control Center -->
+      <button class="mb-status" id="cc-btn" style="background:none;border:none;cursor:pointer;" aria-label="Centre de contrôle">
+        <svg width="15" height="12" viewBox="0 0 16 13" fill="currentColor">
+          <rect x="0" y="0"  width="6.5" height="5.5" rx="1.5"/>
+          <rect x="9.5" y="0"  width="6.5" height="5.5" rx="1.5"/>
+          <rect x="0" y="7.5" width="6.5" height="5.5" rx="1.5"/>
+          <rect x="9.5" y="7.5" width="6.5" height="5.5" rx="1.5"/>
+        </svg>
+      </button>
+      <!-- Date + Time -->
+      <span class="mb-status mb-clock-full" id="mb-clock">Jeu. 22 juin &nbsp; 9:41</span>
+    </div>
+  </div>
+
+  <!-- ── Desktop content ───────────────────────────────── -->
+  <div class="desktop" id="desktop-area">
+
+    <!-- Hello widget (left) -->
+    <div class="hello-widget">
+      <div class="hw-card">
+        <div class="hw-avatar">RB</div>
+        <p class="hw-label">Bonjour, je suis</p>
+        <h1 class="hw-name">Reda Bouali</h1>
+        <span class="hw-badge">
+          <span class="hw-dot"></span>
+          Disponible — BTS SIO SISR
+        </span>
+      </div>
+    </div>
+
+    <!-- Clock widget (bottom-left) -->
+    <div class="clock-widget">
+      <div class="cw-time" id="cw-time">9:41</div>
+      <div class="cw-date" id="cw-date">Jeudi 22 juin 2026</div>
+    </div>
+
+    <!-- Desktop icons (right side, 2 columns, like macOS) -->
+    <nav class="desktop-icons" aria-label="Icônes du bureau">
+
+      <button class="dsk-icon" data-url="about.html" data-title="À propos" data-icon="👤" aria-label="À propos">
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#007AFF,#5AC8FA)">👤</div>
+        <span class="dsk-icon-label">À propos</span>
+      </button>
+
+      <button class="dsk-icon" data-url="experiences.html" data-title="Expériences" data-icon="💼" aria-label="Expériences">
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#FF9500,#FFCC00)">💼</div>
+        <span class="dsk-icon-label">Expériences</span>
+      </button>
+
+      <button class="dsk-icon" data-url="skills.html" data-title="Compétences" data-icon="⚡" aria-label="Compétences">
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#AF52DE,#BF5AF2)">⚡</div>
+        <span class="dsk-icon-label">Compétences</span>
+      </button>
+
+      <button class="dsk-icon" data-url="projects.html" data-title="Projets" data-icon="🚀" aria-label="Projets">
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#FF2D55,#FF6B6B)">🚀</div>
+        <span class="dsk-icon-label">Projets</span>
+      </button>
+
+      <button class="dsk-icon" data-url="bts-competences.html" data-title="E4 BTS SIO" data-icon="🎓" aria-label="E4 BTS SIO">
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#0A84FF,#2C6EE0)">🎓</div>
+        <span class="dsk-icon-label">E4 BTS SIO</span>
+      </button>
+
+      <button class="dsk-icon" data-url="e5.html" data-title="E5 SISR" data-icon="🖧" aria-label="E5 SISR">
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#34C759,#30D158)">🖧</div>
+        <span class="dsk-icon-label">E5 SISR</span>
+      </button>
+
+      <button class="dsk-icon" data-url="cv.html" data-title="Curriculum Vitae" data-icon="📄" aria-label="CV">
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#FF3B30,#FF453A)">📄</div>
+        <span class="dsk-icon-label">CV</span>
+      </button>
+
+      <button class="dsk-icon" data-url="pix.html" data-title="Certification Pix" data-icon="🏅" aria-label="Pix">
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#5AC8FA,#32ADE6)">🏅</div>
+        <span class="dsk-icon-label">Pix</span>
+      </button>
+
+      <button class="dsk-icon" data-url="contact.html" data-title="Contact" data-icon="✉️" aria-label="Contact">
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#30D158,#34C759)">✉️</div>
+        <span class="dsk-icon-label">Contact</span>
+      </button>
+
+    </nav>
+
+  </div><!-- /.desktop -->
+
+  <!-- ══ Control Center dropdown ══════════════════════ -->
+  <div id="cc-panel" class="cc-panel" aria-hidden="true">
+    <div class="cc-grid">
+      <div class="cc-tile on" id="cc-wifi">
+        <div class="cc-tile-icon">📶</div>
+        <div class="cc-tile-label">Wi‑Fi</div>
+        <div class="cc-tile-val">Connecté</div>
+      </div>
+      <div class="cc-tile on" id="cc-bt">
+        <div class="cc-tile-icon" style="font-size:15px;font-weight:700;">⌘</div>
+        <div class="cc-tile-label">Bluetooth</div>
+        <div class="cc-tile-val">Activé</div>
+      </div>
+      <div class="cc-tile" id="cc-airdrop">
+        <div class="cc-tile-icon">📡</div>
+        <div class="cc-tile-label">AirDrop</div>
+        <div class="cc-tile-val">Contacts seulement</div>
+      </div>
+      <div class="cc-tile" id="cc-theme-tile" style="cursor:pointer;">
+        <div class="cc-tile-icon" id="cc-theme-icon">🌙</div>
+        <div class="cc-tile-label">Thème sombre</div>
+        <div class="cc-tile-val" id="cc-theme-val">Désactivé</div>
+      </div>
+    </div>
+    <div class="cc-slider-row">
+      <div class="cc-slider-label">☀️ Luminosité</div>
+      <input type="range" class="cc-slider" min="0" max="100" value="80">
+    </div>
+    <div class="cc-slider-row">
+      <div class="cc-slider-label">🔊 Volume</div>
+      <input type="range" class="cc-slider" min="0" max="100" value="65">
+    </div>
+    <p class="cc-section-title">Apparence</p>
+    <div class="cc-row">
+      <button class="adot indigo" data-set-accent="indigo" aria-label="Indigo"></button>
+      <button class="adot cyan"   data-set-accent="cyan"   aria-label="Cyan"></button>
+      <button class="adot amber"  data-set-accent="amber"  aria-label="Ambre"></button>
+    </div>
+    <p class="cc-section-title">Taille du texte</p>
+    <div class="cc-row">
+      <button class="sbtn" data-set-size="sm">A<small>A</small></button>
+      <button class="sbtn active" data-set-size="md">A</button>
+      <button class="sbtn" data-set-size="lg"><big>A</big></button>
+    </div>
+    <p class="cc-section-title">Police</p>
+    <div class="cc-row">
+      <button class="fbtn active" data-set-font="sf">SF Pro</button>
+      <button class="fbtn" data-set-font="manrope">Manrope</button>
+      <button class="fbtn" data-set-font="mono">Mono</button>
+    </div>
+  </div>
+
+  <!-- ══ Right-click context menu ═════════════════════ -->
+  <div id="ctx-menu" class="ctx-menu" role="menu">
+    <div class="ctx-item" id="ctx-new-folder"><span class="ctx-icon">📁</span>Nouveau dossier<span class="ctx-shortcut">⌘⇧N</span></div>
+    <div class="ctx-item disabled"><span class="ctx-icon">📋</span>Coller<span class="ctx-shortcut">⌘V</span></div>
+    <div class="ctx-sep"></div>
+    <div class="ctx-item" id="ctx-wallpaper"><span class="ctx-icon">🖼</span>Modifier le fond d'écran…</div>
+    <div class="ctx-item" id="ctx-theme"><span class="ctx-icon">🌙</span>Basculer mode sombre</div>
+    <div class="ctx-sep"></div>
+    <div class="ctx-item disabled"><span class="ctx-icon">ℹ️</span>À propos de ce Mac</div>
+  </div>
+
+  <!-- ══ Spotlight ═════════════════════════════════════ -->
+  <div id="spotlight" class="spotlight-overlay" role="dialog" aria-label="Spotlight" aria-hidden="true">
+    <div class="spotlight-box">
+      <div class="spotlight-input-row">
+        <span class="spotlight-icon">🔍</span>
+        <input id="spotlight-input" class="spotlight-input" type="text" placeholder="Recherche Spotlight" autocomplete="off">
+      </div>
+      <div class="spotlight-sep"></div>
+      <div class="spotlight-results" id="spotlight-results"></div>
+      <div class="spotlight-footer">
+        <span class="sf-hint">Ouvrir</span><span class="sf-key">↵</span>
+        <span class="sf-hint" style="margin-left:8px">Naviguer</span><span class="sf-key">↑↓</span>
+        <span class="sf-hint" style="margin-left:8px">Fermer</span><span class="sf-key">⎋</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ macOS Window ═══════════════════════════════════ -->
+  <div class="mac-window" id="mac-window" role="dialog" aria-modal="true">
+    <div class="win-tb" id="win-tb">
+      <div class="tl-grp">
+        <button class="tl red"  id="tl-close" aria-label="Fermer"></button>
+        <button class="tl yel"  id="tl-min"   aria-label="Réduire"></button>
+        <button class="tl grn"  id="tl-max"   aria-label="Agrandir"></button>
+      </div>
+      <div class="win-title-center">
+        <span class="win-fav" id="win-fav">📄</span>
+        <span class="win-ttl" id="win-ttl">Portfolio</span>
+      </div>
+      <div class="win-nav">
+        <button class="win-nav-btn" id="win-back"    disabled>‹</button>
+        <button class="win-nav-btn" id="win-forward" disabled>›</button>
+      </div>
+    </div>
+    <div class="win-body">
+      <div class="win-loader" id="win-loader"><div class="spinner"></div></div>
+      <iframe class="win-iframe" id="win-iframe" src="about:blank"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-downloads"
+        title="Contenu"></iframe>
+    </div>
+  </div>
+
+  <!-- ══ Dock ══════════════════════════════════════════ -->
+  <nav class="dock" aria-label="Dock">
+
+    <!-- Finder -->
+    <button class="dk-btn" id="dk-finder" aria-label="Finder">
+      <span class="dk-tip">Finder</span>
+      <div class="dk-icon dk-finder">
+        <!-- Finder face SVG -->
+        <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="9" fill="none"/>
+          <!-- Left face (dark blue) -->
+          <path d="M0 0 H20 V40 H0 Q0 40 0 40 V0 Z" fill="#1D87F0" rx="9"/>
+          <!-- Right face (light blue) -->
+          <path d="M20 0 H40 V40 H20 Z" fill="#7DC8F8"/>
+          <!-- Rounded corners -->
+          <rect width="40" height="40" rx="9" fill="none" stroke="none"/>
+          <!-- Eyes -->
+          <circle cx="13.5" cy="15" r="3.5" fill="#fff"/>
+          <circle cx="26.5" cy="15" r="3.5" fill="#fff"/>
+          <circle cx="14.5" cy="15.5" r="2" fill="#1a5db8"/>
+          <circle cx="27.5" cy="15.5" r="2" fill="#1a5db8"/>
+          <!-- Smile -->
+          <path d="M13 24 Q20 30 27 24" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="dk-dot"></span>
+    </button>
+
+    <div class="dk-sep"></div>
+
+    <button class="dk-btn" data-url="about.html" data-title="À propos" data-icon="👤" aria-label="À propos">
+      <span class="dk-tip">À propos</span>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#007AFF,#5AC8FA)">👤</div>
+      <span class="dk-dot"></span>
+    </button>
+
+    <button class="dk-btn" data-url="experiences.html" data-title="Expériences" data-icon="💼" aria-label="Expériences">
+      <span class="dk-tip">Expériences</span>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#FF9500,#FFCC00)">💼</div>
+      <span class="dk-dot"></span>
+    </button>
+
+    <button class="dk-btn" data-url="bts-competences.html" data-title="E4 BTS SIO" data-icon="🎓" aria-label="E4">
+      <span class="dk-tip">E4 BTS SIO</span>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#0A84FF,#2C6EE0)">🎓</div>
+      <span class="dk-dot"></span>
+    </button>
+
+    <button class="dk-btn" data-url="e5.html" data-title="E5 SISR" data-icon="🖧" aria-label="E5">
+      <span class="dk-tip">E5 SISR</span>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#34C759,#30D158)">🖧</div>
+      <span class="dk-dot"></span>
+    </button>
+
+    <button class="dk-btn" data-url="skills.html" data-title="Compétences" data-icon="⚡" aria-label="Compétences">
+      <span class="dk-tip">Compétences</span>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#AF52DE,#BF5AF2)">⚡</div>
+      <span class="dk-dot"></span>
+    </button>
+
+    <button class="dk-btn" data-url="projects.html" data-title="Projets" data-icon="🚀" aria-label="Projets">
+      <span class="dk-tip">Projets</span>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#FF2D55,#FF6B6B)">🚀</div>
+      <span class="dk-dot"></span>
+    </button>
+
+    <div class="dk-sep"></div>
+
+    <button class="dk-btn" data-url="cv.html" data-title="Curriculum Vitae" data-icon="📄" aria-label="CV">
+      <span class="dk-tip">CV</span>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#FF3B30,#FF453A)">📄</div>
+      <span class="dk-dot"></span>
+    </button>
+
+    <button class="dk-btn" data-url="contact.html" data-title="Contact" data-icon="✉️" aria-label="Contact">
+      <span class="dk-tip">Contact</span>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#30D158,#34C759)">✉️</div>
+      <span class="dk-dot"></span>
+    </button>
+
+    <div class="dk-sep"></div>
+
+    <!-- Trash -->
+    <button class="dk-btn" aria-label="Corbeille">
+      <span class="dk-tip">Corbeille</span>
+      <div class="dk-icon dk-trash">🗑</div>
+      <span class="dk-dot" style="opacity:0"></span>
+    </button>
+
+  </nav>
+
+</div><!-- /.macos-desktop -->
+
+<script>
+(function(){
+  'use strict';
+
+  var html = document.documentElement;
+  function gp(k,d){ return localStorage.getItem(k)||d; }
+  function sp(k,v){ localStorage.setItem(k,v); }
+
+  /* ── Wallpaper theme switch ─────────────── */
+  var wLight = document.getElementById('wallpaper-light');
+  var wDark  = document.getElementById('wallpaper-dark');
+
+  function applyTheme(t) {
+    html.setAttribute('data-theme', t);
+    sp('theme', t);
+    wLight.style.opacity = t==='dark' ? '0' : '1';
+    wDark.style.opacity  = t==='dark' ? '1' : '0';
+    var ccIcon = document.getElementById('cc-theme-icon');
+    var ccVal  = document.getElementById('cc-theme-val');
+    if(ccIcon) ccIcon.textContent = t==='dark' ? '☀️' : '🌙';
+    if(ccVal)  ccVal.textContent  = t==='dark' ? 'Activé' : 'Désactivé';
+    // sync iframe
+    try {
+      var ifd = document.getElementById('win-iframe');
+      if(ifd&&ifd.contentDocument) ifd.contentDocument.documentElement.setAttribute('data-theme',t);
+    } catch(e){}
+  }
+  // Init wallpaper
+  (function(){
+    var t = gp('theme','light');
+    wLight.style.opacity = t==='dark' ? '0' : '1';
+    wDark.style.opacity  = t==='dark' ? '1' : '0';
+    wDark.style.transition = 'opacity .6s';
+    wLight.style.transition = 'opacity .6s';
+  })();
+
+  /* ── Control Center ─────────────────────── */
+  var ccBtn   = document.getElementById('cc-btn');
+  var ccPanel = document.getElementById('cc-panel');
+  ccBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = ccPanel.classList.toggle('open');
+    ccPanel.setAttribute('aria-hidden', String(!open));
+    closeSpotlight();
+  });
+
+  /* CC theme tile */
+  document.getElementById('cc-theme-tile').addEventListener('click', function(){
+    var t = html.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    applyTheme(t);
+  });
+
+  /* ── Accent ─────────────────────────────── */
+  document.querySelectorAll('[data-set-accent]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var a = this.getAttribute('data-set-accent');
+      html.setAttribute('data-accent',a); sp('accent',a);
+    });
+  });
+
+  /* ── Size ───────────────────────────────── */
+  function syncSize(s){
+    document.querySelectorAll('.sbtn').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-set-size')===s);
+    });
+  }
+  syncSize(gp('size','md'));
+  document.querySelectorAll('[data-set-size]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var s=this.getAttribute('data-set-size');
+      html.setAttribute('data-size',s);sp('size',s);syncSize(s);
+    });
+  });
+
+  /* ── Font ───────────────────────────────── */
+  function syncFont(f){
+    document.querySelectorAll('.fbtn').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-set-font')===f);
+    });
+  }
+  syncFont(gp('font','sf'));
+  document.querySelectorAll('[data-set-font]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var f=this.getAttribute('data-set-font');
+      html.setAttribute('data-font',f);sp('font',f);syncFont(f);
+    });
+  });
+
+  /* ── Live clock ─────────────────────────── */
+  var DAYS   = ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'];
+  var MONTHS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  var MONTHS_LONG = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  function tick(){
+    var n=new Date();
+    var d=n.getDay(), dd=n.getDate(), mo=n.getMonth();
+    var h=n.getHours(), mi=n.getMinutes();
+    var ap=h>=12?'PM':'AM'; h=h%12||12;
+    var timeStr = h+':'+(mi<10?'0':'')+mi+' '+ap;
+
+    var mb = document.getElementById('mb-clock');
+    if(mb) mb.textContent = DAYS[d]+' '+dd+' '+MONTHS[mo]+'  '+timeStr;
+
+    var cw = document.getElementById('cw-time');
+    if(cw) cw.textContent = h+':'+(mi<10?'0':'')+mi;
+
+    var cd = document.getElementById('cw-date');
+    if(cd){
+      var yy=n.getFullYear();
+      cd.textContent = DAYS[d].replace('.','')+'di '+dd+' '+MONTHS_LONG[mo]+' '+yy;
+    }
+  }
+  tick(); setInterval(tick, 10000);
+
+  /* ── Spotlight ──────────────────────────── */
+  var spotlightEl    = document.getElementById('spotlight');
+  var spotlightInput = document.getElementById('spotlight-input');
+  var spotlightRes   = document.getElementById('spotlight-results');
+  var spotBtn        = document.getElementById('spotlight-btn');
+
+  var APPS = [
+    { url:'about.html',           title:'À propos',          icon:'👤', grad:'linear-gradient(145deg,#007AFF,#5AC8FA)', sub:'Profil, formations, centres d\'intérêt' },
+    { url:'experiences.html',     title:'Expériences',        icon:'💼', grad:'linear-gradient(145deg,#FF9500,#FFCC00)', sub:'Stages, missions professionnelles' },
+    { url:'skills.html',          title:'Compétences',        icon:'⚡', grad:'linear-gradient(145deg,#AF52DE,#BF5AF2)', sub:'Réseaux, cybersécurité, systèmes, cloud' },
+    { url:'projects.html',        title:'Projets',            icon:'🚀', grad:'linear-gradient(145deg,#FF2D55,#FF6B6B)', sub:'OPNsense, Zabbix, AD, n8n, Docker' },
+    { url:'bts-competences.html', title:'E4 BTS SIO',         icon:'🎓', grad:'linear-gradient(145deg,#0A84FF,#2C6EE0)', sub:'6 situations professionnelles B1.1–B1.6' },
+    { url:'e5.html',              title:'E5 SISR',            icon:'🖧', grad:'linear-gradient(145deg,#34C759,#30D158)', sub:'4 situations techniques B2.1–B2.5' },
+    { url:'cv.html',              title:'CV',                 icon:'📄', grad:'linear-gradient(145deg,#FF3B30,#FF453A)', sub:'Curriculum vitae PDF' },
+    { url:'pix.html',             title:'Certification Pix',  icon:'🏅', grad:'linear-gradient(145deg,#5AC8FA,#32ADE6)', sub:'Compétences numériques certifiées 2026' },
+    { url:'contact.html',         title:'Contact',            icon:'✉️', grad:'linear-gradient(145deg,#30D158,#34C759)', sub:'Alternance, stage, opportunités' },
+  ];
+
+  function openSpotlight(){
+    spotlightEl.classList.add('open');
+    spotlightEl.setAttribute('aria-hidden','false');
+    spotlightInput.value='';
+    renderSpotlight('');
+    setTimeout(function(){ spotlightInput.focus(); }, 80);
+    closeCCPanel();
+  }
+  function closeSpotlight(){
+    spotlightEl.classList.remove('open');
+    spotlightEl.setAttribute('aria-hidden','true');
+  }
+
+  function renderSpotlight(q){
+    q = q.toLowerCase().trim();
+    var results = q ? APPS.filter(function(a){
+      return a.title.toLowerCase().includes(q)||a.sub.toLowerCase().includes(q);
+    }) : APPS;
+    spotlightRes.innerHTML = results.map(function(a,i){
+      return '<div class="spotlight-result'+(i===0?' active':'')+'" data-url="'+a.url+'" data-title="'+a.title+'" data-icon="'+a.icon+'" tabindex="-1">'
+        +'<div class="sr-icon" style="background:'+a.grad+'">'+a.icon+'</div>'
+        +'<div><div class="sr-title">'+a.title+'</div><div class="sr-sub">'+a.sub+'</div></div>'
+        +'</div>';
+    }).join('');
+    // click handler
+    spotlightRes.querySelectorAll('.spotlight-result').forEach(function(r){
+      r.addEventListener('click', function(){
+        openWindow(this.dataset.url, this.dataset.title, this.dataset.icon);
+        closeSpotlight();
+      });
+    });
+  }
+
+  spotBtn.addEventListener('click', function(e){ e.stopPropagation(); openSpotlight(); });
+  spotlightInput.addEventListener('input', function(){ renderSpotlight(this.value); });
+
+  // Keyboard nav in spotlight
+  spotlightInput.addEventListener('keydown', function(e){
+    var items = Array.from(spotlightRes.querySelectorAll('.spotlight-result'));
+    var cur = spotlightRes.querySelector('.active');
+    var idx = cur ? items.indexOf(cur) : 0;
+    if(e.key==='ArrowDown'){ e.preventDefault(); if(cur) cur.classList.remove('active'); var next=items[Math.min(idx+1,items.length-1)]; if(next) next.classList.add('active'); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); if(cur) cur.classList.remove('active'); var prev=items[Math.max(idx-1,0)]; if(prev) prev.classList.add('active'); }
+    else if(e.key==='Enter'){
+      var active=spotlightRes.querySelector('.active');
+      if(active){ openWindow(active.dataset.url, active.dataset.title, active.dataset.icon); closeSpotlight(); }
+    }
+    else if(e.key==='Escape'){ closeSpotlight(); }
+  });
+
+  spotlightEl.addEventListener('click', function(e){ if(e.target===spotlightEl) closeSpotlight(); });
+
+  // Cmd+Space
+  document.addEventListener('keydown', function(e){
+    if((e.metaKey||e.ctrlKey) && e.key==='k'){ e.preventDefault(); openSpotlight(); }
+    if(e.key==='Escape'){
+      closeSpotlight();
+      closeCCPanel();
+      closeCtxMenu();
+    }
+  });
+
+  /* ── Close panels on outside click ─────── */
+  function closeCCPanel(){ ccPanel.classList.remove('open'); ccPanel.setAttribute('aria-hidden','true'); }
+  document.addEventListener('click', function(e){
+    if(!ccPanel.contains(e.target)&&e.target!==ccBtn) closeCCPanel();
+    closeCtxMenu();
+  });
+
+  /* ── Context menu ───────────────────────── */
+  var ctxMenu = document.getElementById('ctx-menu');
+  function closeCtxMenu(){ ctxMenu.classList.remove('open'); }
+
+  document.getElementById('desktop-area').addEventListener('contextmenu', function(e){
+    e.preventDefault();
+    var x=e.clientX, y=e.clientY;
+    var mw=230, mh=200;
+    ctxMenu.style.left = Math.min(x, window.innerWidth-mw-10)+'px';
+    ctxMenu.style.top  = Math.min(y, window.innerHeight-mh-10)+'px';
+    ctxMenu.classList.add('open');
+  });
+
+  document.getElementById('ctx-theme').addEventListener('click', function(){
+    var t = html.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    applyTheme(t); closeCtxMenu();
+  });
+  document.getElementById('ctx-wallpaper').addEventListener('click', function(){
+    // cycle through wallpapers (just toggle theme for now)
+    closeCtxMenu();
+  });
+
+  /* ══ WINDOW SYSTEM ═══════════════════════════════════ */
+  var win       = document.getElementById('mac-window');
+  var winTb     = document.getElementById('win-tb');
+  var winIframe = document.getElementById('win-iframe');
+  var winTtl    = document.getElementById('win-ttl');
+  var winFav    = document.getElementById('win-fav');
+  var winLoader = document.getElementById('win-loader');
+  var btnClose  = document.getElementById('tl-close');
+  var btnMin    = document.getElementById('tl-min');
+  var btnMax    = document.getElementById('tl-max');
+  var btnBack   = document.getElementById('win-back');
+  var btnFwd    = document.getElementById('win-forward');
+
+  var hist=[], hidx=-1, isMax=false, isMin=false;
+
+  function openWindow(url, title, icon){
+    winTtl.textContent = title||url;
+    winFav.textContent = icon||'📄';
+    winLoader.classList.add('show');
+    winIframe.src = url;
+    win.classList.remove('minimizing');
+    win.classList.add('open');
+    isMin=false;
+    hist=hist.slice(0,hidx+1);
+    hist.push({url:url,title:title,icon:icon});
+    hidx=hist.length-1;
+    syncHist();
+    winIframe.onload=function(){
+      winLoader.classList.remove('show');
+      try{
+        var id=winIframe.contentDocument||winIframe.contentWindow.document;
+        var s=id.createElement('style');
+        s.textContent='.navbar{display:none!important;} .hero,.page-hero{padding-top:2.5rem!important;}';
+        id.head.appendChild(s);
+        id.documentElement.setAttribute('data-theme', gp('theme','light'));
+        id.documentElement.setAttribute('data-accent', gp('accent','indigo'));
+        id.querySelectorAll('a[href]').forEach(function(a){
+          var h=a.getAttribute('href');
+          if(!h||h.startsWith('#')||h.startsWith('http')||h.endsWith('.pdf')) return;
+          a.addEventListener('click',function(e){
+            var pages=['about','experiences','skills','projects','bts-competences','e5','cv','pix','contact'];
+            if(pages.some(function(p){return h.indexOf(p)>-1;})){
+              e.preventDefault(); navTo(h, a.textContent.trim().split('\n')[0].trim(), '📄');
+            }
+          });
+        });
+      }catch(ex){}
+    };
+  }
+
+  function navTo(url, title, icon){
+    hist=hist.slice(0,hidx+1);
+    hist.push({url:url,title:title||url,icon:icon||'📄'});
+    hidx=hist.length-1;
+    winTtl.textContent=title||url;
+    winFav.textContent=icon||'📄';
+    winLoader.classList.add('show');
+    winIframe.src=url;
+    syncHist();
+  }
+
+  function syncHist(){
+    btnBack.disabled  = hidx<=0;
+    btnFwd.disabled   = hidx>=hist.length-1;
+  }
+
+  btnClose.addEventListener('click',function(){
+    win.classList.remove('open');
+    setTimeout(function(){ winIframe.src='about:blank'; hist=[]; hidx=-1; syncHist(); },300);
+  });
+  btnMin.addEventListener('click',function(){
+    win.classList.add('minimizing');
+    setTimeout(function(){ win.classList.remove('open','minimizing'); isMin=true; },380);
+  });
+  btnMax.addEventListener('click',toggleMax);
+  winTb.addEventListener('dblclick',toggleMax);
+  function toggleMax(){
+    if(isMax){ win.classList.remove('maximized'); isMax=false; }
+    else { win.classList.add('maximized'); isMax=true; }
+  }
+
+  btnBack.addEventListener('click',function(){
+    if(hidx>0){ hidx--; var h=hist[hidx]; winTtl.textContent=h.title; winFav.textContent=h.icon; winLoader.classList.add('show'); winIframe.src=h.url; syncHist(); }
+  });
+  btnFwd.addEventListener('click',function(){
+    if(hidx<hist.length-1){ hidx++; var h=hist[hidx]; winTtl.textContent=h.title; winFav.textContent=h.icon; winLoader.classList.add('show'); winIframe.src=h.url; syncHist(); }
+  });
+
+  /* Drag */
+  var drag=false, dx=0, dy=0, sl=0, st=0;
+  winTb.addEventListener('mousedown',function(e){
+    if(e.target.classList.contains('tl')||e.target.classList.contains('win-nav-btn')) return;
+    if(isMax) return;
+    drag=true; dx=e.clientX; dy=e.clientY;
+    var r=win.getBoundingClientRect(); sl=r.left; st=r.top;
+    win.style.transition='none'; win.style.left=sl+'px'; win.style.top=st+'px'; win.style.transform='none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){ if(!drag) return; win.style.left=(sl+e.clientX-dx)+'px'; win.style.top=Math.max(28,st+e.clientY-dy)+'px'; });
+  document.addEventListener('mouseup',function(){ if(drag){ drag=false; win.style.transition=''; } });
+
+  // Escape
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&win.classList.contains('open')) btnClose.click(); });
+
+  /* ── Desktop icon + Dock clicks ──────────── */
+  document.querySelectorAll('.dsk-icon, .dk-btn[data-url]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var url=this.dataset.url, title=this.dataset.title, icon=this.dataset.icon;
+      if(!url) return;
+      var ic=this.querySelector('.dsk-icon-img,.dk-icon');
+      if(ic){ ic.style.transform='scale(.82)'; setTimeout(function(){ ic.style.transform=''; },110); }
+      if(isMin||!win.classList.contains('open')){ win.style.left=''; win.style.top=''; win.style.transform=''; hist=[]; hidx=-1; openWindow(url,title,icon); }
+      else { navTo(url,title,icon); }
+    });
+  });
+
+  // Finder button — close window / go home
+  document.getElementById('dk-finder').addEventListener('click',function(){
+    if(win.classList.contains('open')) btnClose.click();
+  });
+
+  /* ── Dock magnification ──────────────────── */
+  var dkBtns=Array.from(document.querySelectorAll('.dk-btn'));
+  dkBtns.forEach(function(item,i){
+    item.addEventListener('mouseenter',function(){
+      dkBtns.forEach(function(it,j){
+        var d=Math.abs(j-i), ic=it.querySelector('.dk-icon'); if(!ic) return;
+        if(d===0) ic.style.transform='translateY(-14px) scale(1.22)';
+        else if(d===1) ic.style.transform='translateY(-5px) scale(1.1)';
+        else ic.style.transform='';
+      });
+    });
+    item.addEventListener('mouseleave',function(){
+      dkBtns.forEach(function(it){ var ic=it.querySelector('.dk-icon'); if(ic) ic.style.transform=''; });
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

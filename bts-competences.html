@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-accent="indigo" data-size="md" data-font="sf">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Épreuve E4 BTS SIO SISR — Support et mise à disposition de services informatiques. Situations professionnelles B1.1 à B1.6.">
+  <title>E4 BTS SIO | Reda Bouali — Compétences professionnelles</title>
+  <script>
+    (function(){var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);r.setAttribute('data-size',s);r.setAttribute('data-font',f);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-mark">RB</span>
+      <span class="brand-name">Reda Bouali</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html"           class="nav-link">Accueil</a></li>
+      <li><a href="about.html"           class="nav-link">À propos</a></li>
+      <li><a href="experiences.html"     class="nav-link">Expériences</a></li>
+      <li><a href="skills.html"          class="nav-link">Compétences</a></li>
+      <li><a href="projects.html"        class="nav-link">Projets</a></li>
+      <li><a href="bts-competences.html" class="nav-link">E4 BTS SIO</a></li>
+      <li><a href="e5.html"              class="nav-link">E5 SISR</a></li>
+      <li><a href="cv.html"              class="nav-link">CV</a></li>
+      <li><a href="pix.html"             class="nav-link">Pix</a></li>
+      <li><a href="contact.html"         class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Basculer le thème"><span id="theme-icon">🌙</span></button>
+      <button id="settings-btn" class="nav-icon-btn" aria-label="Paramètres">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button id="nav-burger" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<aside id="settings-panel" class="settings-panel" aria-hidden="true">
+  <div class="settings-header">
+    <span class="settings-title">Apparence</span>
+    <button id="settings-close" class="settings-close">✕</button>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Couleur d'accent</p>
+    <div class="settings-row">
+      <button class="accent-dot indigo" data-set-accent="indigo" aria-label="Indigo"></button>
+      <button class="accent-dot cyan"   data-set-accent="cyan"   aria-label="Cyan"></button>
+      <button class="accent-dot amber"  data-set-accent="amber"  aria-label="Ambre"></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="settings-row">
+      <button class="size-btn" data-set-size="sm">A<small>A</small></button>
+      <button class="size-btn active" data-set-size="md">A</button>
+      <button class="size-btn" data-set-size="lg"><big>A</big></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Police</p>
+    <div class="settings-row">
+      <button class="font-btn active" data-set-font="sf">SF / Inter</button>
+      <button class="font-btn" data-set-font="manrope">Manrope</button>
+      <button class="font-btn" data-set-font="mono">Mono</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ PAGE HERO ════════════════════════════════════════════ -->
+<section class="page-hero page-hero-e4">
+  <div class="container">
+    <div class="page-hero-inner reveal">
+      <p class="section-eyebrow">BTS SIO — Épreuve professionnelle</p>
+      <div class="bts-badge-lg bts-e4">E4</div>
+      <h1 class="page-title">Support et mise à disposition<br>de services informatiques</h1>
+      <p class="page-subtitle">Épreuve E4 du BTS SIO — 6 situations professionnelles couvrant les compétences B1.1 à B1.6 du référentiel national.</p>
+      <div class="hero-tags" style="margin-top:1.5rem">
+        <span class="tag">B1.1 Patrimoine informatique</span>
+        <span class="tag">B1.2 Incidents</span>
+        <span class="tag">B1.3 Présence web</span>
+        <span class="tag">B1.4 Mode projet</span>
+        <span class="tag">B1.5 Mise à disposition</span>
+        <span class="tag">B1.6 Organisation SI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPETENCES OVERVIEW ══════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Référentiel</p>
+      <h2 class="section-title">Les 6 blocs de compétences E4</h2>
+      <p class="section-desc">Chaque bloc de compétences est illustré par une ou plusieurs situations professionnelles réalisées en stage.</p>
+    </div>
+
+    <!-- iOS Settings-style table groups -->
+    <div class="ios-table-groups reveal">
+
+      <!-- B1.1 -->
+      <div class="ios-table-group">
+        <div class="ios-table-header">
+          <span class="ios-table-badge" style="background:#007AFF">B1.1</span>
+          <span>Gérer le patrimoine informatique</span>
+        </div>
+        <div class="ios-table-body">
+          <div class="ios-table-row">
+            <span class="ios-table-icon">🗂️</span>
+            <div class="ios-table-content">
+              <strong>Recenser et identifier les ressources numériques</strong>
+              <span>Inventaire du parc informatique : postes, serveurs, équipements réseau</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">📋</span>
+            <div class="ios-table-content">
+              <strong>Exploiter des référentiels, normes et standards adoptés</strong>
+              <span>Application des bonnes pratiques ITIL et documentation normalisée</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">🔄</span>
+            <div class="ios-table-content">
+              <strong>Mettre en place et vérifier les niveaux d'habilitation</strong>
+              <span>Gestion des droits d'accès utilisateurs et groupes Active Directory</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- B1.2 -->
+      <div class="ios-table-group">
+        <div class="ios-table-header">
+          <span class="ios-table-badge" style="background:#FF2D55">B1.2</span>
+          <span>Répondre aux incidents et aux demandes d'assistance</span>
+        </div>
+        <div class="ios-table-body">
+          <div class="ios-table-row">
+            <span class="ios-table-icon">🚨</span>
+            <div class="ios-table-content">
+              <strong>Collecter, suivre et orienter des demandes</strong>
+              <span>Gestion des tickets d'incidents via outil ITSM, priorisation et escalade</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">🔧</span>
+            <div class="ios-table-content">
+              <strong>Traiter des demandes concernant les services réseau</strong>
+              <span>Résolution d'incidents réseau : connectivité, DNS, DHCP, accès VPN</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">💻</span>
+            <div class="ios-table-content">
+              <strong>Traiter des demandes concernant les services aux utilisateurs</strong>
+              <span>Support helpdesk de niveau 1 et 2, assistance technique utilisateurs</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- B1.3 -->
+      <div class="ios-table-group">
+        <div class="ios-table-header">
+          <span class="ios-table-badge" style="background:#AF52DE">B1.3</span>
+          <span>Développer la présence en ligne de l'organisation</span>
+        </div>
+        <div class="ios-table-body">
+          <div class="ios-table-row">
+            <span class="ios-table-icon">🌐</span>
+            <div class="ios-table-content">
+              <strong>Participer à la valorisation de l'image de l'organisation</strong>
+              <span>Contribution à la communication numérique et présence web de l'entreprise</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">🔒</span>
+            <div class="ios-table-content">
+              <strong>Référencer les services en ligne de l'organisation</strong>
+              <span>Documentation des services exposés et sécurisation des accès</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- B1.4 -->
+      <div class="ios-table-group">
+        <div class="ios-table-header">
+          <span class="ios-table-badge" style="background:#FF9500">B1.4</span>
+          <span>Travailler en mode projet</span>
+        </div>
+        <div class="ios-table-body">
+          <div class="ios-table-row">
+            <span class="ios-table-icon">📊</span>
+            <div class="ios-table-content">
+              <strong>Analyser les objectifs et les modalités d'organisation d'un projet</strong>
+              <span>Participation à la phase de cadrage et planification des projets SI</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">📅</span>
+            <div class="ios-table-content">
+              <strong>Planifier les activités</strong>
+              <span>Utilisation d'outils de gestion de projet (diagramme de Gantt, suivi Kanban)</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">📝</span>
+            <div class="ios-table-content">
+              <strong>Évaluer les indicateurs de suivi d'un projet</strong>
+              <span>Reporting d'avancement et ajustement du planning en fonction des aléas</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- B1.5 -->
+      <div class="ios-table-group">
+        <div class="ios-table-header">
+          <span class="ios-table-badge" style="background:#34C759">B1.5</span>
+          <span>Mettre à disposition des utilisateurs un service informatique</span>
+        </div>
+        <div class="ios-table-body">
+          <div class="ios-table-row">
+            <span class="ios-table-icon">⚙️</span>
+            <div class="ios-table-content">
+              <strong>Réaliser les tests d'intégration et d'acceptation</strong>
+              <span>Tests de validation après déploiement de services (accès réseau, VPN, messagerie)</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">📦</span>
+            <div class="ios-table-content">
+              <strong>Déployer un service</strong>
+              <span>Installation et mise en production de services informatiques dans l'environnement professionnel</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">👥</span>
+            <div class="ios-table-content">
+              <strong>Accompagner les utilisateurs dans la mise en place d'un service</strong>
+              <span>Formation des utilisateurs et rédaction de guides pratiques</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- B1.6 -->
+      <div class="ios-table-group">
+        <div class="ios-table-header">
+          <span class="ios-table-badge" style="background:#5AC8FA">B1.6</span>
+          <span>Organiser son développement professionnel</span>
+        </div>
+        <div class="ios-table-body">
+          <div class="ios-table-row">
+            <span class="ios-table-icon">📚</span>
+            <div class="ios-table-content">
+              <strong>Mettre en place son environnement d'apprentissage personnel</strong>
+              <span>Veille technologique active, autoformation sur les nouvelles technologies SISR</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">🏅</span>
+            <div class="ios-table-content">
+              <strong>Mettre en valeur les apprentissages réalisés</strong>
+              <span>Portfolio numérique, certification Pix, documentation des réalisations</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+          <div class="ios-table-row">
+            <span class="ios-table-icon">🔍</span>
+            <div class="ios-table-content">
+              <strong>Préparer son projet professionnel</strong>
+              <span>Orientation vers les métiers des réseaux et de la cybersécurité</span>
+            </div>
+            <span class="ios-table-check">✓</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SITUATIONS PROFESSIONNELLES ══════════════════════════ -->
+<section class="section section-tinted">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Preuves</p>
+      <h2 class="section-title">Situations professionnelles</h2>
+      <p class="section-desc">6 situations professionnelles réalisées en stage illustrant les compétences du référentiel E4.</p>
+    </div>
+
+    <div class="situations-grid reveal">
+
+      <div class="situation-card ios-card">
+        <div class="situation-header">
+          <div class="situation-num">01</div>
+          <div class="situation-chips">
+            <span class="chip chip-accent">B1.1</span>
+            <span class="chip chip-accent">B1.2</span>
+          </div>
+        </div>
+        <h3 class="situation-title">Inventaire et gestion du parc informatique</h3>
+        <p class="situation-context"><strong>Contexte :</strong> L'entreprise manquait d'un inventaire à jour de son parc matériel et logiciel, rendant difficile la gestion des licences et la maintenance.</p>
+        <div class="situation-section">
+          <h4>Travaux réalisés</h4>
+          <ul>
+            <li>Réalisation de l'inventaire complet du parc (postes, serveurs, switches, imprimantes)</li>
+            <li>Mise à jour de la documentation dans un outil de gestion de parc (OCS / GLPI)</li>
+            <li>Création d'un tableau de suivi des licences logicielles</li>
+            <li>Mise en place d'une procédure d'entrée/sortie de matériel</li>
+          </ul>
+        </div>
+        <div class="situation-section">
+          <h4>Compétences mobilisées</h4>
+          <div class="situation-competences">
+            <span class="chip">Recenser les ressources</span>
+            <span class="chip">Exploiter des référentiels</span>
+            <span class="chip">GLPI / OCS</span>
+            <span class="chip">Documentation</span>
+          </div>
+        </div>
+        <div class="situation-result">
+          <span class="result-label">Résultat</span>
+          <span>Parc entièrement documenté, réduction du temps de résolution des incidents matériels de 30%</span>
+        </div>
+      </div>
+
+      <div class="situation-card ios-card">
+        <div class="situation-header">
+          <div class="situation-num">02</div>
+          <div class="situation-chips">
+            <span class="chip chip-accent">B1.2</span>
+          </div>
+        </div>
+        <h3 class="situation-title">Support et résolution d'incidents réseau</h3>
+        <p class="situation-context"><strong>Contexte :</strong> Prise en charge des demandes de support de niveau 1 et 2 pour les problématiques réseau des utilisateurs de l'entreprise.</p>
+        <div class="situation-section">
+          <h4>Travaux réalisés</h4>
+          <ul>
+            <li>Réception et qualification des incidents via le système de tickets</li>
+            <li>Diagnostic des problèmes de connectivité (IP, DNS, DHCP, passerelle)</li>
+            <li>Résolution des problèmes d'accès VPN pour les utilisateurs distants</li>
+            <li>Documentation des solutions dans la base de connaissance</li>
+          </ul>
+        </div>
+        <div class="situation-section">
+          <h4>Compétences mobilisées</h4>
+          <div class="situation-competences">
+            <span class="chip">Gestion de tickets</span>
+            <span class="chip">Diagnostic réseau</span>
+            <span class="chip">VPN</span>
+            <span class="chip">ITSM</span>
+          </div>
+        </div>
+        <div class="situation-result">
+          <span class="result-label">Résultat</span>
+          <span>Taux de résolution au 1er niveau amélioré, satisfaction utilisateurs augmentée</span>
+        </div>
+      </div>
+
+      <div class="situation-card ios-card">
+        <div class="situation-header">
+          <div class="situation-num">03</div>
+          <div class="situation-chips">
+            <span class="chip chip-accent">B1.1</span>
+            <span class="chip chip-accent">B1.5</span>
+          </div>
+        </div>
+        <h3 class="situation-title">Gestion des comptes et habilitations</h3>
+        <p class="situation-context"><strong>Contexte :</strong> Mise en place d'une procédure structurée pour la création, modification et suppression des comptes utilisateurs dans l'annuaire Active Directory.</p>
+        <div class="situation-section">
+          <h4>Travaux réalisés</h4>
+          <ul>
+            <li>Création et gestion des comptes utilisateurs dans Active Directory</li>
+            <li>Organisation des unités d'organisation (OU) par département</li>
+            <li>Application des GPO pour la restriction des droits d'accès</li>
+            <li>Rédaction d'une procédure d'onboarding/offboarding</li>
+          </ul>
+        </div>
+        <div class="situation-section">
+          <h4>Compétences mobilisées</h4>
+          <div class="situation-competences">
+            <span class="chip">Active Directory</span>
+            <span class="chip">GPO</span>
+            <span class="chip">Habilitations</span>
+            <span class="chip">Windows Server</span>
+          </div>
+        </div>
+        <div class="situation-result">
+          <span class="result-label">Résultat</span>
+          <span>Procédure documentée et validée, délai d'activation des comptes réduit à 30 minutes</span>
+        </div>
+      </div>
+
+      <div class="situation-card ios-card">
+        <div class="situation-header">
+          <div class="situation-num">04</div>
+          <div class="situation-chips">
+            <span class="chip chip-accent">B1.4</span>
+            <span class="chip chip-accent">B1.5</span>
+          </div>
+        </div>
+        <h3 class="situation-title">Déploiement d'un service de messagerie</h3>
+        <p class="situation-context"><strong>Contexte :</strong> Participation au projet de migration ou déploiement d'un service de messagerie pour l'organisation, dans le cadre d'un travail en mode projet.</p>
+        <div class="situation-section">
+          <h4>Travaux réalisés</h4>
+          <ul>
+            <li>Analyse des besoins et rédaction du cahier des charges</li>
+            <li>Planification des phases du projet avec diagramme de Gantt</li>
+            <li>Installation et configuration du service de messagerie</li>
+            <li>Tests d'intégration et de recette avec les utilisateurs pilotes</li>
+            <li>Formation des utilisateurs et rédaction du guide d'utilisation</li>
+          </ul>
+        </div>
+        <div class="situation-section">
+          <h4>Compétences mobilisées</h4>
+          <div class="situation-competences">
+            <span class="chip">Gestion de projet</span>
+            <span class="chip">Tests de recette</span>
+            <span class="chip">Formation</span>
+            <span class="chip">Documentation</span>
+          </div>
+        </div>
+        <div class="situation-result">
+          <span class="result-label">Résultat</span>
+          <span>Service déployé dans les délais, utilisateurs formés et accompagnés</span>
+        </div>
+      </div>
+
+      <div class="situation-card ios-card">
+        <div class="situation-header">
+          <div class="situation-num">05</div>
+          <div class="situation-chips">
+            <span class="chip chip-accent">B1.3</span>
+            <span class="chip chip-accent">B1.6</span>
+          </div>
+        </div>
+        <h3 class="situation-title">Développement du portfolio numérique</h3>
+        <p class="situation-context"><strong>Contexte :</strong> Création d'un portfolio numérique personnel valorisant les compétences et réalisations acquises en formation BTS SIO SISR.</p>
+        <div class="situation-section">
+          <h4>Travaux réalisés</h4>
+          <ul>
+            <li>Conception de la structure et de la charte graphique du portfolio</li>
+            <li>Développement en HTML/CSS/JavaScript pur (GitHub Pages)</li>
+            <li>Mise en valeur des situations professionnelles E4 et E5</li>
+            <li>Optimisation pour le référencement et l'accessibilité (WCAG)</li>
+          </ul>
+        </div>
+        <div class="situation-section">
+          <h4>Compétences mobilisées</h4>
+          <div class="situation-competences">
+            <span class="chip">HTML/CSS/JS</span>
+            <span class="chip">GitHub Pages</span>
+            <span class="chip">Accessibilité</span>
+            <span class="chip">Communication</span>
+          </div>
+        </div>
+        <div class="situation-result">
+          <span class="result-label">Résultat</span>
+          <span>Portfolio fonctionnel hébergé sur GitHub Pages, visuellement soigné</span>
+        </div>
+      </div>
+
+      <div class="situation-card ios-card">
+        <div class="situation-header">
+          <div class="situation-num">06</div>
+          <div class="situation-chips">
+            <span class="chip chip-accent">B1.4</span>
+            <span class="chip chip-accent">B1.6</span>
+          </div>
+        </div>
+        <h3 class="situation-title">Veille technologique et développement professionnel</h3>
+        <p class="situation-context"><strong>Contexte :</strong> Mise en place d'une démarche de veille technologique continue dans le domaine des réseaux, de la sécurité et des systèmes d'information.</p>
+        <div class="situation-section">
+          <h4>Travaux réalisés</h4>
+          <ul>
+            <li>Organisation d'une veille technologique (flux RSS, sites spécialisés, CVE)</li>
+            <li>Participation à des formations en ligne (cours ANSSI, certifications)</li>
+            <li>Passage de la certification Pix (numérique et citoyenneté numérique)</li>
+            <li>Documentation des apprentissages dans un journal de bord</li>
+          </ul>
+        </div>
+        <div class="situation-section">
+          <h4>Compétences mobilisées</h4>
+          <div class="situation-competences">
+            <span class="chip">Veille technologique</span>
+            <span class="chip">Auto-formation</span>
+            <span class="chip">Certification Pix</span>
+            <span class="chip">Développement professionnel</span>
+          </div>
+        </div>
+        <div class="situation-result">
+          <span class="result-label">Résultat</span>
+          <span>Certification Pix obtenue, montée en compétences continue documentée</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LINK TO E5 ═════════════════════════════════════════════ -->
+<section class="section closing-panel reveal">
+  <div class="container">
+    <div class="closing-inner">
+      <h2 class="closing-title">Épreuve E5 SISR</h2>
+      <p class="closing-desc">Découvrez également les situations techniques de l'épreuve E5, couvrant l'administration des systèmes et des réseaux : OPNsense, Active Directory, Zabbix et n8n.</p>
+      <div class="closing-actions">
+        <a href="e5.html" class="btn-primary">Voir l'E5 SISR</a>
+        <a href="skills.html" class="btn-secondary">Compétences</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">Reda Bouali</span>
+      <nav class="footer-nav">
+        <a href="about.html">À propos</a>
+        <a href="bts-competences.html">E4</a>
+        <a href="e5.html">E5</a>
+        <a href="cv.html">CV</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2025 — BTS SIO SISR</span>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Retour en haut">↑</button>
+<script src="script.js"></script>
+</body>
+</html>

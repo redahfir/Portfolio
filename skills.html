@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-accent="indigo" data-size="md" data-font="sf">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compétences techniques de Reda Bouali — réseaux, cybersécurité, systèmes, virtualisation.">
+  <title>Compétences | Reda Bouali — BTS SIO SISR</title>
+  <script>
+    (function(){var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);r.setAttribute('data-size',s);r.setAttribute('data-font',f);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-mark">RB</span>
+      <span class="brand-name">Reda Bouali</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html"           class="nav-link">Accueil</a></li>
+      <li><a href="about.html"           class="nav-link">À propos</a></li>
+      <li><a href="experiences.html"     class="nav-link">Expériences</a></li>
+      <li><a href="skills.html"          class="nav-link">Compétences</a></li>
+      <li><a href="projects.html"        class="nav-link">Projets</a></li>
+      <li><a href="bts-competences.html" class="nav-link">E4 BTS SIO</a></li>
+      <li><a href="e5.html"              class="nav-link">E5 SISR</a></li>
+      <li><a href="cv.html"              class="nav-link">CV</a></li>
+      <li><a href="pix.html"             class="nav-link">Pix</a></li>
+      <li><a href="contact.html"         class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Basculer le thème"><span id="theme-icon">🌙</span></button>
+      <button id="settings-btn" class="nav-icon-btn" aria-label="Paramètres">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button id="nav-burger" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<aside id="settings-panel" class="settings-panel" aria-hidden="true">
+  <div class="settings-header">
+    <span class="settings-title">Apparence</span>
+    <button id="settings-close" class="settings-close">✕</button>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Couleur d'accent</p>
+    <div class="settings-row">
+      <button class="accent-dot indigo" data-set-accent="indigo" aria-label="Indigo"></button>
+      <button class="accent-dot cyan"   data-set-accent="cyan"   aria-label="Cyan"></button>
+      <button class="accent-dot amber"  data-set-accent="amber"  aria-label="Ambre"></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="settings-row">
+      <button class="size-btn" data-set-size="sm">A<small>A</small></button>
+      <button class="size-btn active" data-set-size="md">A</button>
+      <button class="size-btn" data-set-size="lg"><big>A</big></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Police</p>
+    <div class="settings-row">
+      <button class="font-btn active" data-set-font="sf">SF / Inter</button>
+      <button class="font-btn" data-set-font="manrope">Manrope</button>
+      <button class="font-btn" data-set-font="mono">Mono</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ PAGE HERO ════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner reveal">
+      <p class="section-eyebrow">Savoir-faire</p>
+      <h1 class="page-title">Compétences</h1>
+      <p class="page-subtitle">Un ensemble de compétences techniques acquises en formation et en stage, organisées par domaine.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ APP ICON GRID ═════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Outils &amp; technologies</p>
+      <h2 class="section-title">L'écosystème technique</h2>
+    </div>
+
+    <div class="app-icon-grid stagger-grid">
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#FF6B35,#F7931E)">🔥</div>
+        <span class="app-label">OPNsense</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#E95A2D,#C94000)">🪟</div>
+        <span class="app-label">Windows Server</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#0080C6,#004B7A)">🐧</div>
+        <span class="app-label">Debian/Ubuntu</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#C41E3A,#8B0000)">📁</div>
+        <span class="app-label">Active Directory</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#D40000,#880000)">📊</div>
+        <span class="app-label">Zabbix</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#EA4B71,#C4335A)">⚡</div>
+        <span class="app-label">n8n</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#2496ED,#1565C0)">🐳</div>
+        <span class="app-label">Docker</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#FF6C37,#D94F00)">🔬</div>
+        <span class="app-label">Postman</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#4D9BF5,#1A78E5)">🌐</div>
+        <span class="app-label">OpenLDAP</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#6C5CE7,#4834D4)">☁️</div>
+        <span class="app-label">VMware</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#5BA317,#3D7210)">🟢</div>
+        <span class="app-label">Proxmox</span>
+      </div>
+      <div class="app-icon-wrap">
+        <div class="app-icon" style="background:linear-gradient(145deg,#F05033,#D0320F)">📝</div>
+        <span class="app-label">Git</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SKILL DOMAINS ═════════════════════════════════════════ -->
+<section class="section section-tinted">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Maîtrise</p>
+      <h2 class="section-title">Par domaine</h2>
+    </div>
+
+    <div class="skills-domains-grid">
+
+      <div class="ios-card skill-domain-card reveal">
+        <div class="skill-domain-header">
+          <span class="skill-domain-icon" style="background:linear-gradient(135deg,#007AFF,#5AC8FA)">🌐</span>
+          <h3>Réseaux &amp; Infrastructure</h3>
+        </div>
+        <div class="skill-list">
+          <div class="skill-row">
+            <span class="skill-name">TCP/IP, OSI, routage</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="85"></div></div>
+            <span class="level-pct">85%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">VLAN, switching</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="80"></div></div>
+            <span class="level-pct">80%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">OPNsense / pfSense</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="78"></div></div>
+            <span class="level-pct">78%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">VPN (IPSec, OpenVPN)</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="72"></div></div>
+            <span class="level-pct">72%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">DNS, DHCP, NTP</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="82"></div></div>
+            <span class="level-pct">82%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ios-card skill-domain-card reveal">
+        <div class="skill-domain-header">
+          <span class="skill-domain-icon" style="background:linear-gradient(135deg,#FF2D55,#FF375F)">🔐</span>
+          <h3>Cybersécurité</h3>
+        </div>
+        <div class="skill-list">
+          <div class="skill-row">
+            <span class="skill-name">Analyse de vulnérabilités</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="70"></div></div>
+            <span class="level-pct">70%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Durcissement systèmes</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="75"></div></div>
+            <span class="level-pct">75%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Politiques de sécurité</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="68"></div></div>
+            <span class="level-pct">68%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Règles pare-feu</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="80"></div></div>
+            <span class="level-pct">80%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ios-card skill-domain-card reveal">
+        <div class="skill-domain-header">
+          <span class="skill-domain-icon" style="background:linear-gradient(135deg,#AF52DE,#8944AB)">🖥️</span>
+          <h3>Systèmes</h3>
+        </div>
+        <div class="skill-list">
+          <div class="skill-row">
+            <span class="skill-name">Windows Server (AD, GPO)</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="82"></div></div>
+            <span class="level-pct">82%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Linux Debian / Ubuntu</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="78"></div></div>
+            <span class="level-pct">78%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">OpenLDAP</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="70"></div></div>
+            <span class="level-pct">70%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Scripts Bash / PowerShell</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="72"></div></div>
+            <span class="level-pct">72%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ios-card skill-domain-card reveal">
+        <div class="skill-domain-header">
+          <span class="skill-domain-icon" style="background:linear-gradient(135deg,#34C759,#30D158)">☁️</span>
+          <h3>Virtualisation &amp; Automatisation</h3>
+        </div>
+        <div class="skill-list">
+          <div class="skill-row">
+            <span class="skill-name">VMware / VirtualBox</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="80"></div></div>
+            <span class="level-pct">80%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Proxmox</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="65"></div></div>
+            <span class="level-pct">65%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Docker</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="60"></div></div>
+            <span class="level-pct">60%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">n8n (automation)</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="68"></div></div>
+            <span class="level-pct">68%</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Zabbix (supervision)</span>
+            <div class="level-bar-wrap"><div class="level-bar" data-level="73"></div></div>
+            <span class="level-pct">73%</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOFT SKILLS ═══════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Savoir-être</p>
+      <h2 class="section-title">Compétences transversales</h2>
+    </div>
+    <div class="soft-skills-grid stagger-grid">
+      <div class="ios-card soft-skill-card">
+        <span class="soft-icon">🎯</span>
+        <h4>Rigueur</h4>
+        <p>Attention au détail dans la documentation et les procédures techniques.</p>
+      </div>
+      <div class="ios-card soft-skill-card">
+        <span class="soft-icon">🤝</span>
+        <h4>Travail en équipe</h4>
+        <p>Capacité à collaborer et à communiquer efficacement en contexte professionnel.</p>
+      </div>
+      <div class="ios-card soft-skill-card">
+        <span class="soft-icon">🔍</span>
+        <h4>Curiosité technique</h4>
+        <p>Veille technologique permanente et envie d'apprendre de nouvelles technologies.</p>
+      </div>
+      <div class="ios-card soft-skill-card">
+        <span class="soft-icon">💡</span>
+        <h4>Résolution de problèmes</h4>
+        <p>Approche méthodique pour diagnostiquer et résoudre les incidents techniques.</p>
+      </div>
+      <div class="ios-card soft-skill-card">
+        <span class="soft-icon">📋</span>
+        <h4>Documentation</h4>
+        <p>Rédaction de documentation technique claire et structurée.</p>
+      </div>
+      <div class="ios-card soft-skill-card">
+        <span class="soft-icon">⏱️</span>
+        <h4>Autonomie</h4>
+        <p>Capacité à travailler de façon autonome et à gérer les priorités.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">Reda Bouali</span>
+      <nav class="footer-nav">
+        <a href="about.html">À propos</a>
+        <a href="bts-competences.html">E4</a>
+        <a href="e5.html">E5</a>
+        <a href="cv.html">CV</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2025 — BTS SIO SISR</span>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Retour en haut">↑</button>
+<script src="script.js"></script>
+</body>
+</html>

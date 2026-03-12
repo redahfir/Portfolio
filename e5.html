@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-accent="indigo" data-size="md" data-font="sf">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Épreuve E5 BTS SIO SISR — Administration des systèmes et des réseaux. Situations : OPNsense, Active Directory, Zabbix, n8n.">
+  <title>E5 SISR | Reda Bouali — Administration systèmes &amp; réseaux</title>
+  <script>
+    (function(){var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);r.setAttribute('data-size',s);r.setAttribute('data-font',f);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-mark">RB</span>
+      <span class="brand-name">Reda Bouali</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html"           class="nav-link">Accueil</a></li>
+      <li><a href="about.html"           class="nav-link">À propos</a></li>
+      <li><a href="experiences.html"     class="nav-link">Expériences</a></li>
+      <li><a href="skills.html"          class="nav-link">Compétences</a></li>
+      <li><a href="projects.html"        class="nav-link">Projets</a></li>
+      <li><a href="bts-competences.html" class="nav-link">E4 BTS SIO</a></li>
+      <li><a href="e5.html"              class="nav-link">E5 SISR</a></li>
+      <li><a href="cv.html"              class="nav-link">CV</a></li>
+      <li><a href="pix.html"             class="nav-link">Pix</a></li>
+      <li><a href="contact.html"         class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Basculer le thème"><span id="theme-icon">🌙</span></button>
+      <button id="settings-btn" class="nav-icon-btn" aria-label="Paramètres">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button id="nav-burger" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<aside id="settings-panel" class="settings-panel" aria-hidden="true">
+  <div class="settings-header">
+    <span class="settings-title">Apparence</span>
+    <button id="settings-close" class="settings-close">✕</button>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Couleur d'accent</p>
+    <div class="settings-row">
+      <button class="accent-dot indigo" data-set-accent="indigo" aria-label="Indigo"></button>
+      <button class="accent-dot cyan"   data-set-accent="cyan"   aria-label="Cyan"></button>
+      <button class="accent-dot amber"  data-set-accent="amber"  aria-label="Ambre"></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="settings-row">
+      <button class="size-btn" data-set-size="sm">A<small>A</small></button>
+      <button class="size-btn active" data-set-size="md">A</button>
+      <button class="size-btn" data-set-size="lg"><big>A</big></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Police</p>
+    <div class="settings-row">
+      <button class="font-btn active" data-set-font="sf">SF / Inter</button>
+      <button class="font-btn" data-set-font="manrope">Manrope</button>
+      <button class="font-btn" data-set-font="mono">Mono</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ PAGE HERO ════════════════════════════════════════════ -->
+<section class="page-hero page-hero-e5">
+  <div class="container">
+    <div class="page-hero-inner reveal">
+      <p class="section-eyebrow">BTS SIO SISR — Épreuve technique</p>
+      <div class="bts-badge-lg bts-e5">E5</div>
+      <h1 class="page-title">Administration des systèmes<br>et des réseaux</h1>
+      <p class="page-subtitle">Épreuve E5 SISR — 4 situations techniques couvrant les compétences B2.1 à B2.5 : supervision, identités, réseau, sécurisation, virtualisation.</p>
+      <div class="hero-tags" style="margin-top:1.5rem">
+        <span class="tag">B2.1 Supervision</span>
+        <span class="tag">B2.2 Identités</span>
+        <span class="tag">B2.3 Réseau</span>
+        <span class="tag">B2.4 Sécurisation</span>
+        <span class="tag">B2.5 Virtualisation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPETENCES MAP ═══════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Référentiel SISR</p>
+      <h2 class="section-title">Blocs de compétences B2</h2>
+      <p class="section-desc">L'option SISR se concentre sur l'infrastructure, les réseaux et la sécurité des systèmes d'information.</p>
+    </div>
+
+    <div class="competence-map stagger-grid">
+      <div class="competence-bloc ios-card">
+        <div class="competence-bloc-header">
+          <span class="competence-badge" style="background:#34C759">B2.1</span>
+          <h3>Superviser et gérer les réseaux et systèmes</h3>
+        </div>
+        <p>Surveillance continue des équipements réseau et serveurs, gestion des alertes, tableaux de bord et réponse aux incidents de performance.</p>
+        <div class="competence-tools">
+          <span class="chip">Zabbix</span>
+          <span class="chip">SNMP</span>
+          <span class="chip">n8n</span>
+        </div>
+      </div>
+
+      <div class="competence-bloc ios-card">
+        <div class="competence-bloc-header">
+          <span class="competence-badge" style="background:#AF52DE">B2.2</span>
+          <h3>Gérer les identités et les habilitations</h3>
+        </div>
+        <p>Gestion centralisée des annuaires d'entreprise, création de comptes, gestion des groupes et application des politiques de sécurité.</p>
+        <div class="competence-tools">
+          <span class="chip">Active Directory</span>
+          <span class="chip">OpenLDAP</span>
+          <span class="chip">GPO</span>
+        </div>
+      </div>
+
+      <div class="competence-bloc ios-card">
+        <div class="competence-bloc-header">
+          <span class="competence-badge" style="background:#007AFF">B2.3</span>
+          <h3>Gérer le réseau et les équipements de télécommunications</h3>
+        </div>
+        <p>Configuration et administration des équipements réseau, mise en place de solutions de connectivité et optimisation des flux.</p>
+        <div class="competence-tools">
+          <span class="chip">OPNsense</span>
+          <span class="chip">VLAN</span>
+          <span class="chip">Routage</span>
+        </div>
+      </div>
+
+      <div class="competence-bloc ios-card">
+        <div class="competence-bloc-header">
+          <span class="competence-badge" style="background:#FF2D55">B2.4</span>
+          <h3>Sécuriser les équipements et les usages</h3>
+        </div>
+        <p>Sécurisation de l'accès aux ressources, mise en place de politiques de sécurité, VPN et règles de filtrage applicatif.</p>
+        <div class="competence-tools">
+          <span class="chip">VPN IPSec</span>
+          <span class="chip">Pare-feu</span>
+          <span class="chip">Durcissement</span>
+        </div>
+      </div>
+
+      <div class="competence-bloc ios-card">
+        <div class="competence-bloc-header">
+          <span class="competence-badge" style="background:#FF9500">B2.5</span>
+          <h3>Gérer la virtualisation</h3>
+        </div>
+        <p>Mise en œuvre de solutions de virtualisation pour optimiser les ressources matérielles et faciliter le déploiement de services.</p>
+        <div class="competence-tools">
+          <span class="chip">VMware</span>
+          <span class="chip">Proxmox</span>
+          <span class="chip">VirtualBox</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SITUATIONS TECHNIQUES ════════════════════════════════ -->
+<section class="section section-tinted">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Réalisations techniques</p>
+      <h2 class="section-title">4 situations E5 SISR</h2>
+      <p class="section-desc">Chaque situation illustre une mise en œuvre technique réelle réalisée en stage, avec les outils, les étapes et les compétences mobilisées.</p>
+    </div>
+
+    <!-- Situation E5-1 : OPNsense -->
+    <div class="e5-card ios-card reveal">
+      <div class="e5-card-header">
+        <div class="e5-icon" style="background:linear-gradient(135deg,#FF6B35,#F7931E)">🔥</div>
+        <div class="e5-card-meta">
+          <div class="e5-situation-num">Situation 1 / 4</div>
+          <h2 class="e5-title">Déploiement et sécurisation OPNsense</h2>
+          <p class="e5-subtitle">Pare-feu, segmentation réseau et VPN inter-sites</p>
+        </div>
+        <div class="e5-badges">
+          <span class="chip chip-accent">B2.3</span>
+          <span class="chip chip-accent">B2.4</span>
+          <span class="chip chip-accent">B2.5</span>
+        </div>
+      </div>
+
+      <div class="e5-body">
+        <div class="e5-context ios-card e5-inner-card">
+          <h3>🎯 Contexte</h3>
+          <p>L'entreprise souhaitait moderniser son infrastructure réseau en remplaçant son ancien équipement de filtrage par une solution open source flexible, permettant une segmentation des réseaux par VLAN et l'établissement d'un tunnel VPN sécurisé vers un site distant.</p>
+        </div>
+
+        <div class="e5-missions">
+          <h3>🔧 Missions réalisées</h3>
+          <div class="e5-steps">
+            <div class="e5-step">
+              <span class="step-num">1</span>
+              <div>
+                <strong>Installation OPNsense</strong>
+                <p>Installation sur machine dédiée (ou VM), configuration des interfaces WAN/LAN, accès à l'interface web d'administration.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">2</span>
+              <div>
+                <strong>Segmentation VLAN</strong>
+                <p>Création de 4 VLANs (Administration, Utilisateurs, DMZ, IoT) avec sous-interfaces dédiées et règles de filtrage inter-VLAN.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">3</span>
+              <div>
+                <strong>Règles de pare-feu</strong>
+                <p>Définition des politiques de filtrage : accès Internet par VLAN, isolation de la DMZ, blocage des flux non autorisés.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">4</span>
+              <div>
+                <strong>Tunnel VPN IPSec</strong>
+                <p>Configuration d'un tunnel IPSec site-à-site avec le site distant : paramètres IKE/ESP, Phase 1 &amp; Phase 2, routes statiques.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">5</span>
+              <div>
+                <strong>Portail captif</strong>
+                <p>Mise en place d'un portail captif sur le VLAN invité avec authentification par voucher et limitation de bande passante.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="e5-tech-stack">
+          <h3>🛠️ Stack technique</h3>
+          <div class="e5-tools-grid">
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🔥</span>
+              <span class="tool-name">OPNsense 23.x</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🌐</span>
+              <span class="tool-name">VLAN 802.1Q</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🔒</span>
+              <span class="tool-name">VPN IPSec</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">📡</span>
+              <span class="tool-name">Portail captif</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">⚙️</span>
+              <span class="tool-name">DNS / DHCP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="e5-result">
+          <span class="result-icon">✅</span>
+          <div>
+            <strong>Résultat obtenu</strong>
+            <p>Infrastructure réseau segmentée et sécurisée opérationnelle. Tunnel VPN fonctionnel entre les deux sites. Documentation technique complète rédigée.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Situation E5-2 : Active Directory / OpenLDAP -->
+    <div class="e5-card ios-card reveal">
+      <div class="e5-card-header">
+        <div class="e5-icon" style="background:linear-gradient(135deg,#C41E3A,#6A0020)">📁</div>
+        <div class="e5-card-meta">
+          <div class="e5-situation-num">Situation 2 / 4</div>
+          <h2 class="e5-title">Administration des annuaires — Active Directory &amp; OpenLDAP</h2>
+          <p class="e5-subtitle">Gestion centralisée des identités et des habilitations</p>
+        </div>
+        <div class="e5-badges">
+          <span class="chip chip-accent">B2.2</span>
+          <span class="chip chip-accent">B2.4</span>
+        </div>
+      </div>
+
+      <div class="e5-body">
+        <div class="e5-context ios-card e5-inner-card">
+          <h3>🎯 Contexte</h3>
+          <p>L'organisation utilisait des comptes locaux sur chaque poste de travail, rendant la gestion des droits complexe et peu sécurisée. La mission consistait à centraliser l'authentification via Active Directory (Windows) et OpenLDAP (Linux) avec une politique de mots de passe renforcée.</p>
+        </div>
+
+        <div class="e5-missions">
+          <h3>🔧 Missions réalisées</h3>
+          <div class="e5-steps">
+            <div class="e5-step">
+              <span class="step-num">1</span>
+              <div>
+                <strong>Déploiement Active Directory</strong>
+                <p>Installation du rôle AD DS sur Windows Server, promotion en contrôleur de domaine, création de la forêt et du domaine principal.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">2</span>
+              <div>
+                <strong>Structure organisationnelle</strong>
+                <p>Création des unités d'organisation (OU) par département (Direction, RH, IT, Commerce). Organisation des groupes de sécurité.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">3</span>
+              <div>
+                <strong>Politiques de groupe (GPO)</strong>
+                <p>Configuration des GPO : politique de mots de passe (longueur, complexité, expiration), restriction des accès, déploiement logiciels.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">4</span>
+              <div>
+                <strong>Déploiement OpenLDAP (Linux)</strong>
+                <p>Installation d'OpenLDAP sur Debian, configuration du schéma DIT, création des entrées utilisateurs et groupes, configuration de l'authentification PAM.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">5</span>
+              <div>
+                <strong>Intégration des postes Linux</strong>
+                <p>Configuration des postes Debian pour l'authentification centralisée via PAM/NSS et l'annuaire OpenLDAP.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="e5-tech-stack">
+          <h3>🛠️ Stack technique</h3>
+          <div class="e5-tools-grid">
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🪟</span>
+              <span class="tool-name">Windows Server 2022</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">📁</span>
+              <span class="tool-name">Active Directory</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🐧</span>
+              <span class="tool-name">Debian 12</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🔑</span>
+              <span class="tool-name">OpenLDAP</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">📋</span>
+              <span class="tool-name">GPO</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="e5-result">
+          <span class="result-icon">✅</span>
+          <div>
+            <strong>Résultat obtenu</strong>
+            <p>Authentification centralisée opérationnelle pour les environnements Windows et Linux. Gestion des droits simplifiée, politique de sécurité appliquée uniformément.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Situation E5-3 : Zabbix -->
+    <div class="e5-card ios-card reveal">
+      <div class="e5-card-header">
+        <div class="e5-icon" style="background:linear-gradient(135deg,#D40000,#880000)">📊</div>
+        <div class="e5-card-meta">
+          <div class="e5-situation-num">Situation 3 / 4</div>
+          <h2 class="e5-title">Supervision réseau et serveurs avec Zabbix</h2>
+          <p class="e5-subtitle">Monitoring, alertes et tableaux de bord</p>
+        </div>
+        <div class="e5-badges">
+          <span class="chip chip-accent">B2.1</span>
+          <span class="chip chip-accent">B2.3</span>
+        </div>
+      </div>
+
+      <div class="e5-body">
+        <div class="e5-context ios-card e5-inner-card">
+          <h3>🎯 Contexte</h3>
+          <p>L'infrastructure informatique manquait d'une solution de supervision centralisée. Les pannes et dégradations de services n'étaient détectées qu'après signalement par les utilisateurs, générant des temps d'arrêt non maîtrisés.</p>
+        </div>
+
+        <div class="e5-missions">
+          <h3>🔧 Missions réalisées</h3>
+          <div class="e5-steps">
+            <div class="e5-step">
+              <span class="step-num">1</span>
+              <div>
+                <strong>Installation Zabbix Server</strong>
+                <p>Déploiement de Zabbix Server sur Debian avec base de données MariaDB, interface web Nginx, configuration initiale et sécurisation.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">2</span>
+              <div>
+                <strong>Ajout des hôtes supervisés</strong>
+                <p>Intégration des serveurs (Windows/Linux) et équipements réseau (switches, routeurs) via agents Zabbix et SNMP.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">3</span>
+              <div>
+                <strong>Configuration des items et triggers</strong>
+                <p>Définition des métriques surveillées (CPU, RAM, disque, interfaces réseau, services) et des seuils d'alerte (warning/critical).</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">4</span>
+              <div>
+                <strong>Tableaux de bord</strong>
+                <p>Création de dashboards personnalisés pour la vue d'ensemble de l'infrastructure et les tableaux de bord par service.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">5</span>
+              <div>
+                <strong>Notifications et actions</strong>
+                <p>Configuration des actions automatiques et notifications par email en cas de déclenchement d'un trigger critique.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="e5-tech-stack">
+          <h3>🛠️ Stack technique</h3>
+          <div class="e5-tools-grid">
+            <div class="e5-tool-card">
+              <span class="tool-emoji">📊</span>
+              <span class="tool-name">Zabbix 6.x</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🐧</span>
+              <span class="tool-name">Debian / MariaDB</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">📡</span>
+              <span class="tool-name">SNMP v2c/v3</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🔔</span>
+              <span class="tool-name">Alertes email</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🌐</span>
+              <span class="tool-name">Nginx</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="e5-result">
+          <span class="result-icon">✅</span>
+          <div>
+            <strong>Résultat obtenu</strong>
+            <p>Solution de supervision complète opérationnelle. Détection proactive des incidents avant impact utilisateur. MTTR (Mean Time To Repair) réduit significativement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Situation E5-4 : n8n -->
+    <div class="e5-card ios-card reveal">
+      <div class="e5-card-header">
+        <div class="e5-icon" style="background:linear-gradient(135deg,#EA4B71,#C4335A)">⚡</div>
+        <div class="e5-card-meta">
+          <div class="e5-situation-num">Situation 4 / 4</div>
+          <h2 class="e5-title">Automatisation des processus IT avec n8n</h2>
+          <p class="e5-subtitle">Workflows, intégrations API et gestion automatisée des tickets</p>
+        </div>
+        <div class="e5-badges">
+          <span class="chip chip-accent">B2.1</span>
+          <span class="chip chip-accent">B2.2</span>
+        </div>
+      </div>
+
+      <div class="e5-body">
+        <div class="e5-context ios-card e5-inner-card">
+          <h3>🎯 Contexte</h3>
+          <p>De nombreuses tâches répétitives de l'équipe IT (création de comptes, notifications d'incidents, rapports hebdomadaires) étaient réalisées manuellement, consommant du temps et générant des erreurs. La mission visait à automatiser ces processus via la plateforme d'automatisation n8n.</p>
+        </div>
+
+        <div class="e5-missions">
+          <h3>🔧 Missions réalisées</h3>
+          <div class="e5-steps">
+            <div class="e5-step">
+              <span class="step-num">1</span>
+              <div>
+                <strong>Déploiement n8n</strong>
+                <p>Installation de n8n en mode auto-hébergé sur un serveur Debian via Docker, configuration HTTPS avec certificat Let's Encrypt.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">2</span>
+              <div>
+                <strong>Workflow de gestion des tickets</strong>
+                <p>Automatisation de la création de tickets dans le système ITSM à partir de formulaires web, avec attribution automatique selon la catégorie.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">3</span>
+              <div>
+                <strong>Intégration Zabbix → Notifications</strong>
+                <p>Workflow de relais des alertes Zabbix vers différents canaux (email, messagerie instantanée) avec enrichissement du message d'alerte.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">4</span>
+              <div>
+                <strong>Automatisation de rapports</strong>
+                <p>Génération automatique et envoi par email de rapports hebdomadaires sur l'état de l'infrastructure supervisée.</p>
+              </div>
+            </div>
+            <div class="e5-step">
+              <span class="step-num">5</span>
+              <div>
+                <strong>Workflow d'onboarding</strong>
+                <p>Automatisation partielle du processus d'arrivée d'un collaborateur : création de compte AD, envoi des accès, notification des équipes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="e5-tech-stack">
+          <h3>🛠️ Stack technique</h3>
+          <div class="e5-tools-grid">
+            <div class="e5-tool-card">
+              <span class="tool-emoji">⚡</span>
+              <span class="tool-name">n8n</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🐳</span>
+              <span class="tool-name">Docker</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🔌</span>
+              <span class="tool-name">API REST</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">🔗</span>
+              <span class="tool-name">Webhooks</span>
+            </div>
+            <div class="e5-tool-card">
+              <span class="tool-emoji">📊</span>
+              <span class="tool-name">Zabbix API</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="e5-result">
+          <span class="result-icon">✅</span>
+          <div>
+            <strong>Résultat obtenu</strong>
+            <p>5 workflows d'automatisation opérationnels. Temps consacré aux tâches répétitives réduit de 60%. Processus d'onboarding accéléré et fiabilisé.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ LINK TO E4 ═════════════════════════════════════════════ -->
+<section class="section closing-panel reveal">
+  <div class="container">
+    <div class="closing-inner">
+      <h2 class="closing-title">Épreuve E4 BTS SIO</h2>
+      <p class="closing-desc">Consultez également les situations professionnelles de l'épreuve E4 couvrant les compétences de support et mise à disposition de services informatiques (B1.1 à B1.6).</p>
+      <div class="closing-actions">
+        <a href="bts-competences.html" class="btn-primary">Voir l'E4</a>
+        <a href="projects.html" class="btn-secondary">Tous les projets</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">Reda Bouali</span>
+      <nav class="footer-nav">
+        <a href="about.html">À propos</a>
+        <a href="bts-competences.html">E4</a>
+        <a href="e5.html">E5</a>
+        <a href="cv.html">CV</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2025 — BTS SIO SISR</span>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Retour en haut">↑</button>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-accent="indigo" data-size="md" data-font="sf">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Expériences professionnelles de Reda Bouali — stages et alternances en BTS SIO SISR.">
+  <title>Expériences | Reda Bouali — BTS SIO SISR</title>
+  <script>
+    (function(){var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);r.setAttribute('data-size',s);r.setAttribute('data-font',f);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-mark">RB</span>
+      <span class="brand-name">Reda Bouali</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html"           class="nav-link">Accueil</a></li>
+      <li><a href="about.html"           class="nav-link">À propos</a></li>
+      <li><a href="experiences.html"     class="nav-link">Expériences</a></li>
+      <li><a href="skills.html"          class="nav-link">Compétences</a></li>
+      <li><a href="projects.html"        class="nav-link">Projets</a></li>
+      <li><a href="bts-competences.html" class="nav-link">E4 BTS SIO</a></li>
+      <li><a href="e5.html"              class="nav-link">E5 SISR</a></li>
+      <li><a href="cv.html"              class="nav-link">CV</a></li>
+      <li><a href="pix.html"             class="nav-link">Pix</a></li>
+      <li><a href="contact.html"         class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Basculer le thème"><span id="theme-icon">🌙</span></button>
+      <button id="settings-btn" class="nav-icon-btn" aria-label="Paramètres">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button id="nav-burger" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<aside id="settings-panel" class="settings-panel" aria-hidden="true">
+  <div class="settings-header">
+    <span class="settings-title">Apparence</span>
+    <button id="settings-close" class="settings-close">✕</button>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Couleur d'accent</p>
+    <div class="settings-row">
+      <button class="accent-dot indigo" data-set-accent="indigo" aria-label="Indigo"></button>
+      <button class="accent-dot cyan"   data-set-accent="cyan"   aria-label="Cyan"></button>
+      <button class="accent-dot amber"  data-set-accent="amber"  aria-label="Ambre"></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="settings-row">
+      <button class="size-btn" data-set-size="sm">A<small>A</small></button>
+      <button class="size-btn active" data-set-size="md">A</button>
+      <button class="size-btn" data-set-size="lg"><big>A</big></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Police</p>
+    <div class="settings-row">
+      <button class="font-btn active" data-set-font="sf">SF / Inter</button>
+      <button class="font-btn" data-set-font="manrope">Manrope</button>
+      <button class="font-btn" data-set-font="mono">Mono</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ PAGE HERO ════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner reveal">
+      <p class="section-eyebrow">Parcours</p>
+      <h1 class="page-title">Expériences</h1>
+      <p class="page-subtitle">Mes stages et expériences professionnelles au cours de ma formation BTS SIO SISR.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TIMELINE ═════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="timeline">
+
+      <!-- Stage 1 -->
+      <div class="timeline-item reveal">
+        <div class="timeline-marker">
+          <div class="timeline-dot accent"></div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-card ios-card">
+          <div class="timeline-header">
+            <div>
+              <span class="timeline-badge">Stage — 1ère année</span>
+              <h2 class="timeline-title">Technicien support &amp; réseau</h2>
+              <p class="timeline-company">Entreprise d'accueil · Stage BTS SIO</p>
+            </div>
+            <span class="timeline-date">2024</span>
+          </div>
+          <div class="timeline-body">
+            <p>Stage de première année intégrant l'environnement professionnel informatique d'une entreprise. Missions de support utilisateur, maintenance du parc informatique et intervention sur l'infrastructure réseau.</p>
+            <ul class="timeline-tasks">
+              <li>Assistance et support aux utilisateurs (helpdesk)</li>
+              <li>Maintenance et mise à jour du parc informatique</li>
+              <li>Configuration de postes Windows et mise en domaine Active Directory</li>
+              <li>Câblage réseau et documentation de l'infrastructure</li>
+              <li>Sauvegarde des données et vérification des procédures</li>
+            </ul>
+          </div>
+          <div class="timeline-tags">
+            <span class="chip">Windows Server</span>
+            <span class="chip">Active Directory</span>
+            <span class="chip">Support IT</span>
+            <span class="chip">Réseau</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 2 -->
+      <div class="timeline-item reveal">
+        <div class="timeline-marker">
+          <div class="timeline-dot accent"></div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-card ios-card">
+          <div class="timeline-header">
+            <div>
+              <span class="timeline-badge">Stage — 2ème année</span>
+              <h2 class="timeline-title">Administration systèmes &amp; réseaux</h2>
+              <p class="timeline-company">Entreprise d'accueil · Stage BTS SIO</p>
+            </div>
+            <span class="timeline-date">2025</span>
+          </div>
+          <div class="timeline-body">
+            <p>Stage de deuxième année axé sur l'administration de l'infrastructure réseau et des serveurs. Participation aux projets de sécurisation et de supervision de l'environnement informatique.</p>
+            <ul class="timeline-tasks">
+              <li>Administration des serveurs Linux Debian et Windows Server</li>
+              <li>Configuration et sécurisation du pare-feu OPNsense (règles, VPN)</li>
+              <li>Mise en place de la supervision réseau avec Zabbix</li>
+              <li>Création et gestion de comptes utilisateurs (AD / OpenLDAP)</li>
+              <li>Automatisation de tâches récurrentes avec des scripts Bash</li>
+              <li>Rédaction de la documentation technique</li>
+            </ul>
+          </div>
+          <div class="timeline-tags">
+            <span class="chip">OPNsense</span>
+            <span class="chip">Zabbix</span>
+            <span class="chip">Linux</span>
+            <span class="chip">VPN</span>
+            <span class="chip">Scripts Bash</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KEY SKILLS ════════════════════════════════════════════ -->
+<section class="section section-tinted">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Bilan</p>
+      <h2 class="section-title">Compétences acquises</h2>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-card ios-card">
+        <span class="stat-number" data-count="2">0</span>
+        <span class="stat-label">stages réalisés</span>
+      </div>
+      <div class="stat-card ios-card">
+        <span class="stat-number" data-count="10" data-suffix=" sem.">0</span>
+        <span class="stat-label">d'expérience</span>
+      </div>
+      <div class="stat-card ios-card">
+        <span class="stat-number" data-count="6">0</span>
+        <span class="stat-label">situations E4</span>
+      </div>
+      <div class="stat-card ios-card">
+        <span class="stat-number" data-count="4">0</span>
+        <span class="stat-label">situations E5</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">Reda Bouali</span>
+      <nav class="footer-nav">
+        <a href="about.html">À propos</a>
+        <a href="bts-competences.html">E4</a>
+        <a href="e5.html">E5</a>
+        <a href="cv.html">CV</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2025 — BTS SIO SISR</span>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Retour en haut">↑</button>
+<script src="script.js"></script>
+</body>
+</html>
