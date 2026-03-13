@@ -1366,14 +1366,13 @@
     var n=new Date();
     var d=n.getDay(), dd=n.getDate(), mo=n.getMonth();
     var h=n.getHours(), mi=n.getMinutes();
-    var ap=h>=12?'PM':'AM'; h=h%12||12;
-    var timeStr = h+':'+(mi<10?'0':'')+mi+' '+ap;
+    var timeStr = (h<10?'0':'')+h+':'+(mi<10?'0':'')+mi;
 
     var mb = document.getElementById('mb-clock');
     if(mb) mb.textContent = DAYS[d]+' '+dd+' '+MONTHS[mo]+'  '+timeStr;
 
     var cw = document.getElementById('cw-time');
-    if(cw) cw.textContent = h+':'+(mi<10?'0':'')+mi;
+    if(cw) cw.textContent = timeStr;
 
     var cd = document.getElementById('cw-date');
     if(cd){
