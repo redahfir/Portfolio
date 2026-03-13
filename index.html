@@ -135,26 +135,27 @@
       overflow: hidden;
     }
 
-    /* ── Desktop icons (right side column, like macOS) ── */
+    /* ── Desktop icons — colonne unique, coin droit (macOS classique) ── */
     .desktop-icons {
       position: absolute;
-      top: 20px; right: 20px;
-      display: grid;
-      grid-template-columns: repeat(2, 80px);
-      gap: 8px 6px;
+      top: 16px; right: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
       z-index: 10;
     }
 
     .dsk-icon {
       display: flex; flex-direction: column; align-items: center;
-      gap: 5px; padding: 4px; border-radius: 8px;
+      gap: 3px; padding: 3px 4px; border-radius: 8px;
       background: none; border: none; cursor: pointer; text-decoration: none;
       transition: background 0.12s;
     }
     .dsk-icon:hover { background: rgba(100,130,200,0.22); }
     .dsk-icon:focus { outline: 2px solid rgba(100,150,255,0.6); outline-offset: 1px; }
     .dsk-icon-img {
-      width: 60px; height: 60px; border-radius: 14px;
+      width: 54px; height: 54px; border-radius: 13px;
       display: flex; align-items: center; justify-content: center;
       font-size: 26px;
       box-shadow: 0 3px 12px rgba(0,0,0,0.28), 0 1px 0 rgba(255,255,255,0.25) inset;
@@ -194,7 +195,7 @@
     /* ── Profile / Hello widget (center-left) ─── */
     .hello-widget {
       position: absolute; left: 32px; top: 50%; transform: translateY(-50%);
-      z-index: 10;
+      z-index: 10; max-width: calc(100% - 130px);
       animation: widgetIn .65s cubic-bezier(.34,1.56,.64,1) .1s both;
     }
     @keyframes widgetIn {
@@ -657,28 +658,30 @@
     @media (max-width: 768px) {
       .hello-widget { left:16px; }
       .hw-card { padding:16px 18px; }
-      .desktop-icons { right:10px; top:14px; grid-template-columns:repeat(2,68px); gap:6px; }
+      .desktop-icons { right:8px; top:10px; gap:1px; }
       .dsk-icon-img { width:52px;height:52px;border-radius:12px;font-size:22px; }
       .clock-widget { display:none; }
       .mb-item.mb-hide-sm { display:none; }
     }
     @media (max-width: 540px) {
-      .desktop-icons { grid-template-columns:repeat(2,60px); }
+      .desktop-icons { display:none; }
       .dsk-icon-img { width:46px;height:46px;font-size:20px; }
       .dsk-icon-label { font-size:9.5px; }
       .dock { gap:3px; padding:5px 8px 7px; }
       .dk-icon { width:44px;height:44px;font-size:24px;border-radius:10px; }
     }
   </style>
+  <!-- iOS mobile interface — chargé uniquement si mobile détecté -->
+  <script src="mobile-detect.js"></script>
 </head>
 <body>
 
 <!-- ════════════════════ WALLPAPER SVG ════════════════════ -->
 <div class="wallpaper" aria-hidden="true">
-  <!-- LIGHT: macOS Big Sur colorful waves -->
+  <!-- SVG A: macOS Big Sur colorful waves (affiché en thème SOMBRE) -->
   <svg id="wallpaper-light" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg"
        preserveAspectRatio="xMidYMid slice"
-       style="width:100%;height:100%;position:absolute;inset:0;transition:opacity .6s;">
+       style="width:100%;height:100%;position:absolute;inset:0;opacity:0;transition:opacity .6s;">
     <defs>
       <!-- Purple/pink/magenta base gradient (bottom-left) -->
       <linearGradient id="lBase" x1="0" y1="1" x2="1" y2="0" gradientUnits="objectBoundingBox">
@@ -795,10 +798,10 @@
     " fill="#A8E8FF" opacity="0.18"/>
   </svg>
 
-  <!-- DARK: macOS Big Sur dark — deep blue/purple/crimson glow -->
+  <!-- SVG B: dark navy/purple/crimson glow (affiché en thème CLAIR) -->
   <svg id="wallpaper-dark" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg"
        preserveAspectRatio="xMidYMid slice"
-       style="width:100%;height:100%;position:absolute;inset:0;opacity:0;transition:opacity .6s;">
+       style="width:100%;height:100%;position:absolute;inset:0;transition:opacity .6s;">
     <defs>
       <!-- Very dark base -->
       <linearGradient id="dBase" x1="0" y1="0" x2="1" y2="1">
@@ -1221,6 +1224,7 @@
   function applyTheme(t) {
     html.setAttribute('data-theme', t);
     sp('theme', t);
+    // wLight=colorful waves→clair | wDark=dark navy→sombre
     wLight.style.opacity = t==='dark' ? '0' : '1';
     wDark.style.opacity  = t==='dark' ? '1' : '0';
     var ccIcon = document.getElementById('cc-theme-icon');
