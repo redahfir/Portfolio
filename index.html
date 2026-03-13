@@ -35,10 +35,13 @@
     .wallpaper {
       position: fixed; inset: 0; z-index: 0;
       overflow: hidden;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .wallpaper svg {
       width: 100%; height: 100%;
       object-fit: cover;
+      will-change: opacity;
     }
     /* Dark wallpaper overlay */
     [data-theme="dark"] .wallpaper-dark-overlay {
@@ -161,6 +164,7 @@
       box-shadow: 0 3px 12px rgba(0,0,0,0.28), 0 1px 0 rgba(255,255,255,0.25) inset;
       position: relative; overflow: hidden;
       transition: transform .22s cubic-bezier(.34,1.56,.64,1);
+      will-change: transform;
     }
     .dsk-icon-img::after {
       content: ''; position: absolute; inset: 0; border-radius: inherit;
@@ -497,6 +501,7 @@
       box-shadow: 0 3px 12px rgba(0,0,0,.25), 0 1px 0 rgba(255,255,255,.25) inset;
       transition: transform .25s cubic-bezier(.34,1.56,.64,1);
       position: relative; overflow: hidden;
+      will-change: transform;
     }
     .dk-icon::after {
       content:''; position:absolute; inset:0; border-radius:inherit;
@@ -803,84 +808,112 @@
        preserveAspectRatio="xMidYMid slice"
        style="width:100%;height:100%;position:absolute;inset:0;transition:opacity .6s;">
     <defs>
-      <!-- Very dark base -->
+      <filter id="dB80"><feGaussianBlur stdDeviation="80"/></filter>
+      <filter id="dB120"><feGaussianBlur stdDeviation="120"/></filter>
+      <filter id="dB50"><feGaussianBlur stdDeviation="50"/></filter>
+      <filter id="dB30"><feGaussianBlur stdDeviation="30"/></filter>
+
+      <!-- Base: near-black with cold blue tint (top-left darkest) -->
       <linearGradient id="dBase" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%"   stop-color="#020510"/>
-        <stop offset="45%"  stop-color="#060a1e"/>
-        <stop offset="100%" stop-color="#08060f"/>
+        <stop offset="0%"   stop-color="#010612"/>
+        <stop offset="35%"  stop-color="#030a1e"/>
+        <stop offset="70%"  stop-color="#04081a"/>
+        <stop offset="100%" stop-color="#020510"/>
       </linearGradient>
-      <!-- Left diagonal glow: deep purple/crimson -->
-      <linearGradient id="dGlow1" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
-        <stop offset="0%"   stop-color="#1a0535" stop-opacity="0"/>
-        <stop offset="35%"  stop-color="#3a0868" stop-opacity="0.85"/>
-        <stop offset="60%"  stop-color="#6010a0" stop-opacity="0.7"/>
-        <stop offset="100%" stop-color="#200540" stop-opacity="0"/>
-      </linearGradient>
-      <!-- Right top crimson glow -->
-      <radialGradient id="dGlow2" cx="92%" cy="8%" r="55%" gradientUnits="objectBoundingBox">
-        <stop offset="0%"   stop-color="#8a0828" stop-opacity="0.9"/>
-        <stop offset="30%"  stop-color="#c00830" stop-opacity="0.55"/>
-        <stop offset="60%"  stop-color="#600420" stop-opacity="0.2"/>
-        <stop offset="100%" stop-color="#300210" stop-opacity="0"/>
+
+      <!-- TOP-RIGHT hot magenta/crimson bloom — the brightest point of the image -->
+      <radialGradient id="dMagenta" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#ff0a6c" stop-opacity="1"/>
+        <stop offset="25%"  stop-color="#e8086a" stop-opacity="0.85"/>
+        <stop offset="55%"  stop-color="#a00845" stop-opacity="0.45"/>
+        <stop offset="80%"  stop-color="#500230" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#200015" stop-opacity="0"/>
       </radialGradient>
-      <!-- Bottom-left purple -->
-      <radialGradient id="dGlow3" cx="5%" cy="95%" r="60%" gradientUnits="objectBoundingBox">
-        <stop offset="0%"   stop-color="#5008c0" stop-opacity="0.6"/>
-        <stop offset="40%"  stop-color="#380890" stop-opacity="0.3"/>
-        <stop offset="100%" stop-color="#180440" stop-opacity="0"/>
+
+      <!-- BOTTOM-LEFT deep purple-magenta glow -->
+      <radialGradient id="dPurple" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#8a0890" stop-opacity="0.9"/>
+        <stop offset="30%"  stop-color="#6a0870" stop-opacity="0.6"/>
+        <stop offset="65%"  stop-color="#350440" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#150020" stop-opacity="0"/>
       </radialGradient>
-      <!-- Diagonal band left -->
-      <linearGradient id="dBand1" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%"   stop-color="#0a0525" stop-opacity="0"/>
-        <stop offset="50%"  stop-color="#4808a8" stop-opacity="0.5"/>
-        <stop offset="100%" stop-color="#0a0520" stop-opacity="0"/>
+
+      <!-- BOTTOM-RIGHT electric cobalt-violet -->
+      <radialGradient id="dCobalt" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#0820e0" stop-opacity="0.8"/>
+        <stop offset="35%"  stop-color="#0c18b0" stop-opacity="0.5"/>
+        <stop offset="70%"  stop-color="#060840" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#020210" stop-opacity="0"/>
+      </radialGradient>
+
+      <!-- Main diagonal streak: bottom-left → top-right (pinkish-magenta band) -->
+      <linearGradient id="dDiag1" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#c0086a" stop-opacity="0"/>
+        <stop offset="20%"  stop-color="#d0086a" stop-opacity="0.45"/>
+        <stop offset="45%"  stop-color="#e8109a" stop-opacity="0.65"/>
+        <stop offset="60%"  stop-color="#ff18b0" stop-opacity="0.55"/>
+        <stop offset="80%"  stop-color="#d00878" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#a00850" stop-opacity="0"/>
       </linearGradient>
-      <!-- Diagonal band right -->
-      <linearGradient id="dBand2" x1="1" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#900820" stop-opacity="0"/>
-        <stop offset="40%"  stop-color="#c00830" stop-opacity="0.45"/>
-        <stop offset="100%" stop-color="#300408" stop-opacity="0"/>
+
+      <!-- Secondary crossing streak: top-right → bottom-left area (magenta edge) -->
+      <linearGradient id="dDiag2" x1="1" y1="0" x2="0.2" y2="1">
+        <stop offset="0%"   stop-color="#ff1060" stop-opacity="0"/>
+        <stop offset="25%"  stop-color="#ff1060" stop-opacity="0.5"/>
+        <stop offset="50%"  stop-color="#ff40a0" stop-opacity="0.4"/>
+        <stop offset="75%"  stop-color="#c80858" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#600030" stop-opacity="0"/>
+      </linearGradient>
+
+      <!-- Violet mid-band (crosses center, gives depth) -->
+      <linearGradient id="dViolet" x1="0" y1="0.3" x2="1" y2="0.7">
+        <stop offset="0%"   stop-color="#2808a0" stop-opacity="0"/>
+        <stop offset="40%"  stop-color="#4010c0" stop-opacity="0.35"/>
+        <stop offset="60%"  stop-color="#5818d0" stop-opacity="0.28"/>
+        <stop offset="100%" stop-color="#1808a0" stop-opacity="0"/>
       </linearGradient>
     </defs>
 
-    <!-- Ultra-dark base -->
+    <!-- Layer 1: Near-black base -->
     <rect width="1440" height="900" fill="url(#dBase)"/>
 
-    <!-- Bottom-left purple glow -->
-    <rect width="1440" height="900" fill="url(#dGlow3)"/>
+    <!-- Layer 2: Cobalt blue bloom — bottom-right -->
+    <ellipse cx="1480" cy="980" rx="900" ry="800"
+             fill="url(#dCobalt)" filter="url(#dB120)"/>
 
-    <!-- Top-right crimson glow -->
-    <rect width="1440" height="900" fill="url(#dGlow2)"/>
+    <!-- Layer 3: Purple-magenta bloom — bottom-left -->
+    <ellipse cx="-80" cy="1000" rx="860" ry="760"
+             fill="url(#dPurple)" filter="url(#dB120)"/>
 
-    <!-- Main left diagonal band (purple streak going upper-left to lower-right) -->
-    <path d="
-      M -10,200
-      C 100,160  250,180  400,260
-      C 600,360  800,480  1050,630
-      C 1200,710  1350,780  1450,830
-      L 1450,900  L -10,900  Z
-    " fill="url(#dBand1)" opacity="0.6"/>
+    <!-- Layer 4: HOT MAGENTA bloom — top-right (primary light source) -->
+    <ellipse cx="1540" cy="-60" rx="950" ry="820"
+             fill="url(#dMagenta)" filter="url(#dB120)"/>
 
-    <!-- Left diagonal band upper part -->
-    <path d="
-      M -10,0  L 350,0
-      C 250,40   150,100  -10,200  Z
-    " fill="#2808a0" opacity="0.3"/>
+    <!-- Layer 5: Main diagonal streak (bottom-left → top-right) — the bright shaft -->
+    <path d="M -50,860 C 180,720 420,560 700,400 C 940,260 1180,130 1490,10
+             L 1490,-50 C 1180,80 940,210 700,350 C 420,510 180,670 -50,810 Z"
+          fill="url(#dDiag1)" filter="url(#dB80)" opacity="0.9"/>
 
-    <!-- Right diagonal band (crimson, top-right going down) -->
-    <path d="
-      M 900,-10  L 1450,-10  L 1450,900
-      C 1350,780  1200,680  1000,560
-      C 800,440   600,320  400,220
-      C 250,145  100,90   -10,50
-      L -10,-10  Z
-    " fill="url(#dBand2)" opacity="0.55"/>
+    <!-- Layer 6: Second diagonal streak edge (from top-right curving down) -->
+    <path d="M 880,-10 C 1040,80 1180,180 1310,290 C 1400,370 1460,440 1490,500
+             L 1490,420 C 1460,360 1400,290 1310,210 C 1180,100 1040,0 880,-60 Z"
+          fill="url(#dDiag2)" filter="url(#dB50)" opacity="0.85"/>
 
-    <!-- Soft center depth -->
-    <ellipse cx="720" cy="450" rx="700" ry="420" fill="#0c0420" opacity="0.4"/>
+    <!-- Layer 7: Violet mid-tone band (depth through center) -->
+    <rect width="1440" height="900" fill="url(#dViolet)" opacity="0.7"/>
 
-    <!-- Subtle blue-navy mist (center) -->
-    <ellipse cx="400" cy="350" rx="500" ry="350" fill="#0810a8" opacity="0.06"/>
+    <!-- Layer 8: Center darkness (vignette — makes the cross more dramatic) -->
+    <ellipse cx="720" cy="420" rx="600" ry="340"
+             fill="#020814" opacity="0.38" filter="url(#dB80)"/>
+
+    <!-- Layer 9: Top-left darkness reinforcement -->
+    <ellipse cx="-50" cy="-30" rx="550" ry="420"
+             fill="#010610" opacity="0.6" filter="url(#dB80)"/>
+
+    <!-- Layer 10: Thin bright magenta edge line along diagonal -->
+    <path d="M -50,750 C 200,610 460,470 740,330 C 980,210 1200,110 1490,0
+             L 1490,20 C 1200,130 980,230 740,352 C 460,492 200,632 -50,772 Z"
+          fill="#ff28b8" opacity="0.22" filter="url(#dB30)"/>
   </svg>
 
   <div class="wallpaper-dark-overlay"></div>
@@ -962,48 +995,75 @@
     <!-- Desktop icons (right side, 2 columns, like macOS) -->
     <nav class="desktop-icons" aria-label="Icônes du bureau">
 
+      <!-- À propos — person silhouette, blue -->
       <button class="dsk-icon" data-url="about.html" data-title="À propos" data-icon="👤" aria-label="À propos">
-        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#007AFF,#5AC8FA)">👤</div>
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#1D87F0,#0E5BBF)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="12" r="6" fill="white" fill-opacity=".95"/><path d="M4 28c0-6.627 5.373-10 12-10s12 3.373 12 10" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none" opacity=".95"/></svg>
+        </div>
         <span class="dsk-icon-label">À propos</span>
       </button>
 
+      <!-- Expériences — briefcase, orange/gold -->
       <button class="dsk-icon" data-url="experiences.html" data-title="Expériences" data-icon="💼" aria-label="Expériences">
-        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#FF9500,#FFCC00)">💼</div>
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#FF9F0A,#FF6B00)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="7" y="13" width="18" height="13" rx="2.5" fill="white" fill-opacity=".95"/><path d="M12 13V11a4 4 0 0 1 8 0v2" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/><line x1="7" y1="19" x2="25" y2="19" stroke="rgba(0,0,0,.2)" stroke-width="1.5"/></svg>
+        </div>
         <span class="dsk-icon-label">Expériences</span>
       </button>
 
+      <!-- Compétences — circuit/gear, purple -->
       <button class="dsk-icon" data-url="skills.html" data-title="Compétences" data-icon="⚡" aria-label="Compétences">
-        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#AF52DE,#BF5AF2)">⚡</div>
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#BF5AF2,#9B59B6)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M18 5L10 17h7l-3 10 10-13h-7l3-9z" fill="white" fill-opacity=".95"/></svg>
+        </div>
         <span class="dsk-icon-label">Compétences</span>
       </button>
 
+      <!-- Projets — code brackets, red/pink -->
       <button class="dsk-icon" data-url="projects.html" data-title="Projets" data-icon="🚀" aria-label="Projets">
-        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#FF2D55,#FF6B6B)">🚀</div>
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#FF2D55,#C0392B)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M11 10L5 16l6 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".95"/><path d="M21 10l6 6-6 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".95"/><line x1="19" y1="8" x2="13" y2="24" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".8"/></svg>
+        </div>
         <span class="dsk-icon-label">Projets</span>
       </button>
 
+      <!-- E4 BTS SIO — graduation cap, deep blue -->
       <button class="dsk-icon" data-url="bts-competences.html" data-title="E4 BTS SIO" data-icon="🎓" aria-label="E4 BTS SIO">
-        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#0A84FF,#2C6EE0)">🎓</div>
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#2C6EE0,#1A4DB5)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,8 4,14 16,20 28,14" fill="white" fill-opacity=".95"/><path d="M22 17.5v5.5c0 2-2.7 3.5-6 3.5s-6-1.5-6-3.5V17.5" fill="white" fill-opacity=".8"/><line x1="28" y1="14" x2="28" y2="22" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/></svg>
+        </div>
         <span class="dsk-icon-label">E4 BTS SIO</span>
       </button>
 
+      <!-- E5 SISR — network/server, green -->
       <button class="dsk-icon" data-url="e5.html" data-title="E5 SISR" data-icon="🖧" aria-label="E5 SISR">
-        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#34C759,#30D158)">🖧</div>
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#30D158,#1E9E3E)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="6" y="7" width="20" height="7" rx="2" fill="white" fill-opacity=".95"/><rect x="6" y="18" width="20" height="7" rx="2" fill="white" fill-opacity=".75"/><circle cx="22" cy="10.5" r="1.5" fill="rgba(0,0,0,.35)"/><circle cx="22" cy="21.5" r="1.5" fill="rgba(0,0,0,.25)"/></svg>
+        </div>
         <span class="dsk-icon-label">E5 SISR</span>
       </button>
 
+      <!-- CV — document, red -->
       <button class="dsk-icon" data-url="cv.html" data-title="Curriculum Vitae" data-icon="📄" aria-label="CV">
-        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#FF3B30,#FF453A)">📄</div>
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#FF453A,#C0392B)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="8" y="5" width="16" height="22" rx="2.5" fill="white" fill-opacity=".95"/><line x1="12" y1="12" x2="20" y2="12" stroke="rgba(0,0,0,.35)" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="16" x2="20" y2="16" stroke="rgba(0,0,0,.35)" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="20" x2="17" y2="20" stroke="rgba(0,0,0,.3)" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
         <span class="dsk-icon-label">CV</span>
       </button>
 
+      <!-- Pix — star/badge, cyan -->
       <button class="dsk-icon" data-url="pix.html" data-title="Certification Pix" data-icon="🏅" aria-label="Pix">
-        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#5AC8FA,#32ADE6)">🏅</div>
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#32ADE6,#0E86C8)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,6 19.5,13 27,14 21.5,19.5 23,27 16,23 9,27 10.5,19.5 5,14 12.5,13" fill="white" fill-opacity=".95"/></svg>
+        </div>
         <span class="dsk-icon-label">Pix</span>
       </button>
 
+      <!-- Contact — envelope, teal -->
       <button class="dsk-icon" data-url="contact.html" data-title="Contact" data-icon="✉️" aria-label="Contact">
-        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#30D158,#34C759)">✉️</div>
+        <div class="dsk-icon-img" style="background:linear-gradient(145deg,#5AC8FA,#0A84FF)">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="9" width="24" height="16" rx="2.5" fill="white" fill-opacity=".95"/><path d="M4 11l12 9 12-9" stroke="rgba(0,100,200,.4)" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        </div>
         <span class="dsk-icon-label">Contact</span>
       </button>
 
@@ -1148,37 +1208,37 @@
 
     <button class="dk-btn" data-url="about.html" data-title="À propos" data-icon="👤" aria-label="À propos">
       <span class="dk-tip">À propos</span>
-      <div class="dk-icon" style="background:linear-gradient(145deg,#007AFF,#5AC8FA)">👤</div>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#1D87F0,#0E5BBF)"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="12" r="6" fill="white" fill-opacity=".95"/><path d="M4 28c0-6.627 5.373-10 12-10s12 3.373 12 10" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none" opacity=".95"/></svg></div>
       <span class="dk-dot"></span>
     </button>
 
     <button class="dk-btn" data-url="experiences.html" data-title="Expériences" data-icon="💼" aria-label="Expériences">
       <span class="dk-tip">Expériences</span>
-      <div class="dk-icon" style="background:linear-gradient(145deg,#FF9500,#FFCC00)">💼</div>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#FF9F0A,#FF6B00)"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="7" y="13" width="18" height="13" rx="2.5" fill="white" fill-opacity=".95"/><path d="M12 13V11a4 4 0 0 1 8 0v2" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></div>
       <span class="dk-dot"></span>
     </button>
 
     <button class="dk-btn" data-url="bts-competences.html" data-title="E4 BTS SIO" data-icon="🎓" aria-label="E4">
       <span class="dk-tip">E4 BTS SIO</span>
-      <div class="dk-icon" style="background:linear-gradient(145deg,#0A84FF,#2C6EE0)">🎓</div>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#2C6EE0,#1A4DB5)"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><polygon points="16,8 4,14 16,20 28,14" fill="white" fill-opacity=".95"/><path d="M22 17.5v5.5c0 2-2.7 3.5-6 3.5s-6-1.5-6-3.5V17.5" fill="white" fill-opacity=".8"/><line x1="28" y1="14" x2="28" y2="22" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/></svg></div>
       <span class="dk-dot"></span>
     </button>
 
     <button class="dk-btn" data-url="e5.html" data-title="E5 SISR" data-icon="🖧" aria-label="E5">
       <span class="dk-tip">E5 SISR</span>
-      <div class="dk-icon" style="background:linear-gradient(145deg,#34C759,#30D158)">🖧</div>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#30D158,#1E9E3E)"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="6" y="7" width="20" height="7" rx="2" fill="white" fill-opacity=".95"/><rect x="6" y="18" width="20" height="7" rx="2" fill="white" fill-opacity=".75"/><circle cx="22" cy="10.5" r="1.5" fill="rgba(0,0,0,.35)"/><circle cx="22" cy="21.5" r="1.5" fill="rgba(0,0,0,.25)"/></svg></div>
       <span class="dk-dot"></span>
     </button>
 
     <button class="dk-btn" data-url="skills.html" data-title="Compétences" data-icon="⚡" aria-label="Compétences">
       <span class="dk-tip">Compétences</span>
-      <div class="dk-icon" style="background:linear-gradient(145deg,#AF52DE,#BF5AF2)">⚡</div>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#BF5AF2,#9B59B6)"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M18 5L10 17h7l-3 10 10-13h-7l3-9z" fill="white" fill-opacity=".95"/></svg></div>
       <span class="dk-dot"></span>
     </button>
 
     <button class="dk-btn" data-url="projects.html" data-title="Projets" data-icon="🚀" aria-label="Projets">
       <span class="dk-tip">Projets</span>
-      <div class="dk-icon" style="background:linear-gradient(145deg,#FF2D55,#FF6B6B)">🚀</div>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#FF2D55,#C0392B)"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M11 10L5 16l6 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".95"/><path d="M21 10l6 6-6 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".95"/><line x1="19" y1="8" x2="13" y2="24" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".8"/></svg></div>
       <span class="dk-dot"></span>
     </button>
 
@@ -1186,13 +1246,13 @@
 
     <button class="dk-btn" data-url="cv.html" data-title="Curriculum Vitae" data-icon="📄" aria-label="CV">
       <span class="dk-tip">CV</span>
-      <div class="dk-icon" style="background:linear-gradient(145deg,#FF3B30,#FF453A)">📄</div>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#FF453A,#C0392B)"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="8" y="5" width="16" height="22" rx="2.5" fill="white" fill-opacity=".95"/><line x1="12" y1="12" x2="20" y2="12" stroke="rgba(0,0,0,.35)" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="16" x2="20" y2="16" stroke="rgba(0,0,0,.35)" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="20" x2="17" y2="20" stroke="rgba(0,0,0,.3)" stroke-width="1.8" stroke-linecap="round"/></svg></div>
       <span class="dk-dot"></span>
     </button>
 
     <button class="dk-btn" data-url="contact.html" data-title="Contact" data-icon="✉️" aria-label="Contact">
       <span class="dk-tip">Contact</span>
-      <div class="dk-icon" style="background:linear-gradient(145deg,#30D158,#34C759)">✉️</div>
+      <div class="dk-icon" style="background:linear-gradient(145deg,#5AC8FA,#0A84FF)"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="4" y="9" width="24" height="16" rx="2.5" fill="white" fill-opacity=".95"/><path d="M4 11l12 9 12-9" stroke="rgba(0,100,200,.4)" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div>
       <span class="dk-dot"></span>
     </button>
 
@@ -1201,7 +1261,7 @@
     <!-- Trash -->
     <button class="dk-btn" aria-label="Corbeille">
       <span class="dk-tip">Corbeille</span>
-      <div class="dk-icon dk-trash">🗑</div>
+      <div class="dk-icon dk-trash"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="9" y="11" width="14" height="16" rx="2" fill="white" fill-opacity=".85"/><line x1="6" y1="11" x2="26" y2="11" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M13 8h6" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="16" x2="13" y2="23" stroke="rgba(0,0,0,.25)" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="16" x2="19" y2="23" stroke="rgba(0,0,0,.25)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
       <span class="dk-dot" style="opacity:0"></span>
     </button>
 

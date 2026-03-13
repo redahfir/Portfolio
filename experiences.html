@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Expériences professionnelles de Reda Bouali — stages et alternances en BTS SIO SISR.">
+  <meta name="description" content="Expériences professionnelles de Reda Bouali — stages en BTS SIO SISR.">
   <title>Expériences | Reda Bouali — BTS SIO SISR</title>
   <script>
     (function(){var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);r.setAttribute('data-size',s);r.setAttribute('data-font',f);})();
@@ -12,6 +12,139 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Experience cards overrides ─────────────────────────── */
+    .xp-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 0.5rem;
+    }
+    .xp-card {
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .xp-card-header {
+      padding: 1.5rem 1.5rem 1rem;
+      border-bottom: 1px solid rgba(128,128,128,.1);
+    }
+    .xp-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .xp-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 1.6rem;
+      padding: 0 0.7rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(var(--accent-rgb), 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(var(--accent-rgb), 0.18);
+    }
+    .xp-date-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 1.6rem;
+      padding: 0 0.7rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-left: auto;
+    }
+    [data-theme="light"] .xp-date-badge {
+      background: rgba(0,0,0,.06);
+      color: #555;
+    }
+    [data-theme="dark"] .xp-date-badge {
+      background: rgba(255,255,255,.1);
+      color: rgba(255,255,255,.7);
+    }
+    .xp-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 0.2rem;
+      line-height: 1.3;
+    }
+    .xp-company-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .xp-company {
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+    [data-theme="light"] .xp-company { color: #555; }
+    [data-theme="dark"]  .xp-company { color: rgba(255,255,255,.6); }
+    .xp-location {
+      font-size: 0.8rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+    }
+    [data-theme="light"] .xp-location { background: rgba(0,0,0,.05); color: #666; }
+    [data-theme="dark"]  .xp-location { background: rgba(255,255,255,.08); color: rgba(255,255,255,.55); }
+    .xp-card-body {
+      padding: 1.25rem 1.5rem;
+    }
+    .xp-intro {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      margin-bottom: 1.1rem;
+    }
+    [data-theme="light"] .xp-intro { color: #555; }
+    [data-theme="dark"]  .xp-intro { color: rgba(255,255,255,.65); }
+    .xp-tasks-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.6rem;
+    }
+    [data-theme="light"] .xp-tasks-title { color: #888; }
+    [data-theme="dark"]  .xp-tasks-title { color: rgba(255,255,255,.4); }
+    .xp-tasks {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+      margin: 0 0 1.25rem;
+      padding: 0;
+    }
+    .xp-tasks li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+    [data-theme="light"] .xp-tasks li { color: #444; }
+    [data-theme="dark"]  .xp-tasks li { color: rgba(255,255,255,.75); }
+    .xp-tasks li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 0.45em;
+    }
+    .xp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    /* Accent stripe at top of card */
+    .xp-card-accent {
+      height: 4px;
+    }
+    .xp-card-accent.orange { background: linear-gradient(90deg, #FF9500, #FFCC00); }
+    .xp-card-accent.blue   { background: linear-gradient(90deg, #007AFF, #5AC8FA); }
+  </style>
 </head>
 <body>
 
@@ -80,82 +213,83 @@
     <div class="page-hero-inner reveal">
       <p class="section-eyebrow">Parcours</p>
       <h1 class="page-title">Expériences</h1>
-      <p class="page-subtitle">Mes stages et expériences professionnelles au cours de ma formation BTS SIO SISR.</p>
+      <p class="page-subtitle">Mes stages professionnels réalisés dans le cadre du BTS SIO SISR.</p>
     </div>
   </div>
 </section>
 
-<!-- ═══ TIMELINE ═════════════════════════════════════════════ -->
+<!-- ═══ EXPERIENCE CARDS ══════════════════════════════════════ -->
 <section class="section">
   <div class="container">
-    <div class="timeline">
+    <div class="xp-grid">
 
-      <!-- Stage 1 -->
-      <div class="timeline-item reveal">
-        <div class="timeline-marker">
-          <div class="timeline-dot accent"></div>
-          <div class="timeline-line"></div>
+      <!-- Stage 2 — le plus récent en premier -->
+      <div class="ios-card xp-card reveal" style="padding:0">
+        <div class="xp-card-accent blue"></div>
+        <div class="xp-card-header">
+          <div class="xp-meta-row">
+            <span class="xp-badge">Stage — 2ème année</span>
+            <span class="xp-date-badge">Jan. – Fév. 2026 · 6 semaines</span>
+          </div>
+          <h2 class="xp-title">Administration systèmes, réseaux &amp; supervision</h2>
+          <div class="xp-company-row">
+            <span class="xp-company">Imagix (Cinéma)</span>
+            <span class="xp-location">📍 Mons, Belgique</span>
+          </div>
         </div>
-        <div class="timeline-card ios-card">
-          <div class="timeline-header">
-            <div>
-              <span class="timeline-badge">Stage — 1ère année</span>
-              <h2 class="timeline-title">Technicien support &amp; réseau</h2>
-              <p class="timeline-company">Entreprise d'accueil · Stage BTS SIO</p>
-            </div>
-            <span class="timeline-date">2024</span>
-          </div>
-          <div class="timeline-body">
-            <p>Stage de première année intégrant l'environnement professionnel informatique d'une entreprise. Missions de support utilisateur, maintenance du parc informatique et intervention sur l'infrastructure réseau.</p>
-            <ul class="timeline-tasks">
-              <li>Assistance et support aux utilisateurs (helpdesk)</li>
-              <li>Maintenance et mise à jour du parc informatique</li>
-              <li>Configuration de postes Windows et mise en domaine Active Directory</li>
-              <li>Câblage réseau et documentation de l'infrastructure</li>
-              <li>Sauvegarde des données et vérification des procédures</li>
-            </ul>
-          </div>
-          <div class="timeline-tags">
-            <span class="chip">Windows Server</span>
-            <span class="chip">Active Directory</span>
-            <span class="chip">Support IT</span>
-            <span class="chip">Réseau</span>
+        <div class="xp-card-body">
+          <p class="xp-intro">Stage de 6 semaines axé sur la supervision, l'automatisation et la gestion de l'infrastructure informatique du cinéma Imagix à Mons.</p>
+          <p class="xp-tasks-title">Missions réalisées</p>
+          <ul class="xp-tasks">
+            <li>Déploiement d'une solution de supervision centralisée avec <strong>Zabbix</strong> — installation serveur, configuration des agents, création de templates, mise en place des déclencheurs et tableaux de bord</li>
+            <li>Développement de scripts <strong>Python</strong> pour l'automatisation de traitements et l'exploitation de bases de données MySQL</li>
+            <li>Structuration et fiabilisation de l'inventaire du parc informatique via <strong>GLPI &amp; OCS Inventory</strong></li>
+            <li>Mise en place d'un pipeline de supervision : collecte des métriques Zabbix via <strong>n8n</strong>, analyse avec Microsoft Power BI</li>
+            <li>Utilisation de <strong>ClickUp</strong> pour planifier les tâches et suivre les indicateurs d'avancement</li>
+            <li>Support technique et amélioration continue des outils internes</li>
+          </ul>
+          <div class="xp-tags">
+            <span class="chip">Zabbix</span>
+            <span class="chip">Python</span>
+            <span class="chip">MySQL</span>
+            <span class="chip">GLPI</span>
+            <span class="chip">OCS Inventory</span>
+            <span class="chip">n8n</span>
+            <span class="chip">Power BI</span>
+            <span class="chip">ClickUp</span>
           </div>
         </div>
       </div>
 
-      <!-- Stage 2 -->
-      <div class="timeline-item reveal">
-        <div class="timeline-marker">
-          <div class="timeline-dot accent"></div>
-          <div class="timeline-line"></div>
+      <!-- Stage 1 -->
+      <div class="ios-card xp-card reveal" style="padding:0">
+        <div class="xp-card-accent orange"></div>
+        <div class="xp-card-header">
+          <div class="xp-meta-row">
+            <span class="xp-badge">Stage — 1ère année</span>
+            <span class="xp-date-badge">Mai – Juin 2025 · 1 mois</span>
+          </div>
+          <h2 class="xp-title">Technicien informatique — Infrastructure &amp; réseau</h2>
+          <div class="xp-company-row">
+            <span class="xp-company">Imagix (Cinéma)</span>
+            <span class="xp-location">📍 Mons, Belgique</span>
+          </div>
         </div>
-        <div class="timeline-card ios-card">
-          <div class="timeline-header">
-            <div>
-              <span class="timeline-badge">Stage — 2ème année</span>
-              <h2 class="timeline-title">Administration systèmes &amp; réseaux</h2>
-              <p class="timeline-company">Entreprise d'accueil · Stage BTS SIO</p>
-            </div>
-            <span class="timeline-date">2025</span>
-          </div>
-          <div class="timeline-body">
-            <p>Stage de deuxième année axé sur l'administration de l'infrastructure réseau et des serveurs. Participation aux projets de sécurisation et de supervision de l'environnement informatique.</p>
-            <ul class="timeline-tasks">
-              <li>Administration des serveurs Linux Debian et Windows Server</li>
-              <li>Configuration et sécurisation du pare-feu OPNsense (règles, VPN)</li>
-              <li>Mise en place de la supervision réseau avec Zabbix</li>
-              <li>Création et gestion de comptes utilisateurs (AD / OpenLDAP)</li>
-              <li>Automatisation de tâches récurrentes avec des scripts Bash</li>
-              <li>Rédaction de la documentation technique</li>
-            </ul>
-          </div>
-          <div class="timeline-tags">
-            <span class="chip">OPNsense</span>
-            <span class="chip">Zabbix</span>
-            <span class="chip">Linux</span>
-            <span class="chip">VPN</span>
-            <span class="chip">Scripts Bash</span>
+        <div class="xp-card-body">
+          <p class="xp-intro">Stage d'un mois au sein du cinéma Imagix à Mons. Intervention sur l'infrastructure réseau et la sécurisation des systèmes informatiques du site.</p>
+          <p class="xp-tasks-title">Missions réalisées</p>
+          <ul class="xp-tasks">
+            <li>Configuration de routeurs et mise en place de sous-réseaux et <strong>VLAN</strong></li>
+            <li>Gestion des pare-feux et des droits utilisateurs</li>
+            <li>Sécurisation des postes de travail et du réseau via une <strong>DMZ</strong></li>
+            <li>Mise en place et gestion d'un serveur <strong>GLPI</strong></li>
+          </ul>
+          <div class="xp-tags">
+            <span class="chip">VLAN</span>
+            <span class="chip">DMZ</span>
+            <span class="chip">GLPI</span>
+            <span class="chip">Pare-feu</span>
+            <span class="chip">Routage</span>
           </div>
         </div>
       </div>
@@ -164,12 +298,12 @@
   </div>
 </section>
 
-<!-- ═══ KEY SKILLS ════════════════════════════════════════════ -->
+<!-- ═══ STATS ═════════════════════════════════════════════════ -->
 <section class="section section-tinted">
   <div class="container">
     <div class="section-header reveal">
       <p class="section-eyebrow">Bilan</p>
-      <h2 class="section-title">Compétences acquises</h2>
+      <h2 class="section-title">En chiffres</h2>
     </div>
     <div class="stats-grid reveal">
       <div class="stat-card ios-card">
@@ -178,7 +312,7 @@
       </div>
       <div class="stat-card ios-card">
         <span class="stat-number" data-count="10" data-suffix=" sem.">0</span>
-        <span class="stat-label">d'expérience</span>
+        <span class="stat-label">semaines de stage</span>
       </div>
       <div class="stat-card ios-card">
         <span class="stat-number" data-count="6">0</span>

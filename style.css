@@ -2723,6 +2723,10 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 700; lin
   gap: 1rem;
   margin-bottom: 0.85rem;
 }
+.timeline-header > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
 .timeline-badge {
   display: inline-flex;
   height: 1.6rem;
@@ -2739,6 +2743,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 700; lin
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 0.2rem;
+  overflow-wrap: break-word;
 }
 .timeline-company {
   font-size: 0.85rem;
