@@ -1,0 +1,485 @@
+/* ════════════════════════════════════════════════════════════
+   iOS INTERFACE STYLES — scoped to .ios-wrapper
+   Zéro conflit avec les styles macOS existants
+════════════════════════════════════════════════════════════ */
+
+/* Body quand iOS actif */
+body.ios-active { overflow: hidden !important; }
+
+/* Masquer l'interface macOS quand iOS est actif */
+body.ios-active .macos-desktop,
+body.ios-active .wallpaper { display: none !important; }
+
+/* Cacher toutes les scrollbars dans l'interface iOS */
+.ios-wrapper *              { scrollbar-width: none; -ms-overflow-style: none; }
+.ios-wrapper *::-webkit-scrollbar { display: none; }
+
+/* ── Wrapper principal ──────────────────────────────────── */
+.ios-wrapper {
+  position: fixed; inset: 0; z-index: 9999;
+  font-family: -apple-system, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════════════════════
+   LOCK SCREEN
+════════════════════════════════════════════════════════════ */
+.ios-lockscreen {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, #0a0a2e 0%, #1a1a4e 50%, #0d0d3d 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+  padding: calc(80px + env(safe-area-inset-top)) 24px calc(40px + env(safe-area-inset-bottom));
+  z-index: 10; user-select: none;
+  transition: opacity .4s ease, transform .4s ease;
+}
+.ios-lockscreen.ios-unlocking { opacity: 0; transform: scale(1.05); }
+
+.ios-ls-top { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+.ios-ls-time {
+  font-size: 72px; font-weight: 700; color: #fff;
+  letter-spacing: -2px; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ios-ls-date { font-size: 17px; font-weight: 400; color: rgba(255,255,255,.85); }
+.ios-ls-lock { font-size: 48px; animation: ios-lock-pulse 2.5s ease-in-out infinite; }
+@keyframes ios-lock-pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%     { opacity:.7; transform:scale(.95); }
+}
+.ios-ls-bottom { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.ios-ls-hint { font-size: 14px; color: rgba(255,255,255,.7); text-align: center; letter-spacing: .3px; }
+.ios-ls-chevron {
+  font-size: 22px; color: rgba(255,255,255,.8);
+  animation: ios-chevron-bounce 1.8s ease-in-out infinite;
+}
+@keyframes ios-chevron-bounce {
+  0%,100% { transform:translateY(0); opacity:.8; }
+  50%     { transform:translateY(-8px); opacity:1; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   HOME SCREEN
+════════════════════════════════════════════════════════════ */
+.ios-homescreen {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, #0a0a2e 0%, #1a1a4e 55%, #0e0e3a 100%);
+  display: flex; flex-direction: column;
+  z-index: 5; overflow: hidden;
+  opacity: 0; pointer-events: none;
+  transition: opacity .4s ease;
+}
+.ios-homescreen.ios-visible { opacity: 1; pointer-events: all; }
+
+/* Status Bar */
+.ios-statusbar {
+  height: 44px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+  padding-top: env(safe-area-inset-top);
+  position: relative; z-index: 10;
+}
+.ios-statusbar__time {
+  font-size: 15px; font-weight: 600; color: #fff;
+  font-variant-numeric: tabular-nums; letter-spacing: -.3px;
+}
+.ios-statusbar__icons { display: flex; align-items: center; gap: 6px; }
+.ios-statusbar__icons svg { fill: #fff; display: block; }
+
+/* App Grid */
+.ios-appgrid {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 24px 16px 0; overflow: hidden;
+}
+.ios-appgrid__page {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 22px 12px; width: 100%; max-width: 340px;
+  justify-items: center;
+}
+
+/* App Icon */
+.ios-icon {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  user-select: none; width: 75px;
+  touch-action: manipulation;
+}
+.ios-icon__img {
+  width: 60px; height: 60px; border-radius: 17px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.4);
+  overflow: hidden; flex-shrink: 0; position: relative;
+  transition: transform .1s cubic-bezier(.25,.46,.45,.94), opacity .1s ease;
+}
+.ios-icon__img svg { width: 100%; height: 100%; display: block; }
+.ios-icon:active .ios-icon__img { opacity: .7; transform: scale(.85); }
+.ios-icon__label {
+  font-size: 11px; font-weight: 400; color: #fff; text-align: center;
+  letter-spacing: .1px;
+  text-shadow: 0 1px 3px rgba(0,0,0,.55); line-height: 1.2;
+  max-width: 72px; word-break: break-word;
+}
+
+/* Wiggle */
+.ios-icon.ios-wiggling .ios-icon__img {
+  animation: ios-wiggle .35s ease-in-out infinite alternate;
+}
+@keyframes ios-wiggle {
+  from { transform: rotate(-2deg); }
+  to   { transform: rotate(2deg); }
+}
+
+/* Page dots */
+.ios-pagedots {
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 10px 0 6px; flex-shrink: 0;
+}
+.ios-pagedot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.35); transition:background .2s; }
+.ios-pagedot.ios-active { background:rgba(255,255,255,.9); width:8px; height:8px; }
+
+/* Dock */
+.ios-dock {
+  flex-shrink: 0; display: flex; justify-content: center; align-items: center;
+  padding: 0 0 calc(20px + env(safe-area-inset-bottom));
+}
+.ios-dock__inner {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 26px; padding: 12px 20px;
+}
+.ios-dock-icon .ios-icon__img { width: 56px; height: 56px; }
+
+/* Home indicator */
+.ios-home-indicator {
+  position: absolute;
+  bottom: calc(8px + env(safe-area-inset-bottom));
+  left: 50%; transform: translateX(-50%);
+  width: 134px; height: 5px;
+  background: rgba(255,255,255,.6); border-radius: 3px;
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════════════════════════
+   APP WINDOW
+════════════════════════════════════════════════════════════ */
+.ios-appwindow {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  z-index: 20; overflow: hidden;
+  opacity: 0; pointer-events: none;
+  background: #F2F2F7;
+}
+.ios-appwindow.ios-opening {
+  animation: ios-app-open .38s cubic-bezier(.25,.46,.45,.94) forwards;
+}
+.ios-appwindow.ios-closing {
+  animation: ios-app-close .3s cubic-bezier(.25,.46,.45,.94) forwards;
+}
+@keyframes ios-app-open {
+  from { opacity:0; transform:scale(.88); }
+  to   { opacity:1; transform:scale(1); }
+}
+@keyframes ios-app-close {
+  from { opacity:1; transform:scale(1); }
+  to   { opacity:0; transform:scale(.88); }
+}
+
+/* In-app status bar */
+.ios-statusbar-inapp {
+  height: 44px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+  padding-top: env(safe-area-inset-top);
+  background: rgba(242,242,247,.95);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+}
+.ios-statusbar-inapp__time {
+  font-size: 15px; font-weight: 600; color: #000;
+  font-variant-numeric: tabular-nums;
+}
+.ios-statusbar-inapp__icons { display:flex; align-items:center; gap:6px; }
+.ios-statusbar-inapp__icons svg { fill: #000; display: block; }
+
+/* Nav bar */
+.ios-navbar {
+  height: 44px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+  background: rgba(242,242,247,.95);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: .5px solid rgba(60,60,67,.29);
+}
+.ios-navbar__back {
+  font-size: 17px; color: #007AFF; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  display: flex; align-items: center; gap: 3px;
+  min-width: 80px; font-weight: 400; padding: 4px 0;
+}
+.ios-navbar__back:active { opacity: .6; }
+.ios-navbar__title {
+  font-size: 17px; font-weight: 600; color: #000;
+  text-align: center; flex: 1; letter-spacing: -.3px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ios-navbar__spacer { min-width: 80px; }
+
+/* App content area */
+.ios-appwindow__content {
+  flex: 1; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #F2F2F7;
+  overscroll-behavior: contain;
+}
+.ios-appwindow__iframe {
+  width: 100%; height: 100%; border: none; display: block;
+  background: #F2F2F7;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CONTROL CENTER
+════════════════════════════════════════════════════════════ */
+.ios-cc {
+  position: absolute; top: 0; left: 0; right: 0;
+  z-index: 50;
+  background: rgba(28,28,30,.88);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border-radius: 0 0 20px 20px;
+  padding: calc(60px + env(safe-area-inset-top)) 20px 20px;
+  transform: translateY(-100%);
+  transition: transform .35s cubic-bezier(.25,.46,.45,.94);
+  pointer-events: none;
+}
+.ios-cc.ios-cc--open { transform: translateY(0); pointer-events: all; }
+
+.ios-cc-overlay {
+  position: absolute; inset: 0; z-index: 49;
+  opacity: 0; pointer-events: none;
+}
+.ios-cc-overlay.ios-cc-overlay--open { opacity: 1; pointer-events: all; }
+
+.ios-cc__buttons {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 12px; margin-bottom: 16px;
+}
+.ios-cc__btn {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 5px;
+  aspect-ratio: 1; border-radius: 16px;
+  background: rgba(255,255,255,.1); cursor: pointer;
+  border: none; color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: background .15s;
+}
+.ios-cc__btn.ios-cc--on { background: rgba(255,255,255,.3); }
+.ios-cc__btn:active { opacity: .7; }
+.ios-cc__btn-icon  { font-size: 22px; }
+.ios-cc__btn-label { font-size: 10px; font-weight: 500; color: rgba(255,255,255,.8); }
+
+.ios-cc__slider-row { margin-bottom: 14px; }
+.ios-cc__slider-label {
+  font-size: 12px; color: rgba(255,255,255,.7);
+  margin-bottom: 6px; display: flex; align-items: center; gap: 8px;
+}
+.ios-cc__slider {
+  width: 100%; height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,.25);
+  appearance: none; -webkit-appearance: none;
+  outline: none; cursor: pointer;
+}
+.ios-cc__slider::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px;
+  border-radius: 50%; background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.3);
+}
+
+/* ════════════════════════════════════════════════════════════
+   DARK MODE INSIDE APPS
+════════════════════════════════════════════════════════════ */
+[data-theme="dark"] .ios-appwindow         { background: #000; }
+[data-theme="dark"] .ios-appwindow__content{ background: #1c1c1e; }
+[data-theme="dark"] .ios-appwindow__iframe { background: #1c1c1e; }
+[data-theme="dark"] .ios-navbar {
+  background: rgba(28,28,30,.95);
+  border-bottom-color: rgba(255,255,255,.08);
+}
+[data-theme="dark"] .ios-navbar__title { color: #f5f5f7; }
+[data-theme="dark"] .ios-navbar__back  { color: #0A84FF; }
+[data-theme="dark"] .ios-statusbar-inapp { background: rgba(28,28,30,.95); }
+[data-theme="dark"] .ios-statusbar-inapp__time { color: #f5f5f7; }
+[data-theme="dark"] .ios-statusbar-inapp__icons svg { fill: #f5f5f7; }
+
+/* ════════════════════════════════════════════════════════════
+   ADMIN SYSTEM — iOS
+════════════════════════════════════════════════════════════ */
+
+/* ── Login overlay ─────────────────────────────────────── */
+.ios-admin-overlay {
+  position: absolute; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease;
+}
+.ios-admin-overlay.ios-adm-show { opacity: 1; pointer-events: all; }
+
+.ios-admin-modal {
+  width: min(320px, 88vw);
+  background: rgba(30,30,40,.92);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 22px;
+  padding: 32px 24px 24px;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.6);
+  transform: scale(.94) translateY(12px);
+  transition: transform .28s cubic-bezier(.34,1.56,.64,1);
+}
+.ios-admin-overlay.ios-adm-show .ios-admin-modal {
+  transform: scale(1) translateY(0);
+}
+
+.ios-adm-shield {
+  width: 56px; height: 56px; margin-bottom: 4px;
+}
+.ios-admin-modal h2 {
+  font-size: 1.1rem; font-weight: 700; color: #fff;
+  margin: 0; letter-spacing: -.01em;
+}
+.ios-adm-subtitle {
+  font-size: .82rem; color: rgba(255,255,255,.5); margin: -8px 0 4px;
+}
+.ios-admin-modal input {
+  width: 100%; box-sizing: border-box;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-size: .95rem; color: #fff;
+  outline: none;
+  transition: border-color .15s;
+}
+.ios-admin-modal input:focus { border-color: rgba(255,59,48,.7); }
+.ios-admin-modal input::placeholder { color: rgba(255,255,255,.3); }
+.ios-adm-login-btn {
+  width: 100%;
+  background: #FF3B30; color: #fff;
+  border: none; border-radius: 14px;
+  padding: 14px; font-size: .97rem; font-weight: 600;
+  cursor: pointer; letter-spacing: .01em;
+  transition: opacity .15s;
+  margin-top: 2px;
+}
+.ios-adm-login-btn:active { opacity: .78; }
+.ios-adm-error {
+  font-size: .8rem; color: #FF453A;
+  display: none; margin: -8px 0 0; text-align: center;
+}
+.ios-adm-cancel-btn {
+  background: none; border: none;
+  color: rgba(255,255,255,.45); font-size: .88rem;
+  cursor: pointer; padding: 4px 12px;
+}
+.ios-adm-cancel-btn:active { color: rgba(255,255,255,.7); }
+
+/* ── Admin toolbar (above dock) ────────────────────────── */
+.ios-admin-toolbar {
+  position: absolute;
+  bottom: calc(90px + env(safe-area-inset-bottom));
+  left: 50%; transform: translateX(-50%) translateY(20px);
+  z-index: 800;
+  background: rgba(20,20,28,.92);
+  border: 1px solid rgba(255,255,255,.13);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 8px 12px;
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+  white-space: nowrap;
+}
+.ios-admin-toolbar.ios-adm-tb-show {
+  opacity: 1; pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+.ios-adm-badge {
+  font-size: .72rem; font-weight: 700;
+  color: #FF3B30; letter-spacing: .04em;
+  padding: 3px 8px;
+  background: rgba(255,59,48,.12);
+  border-radius: 8px;
+}
+.ios-adm-tb-btn {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px;
+  color: #fff; font-size: .78rem; font-weight: 600;
+  padding: 6px 11px;
+  cursor: pointer; transition: background .15s;
+}
+.ios-adm-tb-btn:active { background: rgba(255,255,255,.2); }
+.ios-adm-tb-btn.ios-adm-tb-active { background: rgba(52,199,89,.25); border-color: rgba(52,199,89,.4); }
+.ios-adm-tb-danger {
+  background: rgba(255,59,48,.15);
+  border-color: rgba(255,59,48,.3);
+  color: #FF453A;
+}
+.ios-adm-tb-danger:active { background: rgba(255,59,48,.3); }
+
+/* ── Delete badge on icons ─────────────────────────────── */
+.ios-adm-del {
+  display: none;
+  position: absolute; top: -4px; left: -4px; z-index: 10;
+  width: 20px; height: 20px;
+  background: #FF3B30;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff; font-size: 13px; font-weight: 700;
+  line-height: 16px; text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,.4);
+}
+.ios-admin-mode .ios-icon .ios-adm-del { display: block; }
+.ios-admin-mode .ios-icon { position: relative; }
+
+/* ── Drag ghost ────────────────────────────────────────── */
+.ios-drag-ghost {
+  position: fixed; z-index: 9999;
+  pointer-events: none;
+  opacity: .88;
+  transform: scale(1.12);
+  transition: transform .12s;
+  border-radius: 16px;
+  will-change: transform;
+}
+
+/* ── Drop target highlight ─────────────────────────────── */
+.ios-icon.ios-drag-target {
+  outline: 2.5px solid rgba(10,132,255,.8);
+  outline-offset: 3px;
+  border-radius: 17px;
+}
+
+/* ── Admin toast ───────────────────────────────────────── */
+.ios-admin-toast {
+  position: absolute; bottom: calc(155px + env(safe-area-inset-bottom));
+  left: 50%; transform: translateX(-50%);
+  z-index: 8999;
+  background: rgba(20,20,28,.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.1);
+  color: #fff; font-size: .82rem; font-weight: 500;
+  padding: 9px 18px; border-radius: 20px;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s ease;
+}
+.ios-admin-toast.ios-adm-toast-show { opacity: 1; }

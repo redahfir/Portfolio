@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-accent="indigo" data-size="md" data-font="sf">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Présentation de l'entreprise Imagix — cinéma belge — stage de Reda Bouali BTS SIO SISR.">
+  <title>Imagix | Reda Bouali — BTS SIO SISR</title>
+  <script>
+    (function(){var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);r.setAttribute('data-size',s);r.setAttribute('data-font',f);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── Hero ───────────────────────────────────────────── */
+    .ix-hero {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      height: 260px;
+      margin-bottom: 1.75rem;
+      background: linear-gradient(135deg,#7B0A0A,#C0392B);
+    }
+    /* Uniquement l'image de fond directe (pas le logo imbriqué) */
+    .ix-hero > img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .ix-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.04) 55%);
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.6rem 1.8rem;
+    }
+    .ix-hero-title-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    /* Logo carré dans le hero — taille fixe, pas affecté par .ix-hero > img */
+    .ix-hero-logo-img {
+      width: 68px; height: 68px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: rgba(255,255,255,.93);
+      padding: 7px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.4);
+      flex-shrink: 0;
+      display: block;
+    }
+    .ix-hero-title {
+      font-size: 2.2rem; font-weight: 900;
+      color: #fff; letter-spacing: -.03em; line-height: 1;
+      text-shadow: 0 2px 14px rgba(0,0,0,.5);
+    }
+    .ix-hero-sub {
+      margin-top: .35rem; font-size: .87rem;
+      color: rgba(255,255,255,.72); font-weight: 500;
+    }
+
+    /* ── Stats ──────────────────────────────────────────── */
+    .ix-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 580px) { .ix-stats { grid-template-columns: repeat(2, 1fr); } }
+    .ix-stat { border-radius: 14px; padding: 1rem; text-align: center; }
+    [data-theme="light"] .ix-stat { background:#fff; border:1px solid rgba(0,0,0,.07); box-shadow:0 2px 8px rgba(0,0,0,.05); }
+    [data-theme="dark"]  .ix-stat { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); }
+    .ix-stat-n { font-size:1.75rem; font-weight:800; color:#C0392B; line-height:1; margin-bottom:.2rem; }
+    .ix-stat-l { font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; opacity:.45; }
+
+    /* ── Cards ──────────────────────────────────────────── */
+    .ix-grid { display:grid; gap:1.1rem; }
+    .ix-card { border-radius:16px; overflow:hidden; }
+    [data-theme="light"] .ix-card { background:#fff; border:1px solid rgba(0,0,0,.07); box-shadow:0 2px 10px rgba(0,0,0,.05); }
+    [data-theme="dark"]  .ix-card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); }
+    .ix-card-head { display:flex; align-items:center; gap:.85rem; padding:1.1rem 1.25rem .9rem; border-bottom:1px solid rgba(128,128,128,.08); }
+    .ix-card-ico { width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .ix-card-ttl { font-size:.95rem; font-weight:700; }
+    .ix-card-body { padding:1rem 1.25rem; font-size:.87rem; line-height:1.65; opacity:.83; }
+    .ix-list { list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .ix-list li { display:flex; align-items:flex-start; gap:.55rem; }
+    .ix-list li::before { content:''; width:6px; height:6px; border-radius:50%; background:#C0392B; flex-shrink:0; margin-top:6px; }
+
+    /* ── Photo dans "Qui est Imagix" ────────────────────── */
+    .ix-who-img {
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .ix-who-img img {
+      width: 100%; height: 210px;
+      object-fit: cover;
+      display: block;
+      transition: transform .32s cubic-bezier(.4,0,.2,1);
+    }
+    .ix-who-img:hover img { transform: scale(1.03); }
+    .ix-photo-cap {
+      position: absolute; inset: auto 0 0 0;
+      background: linear-gradient(to top, rgba(0,0,0,.62) 0%, transparent 100%);
+      color: #fff; font-size: .74rem; font-weight: 600;
+      padding: .55rem .8rem .45rem;
+      opacity: 0; transition: opacity .2s;
+    }
+    .ix-who-img:hover .ix-photo-cap { opacity: 1; }
+
+    /* ── Sites ──────────────────────────────────────────── */
+    .sites-row { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:.75rem; padding:1rem 1.25rem; }
+    .site-item { border-radius:12px; padding:.95rem; }
+    [data-theme="light"] .site-item { background:rgba(192,57,43,.06); border:1px solid rgba(192,57,43,.12); }
+    [data-theme="dark"]  .site-item { background:rgba(192,57,43,.1);  border:1px solid rgba(192,57,43,.22); }
+    .site-item-name { font-size:.88rem; font-weight:700; color:#C0392B; margin-bottom:.3rem; }
+    .site-item-addr { font-size:.77rem; opacity:.6; line-height:1.4; }
+    .site-item-badge { display:inline-flex; align-items:center; height:1.35rem; padding:0 .55rem; border-radius:999px; font-size:.65rem; font-weight:700; background:#C0392B; color:#fff; margin-top:.45rem; }
+
+    /* ── Social ─────────────────────────────────────────── */
+    .ix-socials { display:flex; flex-wrap:wrap; gap:.55rem; padding:1rem 1.25rem 1.2rem; }
+    .ix-soc { display:inline-flex; align-items:center; gap:.4rem; padding:.42rem .95rem; border-radius:999px; font-size:.78rem; font-weight:600; text-decoration:none; transition:opacity .14s, transform .1s; border:none; cursor:pointer; }
+    .ix-soc:hover { opacity:.78; transform:translateY(-1px); }
+    .ix-soc.web { background:#C0392B; color:#fff; }
+    .ix-soc.fb  { background:#1877F2; color:#fff; }
+    .ix-soc.ig  { background:linear-gradient(135deg,#F58529,#DD2A7B,#8134AF); color:#fff; }
+    .ix-soc.li  { background:#0077B5; color:#fff; }
+
+    /* ── Lightbox ───────────────────────────────────────── */
+    #ix-lb { position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,.92); display:none; align-items:center; justify-content:center; }
+    #ix-lb.open { display:flex; }
+    #ix-lb > img { max-width:92vw; max-height:88vh; border-radius:10px; object-fit:contain; }
+    #ixlb-x { position:absolute; top:18px; right:22px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; opacity:.8; line-height:1; }
+    #ixlb-x:hover { opacity:1; }
+    #ixlb-cap { position:absolute; bottom:22px; left:50%; transform:translateX(-50%); color:rgba(255,255,255,.65); font-size:.8rem; font-weight:600; background:rgba(0,0,0,.4); padding:.35rem .9rem; border-radius:999px; white-space:nowrap; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-mark">RB</span>
+      <span class="brand-name">Reda Bouali</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html"       class="nav-link">Accueil</a></li>
+      <li><a href="about.html"       class="nav-link">À propos</a></li>
+      <li><a href="experiences.html" class="nav-link">Expériences</a></li>
+      <li><a href="skills.html"      class="nav-link">Compétences</a></li>
+      <li><a href="missions.html"    class="nav-link">Missions</a></li>
+      <li><a href="projects.html"    class="nav-link">Projets</a></li>
+      <li><a href="cv.html"          class="nav-link">CV</a></li>
+      <li><a href="pix.html"         class="nav-link">Certifications</a></li>
+      <li><a href="imagix.html"      class="nav-link active">Imagix</a></li>
+      <li><a href="contact.html"     class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Basculer le thème"><span id="theme-icon">🌙</span></button>
+      <button id="settings-btn" class="nav-icon-btn" aria-label="Paramètres">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button id="nav-burger" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<aside id="settings-panel" class="settings-panel" aria-hidden="true">
+  <div class="settings-header">
+    <span class="settings-title">Apparence</span>
+    <button id="settings-close" class="settings-close">✕</button>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Couleur d'accent</p>
+    <div class="settings-row">
+      <button class="accent-dot indigo" data-set-accent="indigo" aria-label="Indigo"></button>
+      <button class="accent-dot cyan"   data-set-accent="cyan"   aria-label="Cyan"></button>
+      <button class="accent-dot amber"  data-set-accent="amber"  aria-label="Ambre"></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="settings-row">
+      <button class="size-btn" data-set-size="sm">A<small>A</small></button>
+      <button class="size-btn active" data-set-size="md">A</button>
+      <button class="size-btn" data-set-size="lg"><big>A</big></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Police</p>
+    <div class="settings-row">
+      <button class="font-btn active" data-set-font="sf">SF / Inter</button>
+      <button class="font-btn" data-set-font="manrope">Manrope</button>
+      <button class="font-btn" data-set-font="mono">Mono</button>
+    </div>
+  </div>
+</aside>
+
+<section class="page-hero"><div class="container"><div class="page-hero-inner reveal"><p class="section-eyebrow">Entreprise de stage</p><h1 class="page-title">Imagix</h1><p class="page-subtitle">Réseau de cinémas multiplex en Belgique — lieu de mes deux stages.</p></div></div></section>
+
+<section class="section"><div class="container">
+
+    <!-- ── Hero banner ── -->
+    <div class="ix-hero">
+      <img src="imagix-building.jpg" alt="Façade cinéma Imagix"
+           onerror="this.style.opacity='0'">
+      <div class="ix-hero-overlay">
+        <div class="ix-hero-title-row">
+          <img src="imagix-logo.jpg" alt="Logo Imagix" class="ix-hero-logo-img"
+               onerror="this.style.display='none'">
+          <div>
+            <div class="ix-hero-title">IMAGIX</div>
+            <div class="ix-hero-sub">Cinémas multiplex — Belgique</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Stats ── -->
+    <div class="ix-stats">
+      <div class="ix-stat"><div class="ix-stat-n">3</div><div class="ix-stat-l">Sites</div></div>
+      <div class="ix-stat"><div class="ix-stat-n">400+</div><div class="ix-stat-l">Machines</div></div>
+      <div class="ix-stat"><div class="ix-stat-n">30+</div><div class="ix-stat-l">Salles</div></div>
+      <div class="ix-stat"><div class="ix-stat-n">1989</div><div class="ix-stat-l">Fondation</div></div>
+    </div>
+
+    <div class="ix-grid">
+
+      <!-- Présentation -->
+      <div class="ix-card">
+        <div class="ix-card-head">
+          <div class="ix-card-ico" style="background:linear-gradient(135deg,#C0392B,#7B0A0A)">🎬</div>
+          <div class="ix-card-ttl">Qui est Imagix ?</div>
+        </div>
+        <!-- Vue aérienne intégrée dans la rubrique -->
+        <div class="ix-who-img" data-lb="0">
+          <img src="imagix-aerial.jpg" alt="Vue aérienne du site Imagix"
+               onerror="this.parentElement.style.display='none'">
+          <div class="ix-photo-cap">Vue aérienne — Site Imagix Tournai</div>
+        </div>
+        <div class="ix-card-body">
+          <p style="margin-bottom:.75rem">
+            Imagix est un groupe cinématographique belge indépendant fondé en 1989, spécialisé dans
+            l'exploitation de cinémas multiplex en Belgique.
+            Le groupe propose une offre complète : projection numérique 2D/3D, formats premium,
+            son Dolby Atmos et une billetterie en ligne.
+          </p>
+          <p>
+            Avec plus de <strong>400 postes informatiques</strong> répartis sur ses <strong>3 sites</strong>,
+            Imagix dispose d'une infrastructure IT structurée (Active Directory, GLPI, Zabbix, réseaux multi-sites)
+            sur laquelle j'ai effectué mes deux stages de BTS SIO option SISR.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sites -->
+      <div class="ix-card">
+        <div class="ix-card-head">
+          <div class="ix-card-ico" style="background:linear-gradient(135deg,#E74C3C,#C0392B)">📍</div>
+          <div class="ix-card-ttl">Les 3 sites</div>
+        </div>
+        <div class="sites-row">
+          <div class="site-item">
+            <div class="site-item-name">Imagix Tournai</div>
+            <div class="site-item-addr">Avenue des Milieux 2<br>7500 Tournai, Belgique</div>
+            <span class="site-item-badge">Site principal</span>
+          </div>
+          <div class="site-item">
+            <div class="site-item-name">Imagix Mons</div>
+            <div class="site-item-addr">Chaussée du Roeulx 399<br>7000 Mons, Belgique</div>
+            <span class="site-item-badge">Site 2</span>
+          </div>
+          <div class="site-item">
+            <div class="site-item-name">Imagix Liège</div>
+            <div class="site-item-addr">Rue du Campinaire 1<br>4031 Angleur, Belgique</div>
+            <span class="site-item-badge">Site 3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Offre -->
+      <div class="ix-card">
+        <div class="ix-card-head">
+          <div class="ix-card-ico" style="background:linear-gradient(135deg,#8E44AD,#6C3483)">🎥</div>
+          <div class="ix-card-ttl">Offre &amp; équipements</div>
+        </div>
+        <div class="ix-card-body">
+          <ul class="ix-list">
+            <li>Projection numérique 2D, 3D et formats premium (IMAX, ScreenX selon les sites)</li>
+            <li>Son Dolby Atmos dans les salles premium</li>
+            <li>Billetterie en ligne et bornes libre-service sur site</li>
+            <li>Application mobile pour réservation et programme de fidélité</li>
+            <li>Snacking et concessions dans chaque site</li>
+            <li>Salles privatisables pour événements d'entreprise et anniversaires</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- IT -->
+      <div class="ix-card">
+        <div class="ix-card-head">
+          <div class="ix-card-ico" style="background:linear-gradient(135deg,#2980B9,#1A5276)">🔧</div>
+          <div class="ix-card-ttl">Infrastructure IT — contexte de mon stage</div>
+        </div>
+        <div class="ix-card-body">
+          <ul class="ix-list">
+            <li><strong>400+ postes</strong> répartis sur 3 sites géographiques</li>
+            <li><strong>Active Directory</strong> centralisé pour la gestion des comptes et GPO</li>
+            <li><strong>GLPI</strong> pour la gestion du parc, des tickets et de l'inventaire</li>
+            <li><strong>Zabbix</strong> déployé en stage 2 pour superviser l'ensemble du parc</li>
+            <li><strong>VPN Clavister OneConnect</strong> pour l'accès distant sécurisé (stage 1)</li>
+            <li><strong>Scripts Python</strong> pour l'automatisation des remontées MySQL/GLPI (stage 2)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Réseaux & liens -->
+      <div class="ix-card">
+        <div class="ix-card-head">
+          <div class="ix-card-ico" style="background:linear-gradient(135deg,#27AE60,#1E8449)">🌐</div>
+          <div class="ix-card-ttl">Liens officiels &amp; réseaux sociaux</div>
+        </div>
+        <div class="ix-socials">
+          <a href="https://www.imagix.be" target="_blank" rel="noopener" class="ix-soc web">
+            🌐 imagix.be
+          </a>
+          <a href="https://www.facebook.com/cinemas.imagix/?locale=fr_FR" target="_blank" rel="noopener" class="ix-soc fb">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.406 18.627 0 12 0S0 5.406 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+            Facebook
+          </a>
+          <a href="https://www.instagram.com/imagixbelgique/" target="_blank" rel="noopener" class="ix-soc ig">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.linkedin.com/company/cinemas-imagix/?trk=public_profile_experience-group-header&originalSubdomain=fr" target="_blank" rel="noopener" class="ix-soc li">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /ix-grid -->
+
+</div></div></section>
+
+  <!-- Lightbox (1 seule photo — pas de nav prev/next) -->
+  <div id="ix-lb">
+    <button id="ixlb-x">&times;</button>
+    <img id="ixlb-img" src="" alt="">
+    <div id="ixlb-cap"></div>
+  </div>
+
+  <script>
+  (function(){
+    var lb    = document.getElementById('ix-lb');
+    var lbImg = document.getElementById('ixlb-img');
+    var lbCap = document.getElementById('ixlb-cap');
+
+    document.querySelectorAll('[data-lb]').forEach(function(el){
+      el.addEventListener('click', function(){
+        lbImg.src = el.querySelector('img').src;
+        lbCap.textContent = el.querySelector('.ix-photo-cap') ? el.querySelector('.ix-photo-cap').textContent : '';
+        lb.classList.add('open');
+      });
+    });
+
+    document.getElementById('ixlb-x').addEventListener('click', function(){ lb.classList.remove('open'); lbImg.src = ''; });
+    lb.addEventListener('click', function(e){ if(e.target === lb){ lb.classList.remove('open'); lbImg.src = ''; } });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && lb.classList.contains('open')){ lb.classList.remove('open'); lbImg.src = ''; } });
+  })();
+  </script>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">Reda Bouali</span>
+      <nav class="footer-nav">
+        <a href="about.html">À propos</a>
+        <a href="missions.html">Missions</a>
+        <a href="cv.html">CV</a>
+        <a href="pix.html">Certifications</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2026 — Reda Bouali</span>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Retour en haut">↑</button>
+<script src="script.js"></script>
+</body>
+</html>

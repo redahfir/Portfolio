@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-accent="indigo" data-size="md" data-font="sf">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Certifications de Reda Bouali — Pix et SecNumAcadémie ANSSI.">
+  <title>Certifications | Reda Bouali — BTS SIO SISR</title>
+  <script>
+    (function(){var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);r.setAttribute('data-size',s);r.setAttribute('data-font',f);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Certification cards ─────────────────────────── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 560px) { .cert-grid { grid-template-columns: 1fr; } }
+
+    .cert-card {
+      border-radius: 22px;
+      overflow: hidden;
+    }
+    [data-theme="light"] .cert-card { background:#fff; border:1px solid rgba(0,0,0,.07); box-shadow:0 2px 16px rgba(0,0,0,.07); }
+    [data-theme="dark"]  .cert-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.09); }
+
+    .cert-banner {
+      padding: 1.75rem 1.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .cert-org-logo {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(0,0,0,.2);
+      font-weight: 900;
+      font-family: 'Manrope', sans-serif;
+    }
+    .cert-header-text { flex: 1; min-width: 0; }
+    .cert-org-name {
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em;
+      opacity: .45; margin-bottom: 0.2rem;
+    }
+    .cert-name {
+      font-size: 1.15rem; font-weight: 800; line-height: 1.25;
+      margin-bottom: 0.35rem;
+    }
+    .cert-holder {
+      font-size: 0.88rem; font-weight: 600; opacity: .7;
+    }
+    .cert-badge-score {
+      display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
+      flex-shrink: 0;
+    }
+    .cert-score-num {
+      font-size: 1.6rem; font-weight: 900;
+      line-height: 1;
+    }
+    .cert-score-label {
+      font-size: 0.62rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em; opacity: .45;
+    }
+
+    .cert-body {
+      padding: 0 1.75rem 1.5rem;
+    }
+    .cert-date-row {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; opacity: .55; margin-bottom: 1.1rem;
+      font-weight: 500;
+    }
+
+    /* Module list (ANSSI) */
+    .cert-modules {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .cert-module {
+      display: flex; align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.85rem;
+      border-radius: 12px;
+    }
+    [data-theme="light"] .cert-module { background: rgba(0,0,0,.04); }
+    [data-theme="dark"]  .cert-module { background: rgba(255,255,255,.06); }
+    .cert-module-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .cert-module-name { flex: 1; font-size: 0.855rem; font-weight: 600; }
+    .cert-module-score {
+      font-size: 0.82rem; font-weight: 800;
+      color: #34C759;
+    }
+    .cert-module-date { font-size: 0.72rem; opacity: .45; margin-left: 0.5rem; }
+
+    /* Pix domains */
+    .cert-domains {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.55rem; margin-bottom: 1.25rem;
+    }
+    @media (max-width: 420px) { .cert-domains { grid-template-columns: 1fr; } }
+    .cert-domain {
+      display: flex; align-items: flex-start; gap: 0.55rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: 10px;
+    }
+    [data-theme="light"] .cert-domain { background: rgba(0,0,0,.04); }
+    [data-theme="dark"]  .cert-domain { background: rgba(255,255,255,.06); }
+    .cert-domain-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+    .cert-domain-text { font-size: 0.8rem; font-weight: 600; line-height: 1.35; }
+
+    .cert-actions {
+      display: flex; gap: 0.65rem; flex-wrap: wrap;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(128,128,128,.1);
+    }
+    .cert-btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px; border: none;
+      font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: opacity .15s;
+    }
+    .cert-btn:hover { opacity: .75; }
+    .cert-btn-primary {
+      background: var(--accent); color: #fff;
+    }
+    .cert-btn-secondary {
+      color: var(--accent);
+    }
+    [data-theme="light"] .cert-btn-secondary { background: rgba(0,122,255,.1); }
+    [data-theme="dark"]  .cert-btn-secondary { background: rgba(0,122,255,.18); }
+
+    /* Header chip */
+    .cert-chip {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.7rem; font-weight: 700;
+    }
+    .chip-anssi { background: rgba(0,122,255,.12); color: #007AFF; }
+    .chip-pix   { background: rgba(52,199,89,.12);  color: #2DA44E; }
+    .chip-official { background: rgba(175,82,222,.12); color: #AF52DE; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-mark">RB</span>
+      <span class="brand-name">Reda Bouali</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html"       class="nav-link">Accueil</a></li>
+      <li><a href="about.html"       class="nav-link">À propos</a></li>
+      <li><a href="experiences.html" class="nav-link">Expériences</a></li>
+      <li><a href="skills.html"      class="nav-link">Compétences</a></li>
+      <li><a href="missions.html"    class="nav-link">Missions</a></li>
+      <li><a href="projects.html"    class="nav-link">Projets</a></li>
+      <li><a href="cv.html"          class="nav-link">CV</a></li>
+      <li><a href="pix.html"         class="nav-link active">Certifications</a></li>
+      <li><a href="imagix.html"      class="nav-link">Imagix</a></li>
+      <li><a href="contact.html"     class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Basculer le thème"><span id="theme-icon">🌙</span></button>
+      <button id="settings-btn" class="nav-icon-btn" aria-label="Paramètres">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button id="nav-burger" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<aside id="settings-panel" class="settings-panel" aria-hidden="true">
+  <div class="settings-header">
+    <span class="settings-title">Apparence</span>
+    <button id="settings-close" class="settings-close">✕</button>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Couleur d'accent</p>
+    <div class="settings-row">
+      <button class="accent-dot indigo" data-set-accent="indigo" aria-label="Indigo"></button>
+      <button class="accent-dot cyan"   data-set-accent="cyan"   aria-label="Cyan"></button>
+      <button class="accent-dot amber"  data-set-accent="amber"  aria-label="Ambre"></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="settings-row">
+      <button class="size-btn" data-set-size="sm">A<small>A</small></button>
+      <button class="size-btn active" data-set-size="md">A</button>
+      <button class="size-btn" data-set-size="lg"><big>A</big></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Police</p>
+    <div class="settings-row">
+      <button class="font-btn active" data-set-font="sf">SF / Inter</button>
+      <button class="font-btn" data-set-font="manrope">Manrope</button>
+      <button class="font-btn" data-set-font="mono">Mono</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ HERO ════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner reveal" style="text-align:center">
+      <p class="section-eyebrow">Certifications officielles</p>
+      <h1 class="page-title">Certifications</h1>
+      <p class="page-subtitle">Certifications obtenues en dehors du cursus BTS — attestant de compétences numériques et cybersécurité.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CERTIFICATIONS ═══════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="cert-grid">
+
+      <!-- ── ANSSI SecNumAcadémie ──────────────────────── -->
+      <div class="cert-card reveal">
+        <div class="cert-banner">
+          <div class="cert-org-logo" style="background:linear-gradient(145deg,#003189,#0051CC);color:#fff;font-size:13px;letter-spacing:-.5px;">ANSSI</div>
+          <div class="cert-header-text">
+            <div class="cert-org-name">ANSSI — SecNumAcadémie</div>
+            <div class="cert-name">Attestation de suivi MOOC</div>
+            <div class="cert-holder">Reda Bouali</div>
+          </div>
+          <div class="cert-badge-score">
+            <span class="cert-score-num" style="color:#34C759">100%</span>
+            <span class="cert-score-label">tous modules</span>
+          </div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-date-row">
+            <span>📅</span>
+            <span>Obtenu le 6 mars 2025</span>
+            <span class="cert-chip chip-anssi">Cybersécurité</span>
+            <span class="cert-chip chip-official">Officiel</span>
+          </div>
+
+          <div class="cert-modules">
+            <div class="cert-module">
+              <div class="cert-module-icon" style="background:rgba(0,49,137,.12)">🔭</div>
+              <span class="cert-module-name">Panorama de la SSI</span>
+              <span class="cert-module-score">100%</span>
+              <span class="cert-module-date">09/03/2025</span>
+            </div>
+            <div class="cert-module">
+              <div class="cert-module-icon" style="background:rgba(0,49,137,.12)">🔑</div>
+              <span class="cert-module-name">Sécurité de l'authentification</span>
+              <span class="cert-module-score">100%</span>
+              <span class="cert-module-date">06/03/2025</span>
+            </div>
+            <div class="cert-module">
+              <div class="cert-module-icon" style="background:rgba(0,49,137,.12)">🌐</div>
+              <span class="cert-module-name">Sécurité sur internet</span>
+              <span class="cert-module-score">100%</span>
+              <span class="cert-module-date">06/03/2025</span>
+            </div>
+            <div class="cert-module">
+              <div class="cert-module-icon" style="background:rgba(0,49,137,.12)">💻</div>
+              <span class="cert-module-name">Sécurité du poste de travail et nomadisme</span>
+              <span class="cert-module-score">100%</span>
+              <span class="cert-module-date">06/03/2025</span>
+            </div>
+          </div>
+
+          <div class="cert-actions">
+            <a href="mooc-anssi.pdf" target="_blank" rel="noopener" class="cert-btn cert-btn-primary">↓ Télécharger l'attestation</a>
+            <a href="mooc-anssi.pdf" target="_blank" rel="noopener" class="cert-btn cert-btn-secondary">Voir le document</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Pix ───────────────────────────────────────── -->
+      <div class="cert-card reveal">
+        <div class="cert-banner">
+          <div class="cert-org-logo" style="background:linear-gradient(145deg,#F1C40F,#F39C12);color:#fff;font-size:22px;font-weight:900;letter-spacing:-1px;font-family:'Manrope',sans-serif;">Pix</div>
+          <div class="cert-header-text">
+            <div class="cert-org-name">Pix — Service public numérique</div>
+            <div class="cert-name">Certification Pix</div>
+            <div class="cert-holder">Reda Bouali</div>
+          </div>
+          <div class="cert-badge-score">
+            <span style="font-size:2rem">🏅</span>
+          </div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-date-row">
+            <span>📅</span>
+            <span>Obtenu le 6 mars 2026</span>
+            <span class="cert-chip chip-pix">Numérique</span>
+            <span class="cert-chip chip-official">Officiel</span>
+          </div>
+
+          <div class="cert-domains">
+            <div class="cert-domain">
+              <span class="cert-domain-icon">💻</span>
+              <span class="cert-domain-text">Informations &amp; données</span>
+            </div>
+            <div class="cert-domain">
+              <span class="cert-domain-icon">💬</span>
+              <span class="cert-domain-text">Communication &amp; collaboration</span>
+            </div>
+            <div class="cert-domain">
+              <span class="cert-domain-icon">🎨</span>
+              <span class="cert-domain-text">Création de contenu</span>
+            </div>
+            <div class="cert-domain">
+              <span class="cert-domain-icon">🔐</span>
+              <span class="cert-domain-text">Protection &amp; sécurité</span>
+            </div>
+            <div class="cert-domain">
+              <span class="cert-domain-icon">⚙️</span>
+              <span class="cert-domain-text">Environnement numérique</span>
+            </div>
+          </div>
+
+          <div class="cert-actions">
+            <a href="docs/certification-pix-20260306.pdf" target="_blank" rel="noopener" class="cert-btn cert-btn-primary">↓ Télécharger la certification</a>
+            <a href="docs/certification-pix-20260306.pdf" target="_blank" rel="noopener" class="cert-btn cert-btn-secondary">Voir le document</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">Reda Bouali</span>
+      <nav class="footer-nav">
+        <a href="about.html">À propos</a>
+        <a href="missions.html">Missions</a>
+        <a href="cv.html">CV</a>
+        <a href="pix.html">Certifications</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2026 — Reda Bouali</span>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Retour en haut">↑</button>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-accent="indigo" data-size="md" data-font="sf">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Missions de stage et AP de Reda Bouali — BTS SIO SISR.">
+  <title>Missions | Reda Bouali — BTS SIO SISR</title>
+  <script>
+    (function(){var t=localStorage.getItem('theme')||'light',a=localStorage.getItem('accent')||'indigo',s=localStorage.getItem('size')||'md',f=localStorage.getItem('font')||'sf',r=document.documentElement;r.setAttribute('data-theme',t);r.setAttribute('data-accent',a);r.setAttribute('data-size',s);r.setAttribute('data-font',f);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Grid overview ───────────────────────────────────── */
+    .missions-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.1rem;
+      margin-top: 0.5rem;
+    }
+    .mo-card {
+      border-radius: 20px;
+      padding: 1.4rem 1.5rem 1.3rem;
+      cursor: pointer;
+      transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+      display: flex; flex-direction: column; gap: 0.85rem;
+      position: relative; overflow: hidden; user-select: none;
+    }
+    [data-theme="light"] .mo-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.07);
+      box-shadow: 0 2px 14px rgba(0,0,0,.07);
+    }
+    [data-theme="dark"] .mo-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+    .mo-card:hover { transform: translateY(-4px) scale(1.015); box-shadow: 0 8px 32px rgba(0,0,0,.14); }
+    .mo-card:active { transform: scale(.97); transition-duration: .07s; }
+    .mo-card-top { display: flex; align-items: center; gap: 1rem; }
+    .mo-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+      box-shadow: 0 3px 12px rgba(0,0,0,.2);
+    }
+    .mo-title { font-size: 0.97rem; font-weight: 700; line-height: 1.3; flex: 1; }
+    .mo-tags  { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .mo-desc-preview {
+      font-size: 0.82rem; line-height: 1.55; opacity: .65;
+      display: -webkit-box; -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .mo-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+    .mo-open-hint { font-size: 0.72rem; font-weight: 600; opacity: .35; letter-spacing: .03em; }
+    .mo-arrow {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 15px;
+    }
+    [data-theme="light"] .mo-arrow { background: rgba(0,0,0,.06); }
+    [data-theme="dark"]  .mo-arrow { background: rgba(255,255,255,.1); }
+
+    /* Tags */
+    .tag { display: inline-flex; align-items: center; height: 1.45rem; padding: 0 0.55rem; border-radius: 999px; font-size: 0.68rem; font-weight: 600; }
+    .tag-stage1 { background: rgba(0,122,255,.12);  color: #007AFF; }
+    .tag-stage2 { background: rgba(52,199,89,.12);  color: #34C759; }
+    .tag-ap     { background: rgba(175,82,222,.12); color: #AF52DE; }
+    .tag-cours  { background: rgba(255,149,0,.14);  color: #FF9500; }
+    .tag-tech   { background: rgba(128,128,128,.1); }
+    [data-theme="light"] .tag-tech { color: #555; }
+    [data-theme="dark"]  .tag-tech { color: #aaa; }
+
+    /* ── Modal ───────────────────────────────────────────── */
+    #mission-modal {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    #mission-modal.open { opacity: 1; pointer-events: all; }
+    .mm-panel {
+      width: 100%; max-width: 680px; max-height: 88vh;
+      border-radius: 24px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transform: scale(.94) translateY(24px);
+      transition: transform .28s cubic-bezier(.34,1.56,.64,1);
+    }
+    [data-theme="light"] .mm-panel { background: #fff; box-shadow: 0 24px 80px rgba(0,0,0,.25); }
+    [data-theme="dark"]  .mm-panel { background: #1c1c1e; box-shadow: 0 24px 80px rgba(0,0,0,.6); }
+    #mission-modal.open .mm-panel { transform: scale(1) translateY(0); }
+    .mm-header {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.5rem 1.5rem 1.1rem;
+      border-bottom: 1px solid rgba(128,128,128,.1); flex-shrink: 0;
+    }
+    .mm-icon {
+      width: 56px; height: 56px; border-radius: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0,0,0,.22);
+    }
+    .mm-meta { flex: 1; min-width: 0; }
+    .mm-title { font-size: 1.1rem; font-weight: 800; line-height: 1.25; margin-bottom: 0.5rem; }
+    .mm-tags  { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .mm-close {
+      width: 32px; height: 32px; border-radius: 50%; border: none;
+      background: rgba(128,128,128,.15); color: inherit;
+      font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: background .15s;
+    }
+    .mm-close:hover { background: rgba(128,128,128,.28); }
+    .mm-body { overflow-y: auto; padding: 1.25rem 1.5rem 1.5rem; flex: 1; }
+    .mm-desc { font-size: 0.9rem; line-height: 1.7; opacity: .8; margin-bottom: 1.25rem; }
+    .mm-steps { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .mm-steps li { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.875rem; line-height: 1.55; }
+    .step-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      font-size: 0.68rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ── Mission detail sections ─────────────────────────── */
+    .mm-section { margin-bottom: 1.25rem; }
+    .mm-section-label {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; opacity: .45; margin-bottom: 0.55rem;
+    }
+    .mm-outils { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .mm-resultat {
+      border-left: 3px solid var(--accent);
+      padding-left: 0.85rem;
+      opacity: .85;
+    }
+
+    /* Screenshots gallery */
+    .mm-screenshots { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
+    .mm-shot { border-radius: 14px; overflow: hidden; border: 1px solid var(--separator); background: var(--fill-4); margin: 0; }
+    .mm-shot-header { display: flex; align-items: center; gap: 0.55rem; padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--separator); }
+    .mm-shot-badge { font-size: 0.7rem; font-weight: 700; padding: 0.18rem 0.5rem; border-radius: 6px; white-space: nowrap; }
+    .mm-shot-interne { background: rgba(var(--accent-rgb),.12); color: var(--accent); }
+    .mm-shot-externe { background: rgba(245,158,11,.12); color: #D97706; }
+    .mm-shot-iface { font-size: 0.82rem; font-weight: 600; color: var(--text-1); }
+    .mm-shot img { width: 100%; display: block; cursor: zoom-in; transition: transform .2s; }
+    .mm-shot figcaption { padding: 0.65rem 0.9rem; font-size: 0.83rem; color: var(--text-2); line-height: 1.55; }
+
+    /* Carousel */
+    .mm-carousel-section { border-top: 1px solid rgba(128,128,128,.1); padding-top: 1.1rem; }
+    .mm-carousel-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; opacity: .4; margin-bottom: 0.7rem; }
+    .carousel-wrap { position: relative; }
+    .carousel-track-outer { overflow: hidden; border-radius: 12px; }
+    .carousel-track { display: flex; gap: 10px; transition: transform .35s cubic-bezier(.4,0,.2,1); }
+    .carousel-slide { flex: 0 0 calc(50% - 5px); aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; background: rgba(128,128,128,.1); }
+    @media (max-width: 500px) { .carousel-slide { flex: 0 0 100%; } }
+    .carousel-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+    .carousel-empty { width:100%; aspect-ratio:16/9; border-radius:10px; border:2px dashed rgba(128,128,128,.22); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4rem; }
+    .carousel-empty-icon { font-size:2rem; opacity:.3; }
+    .carousel-empty-text { font-size:.8rem; opacity:.38; font-weight:500; }
+    .carousel-empty-hint { font-size:.7rem; opacity:.25; }
+    .carousel-nav { display:flex; justify-content:space-between; align-items:center; margin-top:.55rem; }
+    .carousel-btn { width:32px; height:32px; border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:15px; transition:background .15s, opacity .15s; }
+    [data-theme="light"] .carousel-btn { background:rgba(0,0,0,.07); color:#333; }
+    [data-theme="dark"]  .carousel-btn { background:rgba(255,255,255,.1); color:#fff; }
+    .carousel-btn:hover { opacity:.75; }
+    .carousel-btn:disabled { opacity:.22; cursor:default; }
+    .carousel-dots { display:flex; gap:5px; }
+    .c-dot { width:6px; height:6px; border-radius:50%; background:rgba(128,128,128,.3); transition:background .2s, transform .2s; }
+    .c-dot.active { background:var(--accent); transform:scale(1.3); }
+    .carousel-upload-btn { display:none; align-items:center; gap:.4rem; padding:.35rem .85rem; border-radius:999px; border:none; font-size:.75rem; font-weight:600; cursor:pointer; transition:opacity .15s; background:rgba(var(--accent-rgb),.12); color:var(--accent); }
+    .carousel-upload-btn:hover { opacity:.75; }
+    body.admin-mode .carousel-upload-btn { display:inline-flex; }
+    .slide-del { display:none; position:absolute; top:6px; right:6px; width:22px; height:22px; border-radius:50%; background:rgba(255,59,48,.9); color:#fff; font-size:13px; font-weight:700; line-height:1; align-items:center; justify-content:center; cursor:pointer; border:none; z-index:2; }
+    body.admin-mode .slide-del { display:flex; }
+
+    /* Lightbox */
+    #mission-lightbox { position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; }
+    #mission-lightbox.open { display:flex; }
+    #mission-lightbox img { max-width:92vw; max-height:88vh; border-radius:10px; object-fit:contain; box-shadow:0 16px 64px rgba(0,0,0,.6); }
+    #lb-close { position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; opacity:.8; }
+    #lb-close:hover { opacity:1; }
+    #lb-prev, #lb-next { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.15); border:none; color:#fff; font-size:22px; width:46px; height:46px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+    #lb-prev { left:20px; } #lb-next { right:20px; }
+    #lb-prev:hover, #lb-next:hover { background:rgba(255,255,255,.28); }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-mark">RB</span>
+      <span class="brand-name">Reda Bouali</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html"       class="nav-link">Accueil</a></li>
+      <li><a href="about.html"       class="nav-link">À propos</a></li>
+      <li><a href="experiences.html" class="nav-link">Expériences</a></li>
+      <li><a href="skills.html"      class="nav-link">Compétences</a></li>
+      <li><a href="missions.html"    class="nav-link active">Missions</a></li>
+      <li><a href="projects.html"    class="nav-link">Projets</a></li>
+      <li><a href="cv.html"          class="nav-link">CV</a></li>
+      <li><a href="pix.html"         class="nav-link">Certifications</a></li>
+      <li><a href="imagix.html"      class="nav-link">Imagix</a></li>
+      <li><a href="contact.html"     class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Basculer le thème"><span id="theme-icon">🌙</span></button>
+      <button id="settings-btn" class="nav-icon-btn" aria-label="Paramètres">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button id="nav-burger" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<aside id="settings-panel" class="settings-panel" aria-hidden="true">
+  <div class="settings-header">
+    <span class="settings-title">Apparence</span>
+    <button id="settings-close" class="settings-close">✕</button>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Couleur d'accent</p>
+    <div class="settings-row">
+      <button class="accent-dot indigo" data-set-accent="indigo" aria-label="Indigo"></button>
+      <button class="accent-dot cyan"   data-set-accent="cyan"   aria-label="Cyan"></button>
+      <button class="accent-dot amber"  data-set-accent="amber"  aria-label="Ambre"></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Taille du texte</p>
+    <div class="settings-row">
+      <button class="size-btn" data-set-size="sm">A<small>A</small></button>
+      <button class="size-btn active" data-set-size="md">A</button>
+      <button class="size-btn" data-set-size="lg"><big>A</big></button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <p class="settings-label">Police</p>
+    <div class="settings-row">
+      <button class="font-btn active" data-set-font="sf">SF / Inter</button>
+      <button class="font-btn" data-set-font="manrope">Manrope</button>
+      <button class="font-btn" data-set-font="mono">Mono</button>
+    </div>
+  </div>
+</aside>
+
+<section class="page-hero"><div class="container"><div class="page-hero-inner reveal"><p class="section-eyebrow">Stage &amp; AP</p><h1 class="page-title">Missions</h1><p class="page-subtitle">Cliquez sur une mission pour l'ouvrir en détail.</p></div></div></section>
+
+<section class="section"><div class="container"><div class="missions-overview">
+
+      <div class="mo-card" data-mission="opnsense-dhcp">
+        <div class="mo-card-top">
+          <div class="mo-icon" style="background:linear-gradient(145deg,#D84315,#BF360C)">📡</div>
+          <div class="mo-title">Pare-feu interne OPNsense : relais DHCP</div>
+        </div>
+        <div class="mo-tags"><span class="tag tag-ap">AP</span><span class="tag tag-cours">En cours</span><span class="tag tag-tech">OPNsense</span><span class="tag tag-tech">DHCP Relay</span><span class="tag tag-tech">BSD</span></div>
+        <div class="mo-desc-preview">Configuration du relais DHCP sur le pare-feu interne pour acheminer les requêtes du réseau sans-fil vers le serveur DHCP interne.</div>
+        <div class="mo-footer"><span class="mo-open-hint">Voir le détail</span><div class="mo-arrow">›</div></div>
+      </div>
+
+      <div class="mo-card" data-mission="opnsense-filtrage">
+        <div class="mo-card-top">
+          <div class="mo-icon" style="background:linear-gradient(145deg,#BF360C,#7F0000)">🔥</div>
+          <div class="mo-title">Pare-feu interne OPNsense : règles de filtrage</div>
+        </div>
+        <div class="mo-tags"><span class="tag tag-ap">AP</span><span class="tag tag-cours">En cours</span><span class="tag tag-tech">OPNsense</span><span class="tag tag-tech">Pare-feu</span><span class="tag tag-tech">BSD</span></div>
+        <div class="mo-desc-preview">Mise en place des règles de filtrage par interface sur les deux pare-feux OPNsense (interne Poste 1, externe Poste 2).</div>
+        <div class="mo-footer"><span class="mo-open-hint">Voir le détail</span><div class="mo-arrow">›</div></div>
+      </div>
+
+      <div class="mo-card" data-mission="glpi">
+        <div class="mo-card-top">
+          <div class="mo-icon" style="background:linear-gradient(145deg,#2196F3,#1565C0)">🖥️</div>
+          <div class="mo-title">Mise en place du serveur GLPI</div>
+        </div>
+        <div class="mo-tags"><span class="tag tag-stage1">Stage 1</span><span class="tag tag-tech">GLPI</span><span class="tag tag-tech">Gestion de parc</span></div>
+        <div class="mo-desc-preview">Installation et configuration d'un serveur GLPI pour la gestion du parc : inventaire, utilisateurs, tickets d'incident.</div>
+        <div class="mo-footer"><span class="mo-open-hint">Voir le détail</span><div class="mo-arrow">›</div></div>
+      </div>
+
+      <div class="mo-card" data-mission="aide">
+        <div class="mo-card-top">
+          <div class="mo-icon" style="background:linear-gradient(145deg,#00BCD4,#0097A7)">🙋</div>
+          <div class="mo-title">Aide aux utilisateurs</div>
+        </div>
+        <div class="mo-tags"><span class="tag tag-stage1">Stage 1</span><span class="tag tag-stage2">Stage 2</span><span class="tag tag-tech">Support N1/N2</span><span class="tag tag-tech">Tickets</span></div>
+        <div class="mo-desc-preview">Assistance technique de proximité : résolution de pannes, gestion des tickets GLPI et accompagnement des utilisateurs.</div>
+        <div class="mo-footer"><span class="mo-open-hint">Voir le détail</span><div class="mo-arrow">›</div></div>
+      </div>
+
+      <div class="mo-card" data-mission="zabbix">
+        <div class="mo-card-top">
+          <div class="mo-icon" style="background:linear-gradient(145deg,#E02020,#B01010)">📡</div>
+          <div class="mo-title">Supervision du parc informatique — Serveur Zabbix</div>
+        </div>
+        <div class="mo-tags"><span class="tag tag-stage2">Stage 2</span><span class="tag tag-tech">Zabbix</span><span class="tag tag-tech">Ubuntu</span><span class="tag tag-tech">VMware</span></div>
+        <div class="mo-desc-preview">Mise en place d'une supervision complète de 400 machines sur 3 sites via un serveur Zabbix sur VM Ubuntu.</div>
+        <div class="mo-footer"><span class="mo-open-hint">Voir le détail</span><div class="mo-arrow">›</div></div>
+      </div>
+
+    </div>
+</div></div></section>
+
+  <!-- Modal détail -->
+  <div id="mission-modal" role="dialog" aria-modal="true">
+    <div class="mm-panel">
+      <div class="mm-header">
+        <div class="mm-icon" id="mm-icon"></div>
+        <div class="mm-meta">
+          <div class="mm-title" id="mm-title"></div>
+          <div class="mm-tags"  id="mm-tags"></div>
+        </div>
+        <button class="mm-close" id="mm-close" aria-label="Fermer">&times;</button>
+      </div>
+      <div class="mm-body" id="mm-body"></div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="mission-lightbox">
+    <button id="lb-close">&times;</button>
+    <button id="lb-prev">&#8249;</button>
+    <img id="lb-img" src="" alt="">
+    <button id="lb-next">&#8250;</button>
+  </div>
+
+  <script>
+  (function(){
+    var MISSION_DATA = {
+      'opnsense-dhcp': {
+        icon:'📡', gradient:'linear-gradient(145deg,#D84315,#BF360C)',
+        title:'Pare-feu interne OPNsense : relais DHCP',
+        tags:'<span class="tag tag-ap">AP</span><span class="tag tag-cours">En cours</span><span class="tag tag-tech">OPNsense</span><span class="tag tag-tech">DHCP</span>',
+        context:'AP (Atelier Professionnel) — Formation BTS SIO SISR',
+        realise:[
+          'Configuration du relais DHCP sur le pare-feu interne OPNsense pour acheminer les requêtes du réseau sans-fil vers le serveur DHCP interne.',
+          'Identification des interfaces concernées : réseau SANSFIL → interface DMZ → SrvDHCP.',
+          'Création de la règle de relais DHCP (UDP ports 67-68) depuis SANSFIL vers l\'IP du SrvDHCP.',
+          'Tests de validation : vérification de l\'attribution d\'adresse IP aux équipements Wi-Fi invités.'
+        ],
+        outils:['OPNsense','DHCP Relay','BSD'],
+        resultat:'Distribution IP fonctionnelle depuis le serveur DHCP interne vers les équipements Wi-Fi invités. Réseau stable et isolé du réseau de production.',
+        screenshots:[
+          { type:'interne', iface:'DMZ', src:'opnsense/interne/dmz interne.PNG',
+            caption:'<strong>Interface DMZ — Pare-feu interne (Poste 1).</strong> 4 règles actives : relais DHCP (ports 67-68) depuis le réseau SANSFIL vers le SrvDHCP ; autorisation MySQL entre SrvWEB et SrvBDD (port 3306) ; SMB inter-serveurs (port 445) ; trafic sortant autorisé vers les réseaux SRV, EMP et INF.' }
+        ]
+      },
+      'opnsense-filtrage': {
+        icon:'🔥', gradient:'linear-gradient(145deg,#BF360C,#7F0000)',
+        title:'Pare-feu interne OPNsense : règles de filtrage',
+        tags:'<span class="tag tag-ap">AP</span><span class="tag tag-cours">En cours</span><span class="tag tag-tech">OPNsense</span><span class="tag tag-tech">Pare-feu</span>',
+        context:'AP (Atelier Professionnel) — Formation BTS SIO SISR',
+        realise:[
+          'Création des règles de filtrage par interface sur les deux pare-feux OPNsense (interne Poste 1, externe Poste 2).',
+          'Pare-feu interne : règles sur les interfaces SRV (serveurs), EMP (employés) et INF (informatique).',
+          'Pare-feu externe : règles entrantes WAN (HTTP port 80, SSH port 22, HTTPS) et règle sortante provisoire sur la DMZ.',
+          'Isolation du réseau sans-fil invités (SANSFIL) du reste de l\'infrastructure de production.'
+        ],
+        outils:['OPNsense','Pare-feu','BSD'],
+        resultat:'Réseau sécurisé avec trafic contrôlé entre les segments. Accès filtrés selon les profils (employés, serveurs, invités Wi-Fi).',
+        screenshots:[
+          { type:'interne', iface:'EMP (Employés)', src:'opnsense/interne/emp interne.PNG',
+            caption:'<strong>Interface EMP — Pare-feu interne (Poste 1).</strong> Aucune règle personnalisée configurée. Seules les règles générées automatiquement par OPNsense sont actives.' },
+          { type:'interne', iface:'INF (Service informatique)', src:'opnsense/interne/inf interne.PNG',
+            caption:'<strong>Interface INF — Pare-feu interne (Poste 1).</strong> Aucune règle personnalisée configurée. Fonctionne avec les règles auto-générées d\'OPNsense.' },
+          { type:'interne', iface:'SRV (Serveurs)', src:'opnsense/interne/srv interne.PNG',
+            caption:'<strong>Interface SRV — Pare-feu interne (Poste 1).</strong> Règle par défaut autorisant tout le trafic IPv4 depuis le réseau serveurs (à restreindre selon le principe du moindre privilège).' },
+          { type:'externe', iface:'DMZ', src:'opnsense/externe/dmz externe.PNG',
+            caption:'<strong>Interface DMZ — Pare-feu externe (Poste 2).</strong> Règle permissive provisoire IPv4 sortant de la DMZ vers Internet, à restreindre aux flux légitimes.' },
+          { type:'externe', iface:'SANSFIL (Invités Wi-Fi)', src:'opnsense/externe/sansfil externe.PNG',
+            caption:'<strong>Interface SANSFIL — Pare-feu externe (Poste 2).</strong> Réseau invités Wi-Fi fonctionnant avec les règles auto-générées d\'OPNsense.' },
+          { type:'externe', iface:'WAN', src:'opnsense/externe/wan externe.PNG',
+            caption:'<strong>Interface WAN — Pare-feu externe (Poste 2).</strong> 3 règles entrantes depuis l\'IP 172.21.0.22 : HTTP (80), SSH (22) et HTTPS vers les serveurs DMZ.' }
+        ]
+      },
+      glpi: {
+        icon:'🖥️', gradient:'linear-gradient(145deg,#2196F3,#1565C0)',
+        title:'Mise en place du serveur GLPI',
+        tags:'<span class="tag tag-stage1">Stage</span><span class="tag tag-tech">GLPI</span><span class="tag tag-tech">Ubuntu</span><span class="tag tag-tech">GPO</span>',
+        context:'Stage en entreprise',
+        realise:[
+          'Installation du serveur GLPI sur une VM Ubuntu (Apache, MySQL, PHP).',
+          'Déploiement de l\'agent de collecte sur les postes via un script .bat distribué par GPO Active Directory.',
+          'Configuration des comptes utilisateurs (admin, technicien, utilisateur final), des tickets d\'incident et de l\'inventaire automatique.'
+        ],
+        outils:['GLPI','Ubuntu','GPO','Script .bat'],
+        resultat:'Parc informatique centralisé et inventorié automatiquement. Portail de ticketing opérationnel pour les techniciens et les utilisateurs.'
+      },
+      aide: {
+        icon:'🙋', gradient:'linear-gradient(145deg,#00BCD4,#0097A7)',
+        title:'Aide aux utilisateurs',
+        tags:'<span class="tag tag-stage1">Stage</span><span class="tag tag-tech">Support N1/N2</span><span class="tag tag-tech">ClickUp</span>',
+        context:'Stage en entreprise',
+        realise:[
+          'Support technique de proximité auprès des utilisateurs (incidents matériels, logiciels, réseau).',
+          'Prise en charge et suivi des tickets via ClickUp.',
+          'Résolution d\'incidents : pannes matérielles, messagerie, imprimantes, accès VPN, suite Office.',
+          'Accompagnement des utilisateurs et traçabilité des interventions dans les tickets.'
+        ],
+        outils:['ClickUp','Assistance directe','Support N1/N2'],
+        resultat:'Utilisateurs accompagnés et incidents résolus efficacement. Traçabilité des interventions assurée via ClickUp.'
+      },
+      zabbix: {
+        icon:'📡', gradient:'linear-gradient(145deg,#E02020,#B01010)',
+        title:'Supervision du parc informatique — Serveur Zabbix',
+        tags:'<span class="tag tag-stage1">Stage</span><span class="tag tag-tech">Zabbix</span><span class="tag tag-tech">GPO</span><span class="tag tag-tech">Script .bat</span>',
+        context:'Stage en entreprise',
+        realise:[
+          'Installation du serveur Zabbix sur une VM Ubuntu 24.04 LTS déployée sur VMware.',
+          'Déploiement de l\'agent Zabbix sur les postes via un script .bat distribué par GPO Active Directory.',
+          'Configuration des templates de supervision et création des tableaux de bord en temps réel.',
+          'Supervision de 400 machines réparties sur 3 sites.'
+        ],
+        outils:['Zabbix','Ubuntu','GPO','Script .bat','VMware'],
+        resultat:'Parc informatique supervisé en temps réel (400 machines / 3 sites). Alertes configurées et tableau de bord accessible pour le service informatique.'
+      }
+    };
+
+    var MISSIONS = Object.keys(MISSION_DATA);
+    var state = {};
+    MISSIONS.forEach(function(id){
+      var saved=[];
+      try{saved=JSON.parse(localStorage.getItem('mission_slides_'+id)||'[]');}catch(e){}
+      state[id]={slides:saved,idx:0};
+    });
+
+    /* ── Modal ─────────────────────────────────────────── */
+    var modal   = document.getElementById('mission-modal');
+    var mmIcon  = document.getElementById('mm-icon');
+    var mmTitle = document.getElementById('mm-title');
+    var mmTags  = document.getElementById('mm-tags');
+    var mmBody  = document.getElementById('mm-body');
+    var currentMission = null;
+
+    function openModal(id){
+      var d = MISSION_DATA[id]; if(!d) return;
+      currentMission = id;
+      mmIcon.style.background = d.gradient;
+      mmIcon.textContent = d.icon;
+      mmTitle.innerHTML  = d.title;
+      mmTags.innerHTML   = d.tags;
+
+      var html = '';
+      if(d.context){
+        html+='<div class="mm-section"><div class="mm-section-label">📌 Contexte</div>'
+            +'<p class="mm-desc">'+d.context+'</p></div>';
+      }
+      if(d.realise&&d.realise.length){
+        html+='<div class="mm-section"><div class="mm-section-label">🔧 Ce que j\'ai réalisé</div>'
+            +'<ul class="mm-steps">';
+        d.realise.forEach(function(s,i){ html+='<li><span class="step-num">'+(i+1)+'</span><span>'+s+'</span></li>'; });
+        html+='</ul></div>';
+      }
+      if(d.outils&&d.outils.length){
+        html+='<div class="mm-section"><div class="mm-section-label">🛠 Outils utilisés</div>'
+            +'<div class="mm-outils">';
+        d.outils.forEach(function(o){ html+='<span class="tag tag-tech">'+o+'</span>'; });
+        html+='</div></div>';
+      }
+      if(d.resultat){
+        html+='<div class="mm-section"><div class="mm-section-label">✅ Résultat obtenu</div>'
+            +'<p class="mm-desc mm-resultat">'+d.resultat+'</p></div>';
+      }
+      if(d.screenshots&&d.screenshots.length){
+        html+='<div class="mm-screenshots">';
+        d.screenshots.forEach(function(s){
+          var cls=s.type==='interne'?'mm-shot-interne':'mm-shot-externe';
+          var lbl=s.type==='interne'?'🔒 Pare-feu Interne':'🌐 Pare-feu Externe';
+          html+='<figure class="mm-shot">'
+               +'<div class="mm-shot-header">'
+               +'<span class="mm-shot-badge '+cls+'">'+lbl+'</span>'
+               +'<span class="mm-shot-iface">Interface '+s.iface+'</span>'
+               +'</div>'
+               +'<img src="'+s.src+'" alt="Règles '+s.iface+' '+s.type+'" loading="lazy">'
+               +'<figcaption>'+s.caption+'</figcaption>'
+               +'</figure>';
+        });
+        html+='</div>';
+      }
+      html+='<div class="mm-carousel-section">'
+          +'<div class="mm-carousel-label">Captures &amp; preuves</div>'
+          +'<div class="carousel-wrap">'
+          +'<div class="carousel-track-outer"><div class="carousel-track" id="track-'+id+'"></div></div>'
+          +'<div class="carousel-empty" id="empty-'+id+'"><span class="carousel-empty-icon">🖼️</span><span class="carousel-empty-text">Aucune capture ajoutée</span><span class="carousel-empty-hint">Connectez-vous en admin pour importer</span></div>'
+          +'<div class="carousel-nav"><button class="carousel-btn" id="prev-'+id+'">&#8249;</button><div class="carousel-dots" id="dots-'+id+'"></div><button class="carousel-btn" id="next-'+id+'">&#8250;</button></div>'
+          +'</div>'
+          +'<button class="carousel-upload-btn" onclick="uploadSlide(\''+id+'\')">&#43; Ajouter une image</button>'
+          +'</div>';
+      mmBody.innerHTML = html;
+      renderCarousel(id);
+      modal.classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+
+    function closeModal(){
+      modal.classList.remove('open');
+      document.body.style.overflow='';
+      currentMission=null;
+    }
+
+    document.getElementById('mm-close').addEventListener('click',closeModal);
+    modal.addEventListener('click',function(e){if(e.target===modal)closeModal();});
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'){
+        if(lb.classList.contains('open')){lb.classList.remove('open');lbImg.src='';}
+        else closeModal();
+      }
+    });
+
+    /* ── Card + carousel event delegation ─────────────── */
+    document.addEventListener('click',function(e){
+      var card=e.target.closest('.mo-card');
+      if(card&&!e.target.closest('.slide-del')){openModal(card.dataset.mission);return;}
+      var prevBtn=e.target.closest('[id^="prev-"]');
+      var nextBtn=e.target.closest('[id^="next-"]');
+      if(prevBtn){var id=prevBtn.id.replace('prev-','');if(state[id]){state[id].idx=Math.max(0,state[id].idx-1);renderCarousel(id);}return;}
+      if(nextBtn){var id=nextBtn.id.replace('next-','');if(state[id]){state[id].idx++;renderCarousel(id);}return;}
+      var dot=e.target.closest('.c-dot');
+      if(dot){var id=dot.dataset.mission;if(state[id]){state[id].idx=parseInt(dot.dataset.i);renderCarousel(id);}return;}
+      var del=e.target.closest('.slide-del');
+      if(del){e.stopPropagation();var id=del.dataset.mission,i=parseInt(del.dataset.idx);if(state[id]&&confirm('Supprimer cette image ?')){state[id].slides.splice(i,1);state[id].idx=Math.max(0,state[id].idx-1);saveSlides(id);renderCarousel(id);}return;}
+      var slide=e.target.closest('.carousel-slide');
+      if(slide&&!e.target.closest('.slide-del')){openLightbox(slide.dataset.mission,parseInt(slide.dataset.idx));return;}
+    });
+
+    /* ── Carousel engine ───────────────────────────────── */
+    function renderCarousel(id){
+      var s=state[id];
+      var track=document.getElementById('track-'+id);
+      var empty=document.getElementById('empty-'+id);
+      var dots=document.getElementById('dots-'+id);
+      var prev=document.getElementById('prev-'+id);
+      var next=document.getElementById('next-'+id);
+      if(!track)return;
+      if(s.slides.length===0){
+        track.innerHTML='';track.parentElement.style.display='none';
+        if(empty)empty.style.display='flex';
+        dots.innerHTML='';prev.disabled=true;next.disabled=true;return;
+      }
+      track.parentElement.style.display='';
+      if(empty)empty.style.display='none';
+      s.idx=Math.max(0,Math.min(s.idx,s.slides.length-1));
+      track.innerHTML=s.slides.map(function(src,i){
+        return '<div class="carousel-slide" data-mission="'+id+'" data-idx="'+i+'"><img src="'+src+'" alt="Capture '+(i+1)+'"><button class="slide-del" data-mission="'+id+'" data-idx="'+i+'" title="Supprimer">&times;</button></div>';
+      }).join('');
+      dots.innerHTML=s.slides.map(function(_,i){
+        return '<span class="c-dot'+(i===s.idx?' active':'')+'" data-i="'+i+'" data-mission="'+id+'"></span>';
+      }).join('');
+      var sw=track.parentElement.offsetWidth,pv=window.innerWidth>500?2:1;
+      var mx=Math.max(0,s.slides.length-pv);
+      s.idx=Math.min(s.idx,mx);
+      track.style.transform='translateX(-'+(s.idx*((sw+10)/pv))+'px)';
+      prev.disabled=s.idx===0;next.disabled=s.idx>=mx;
+      dots.querySelectorAll('.c-dot').forEach(function(d){d.classList.toggle('active',parseInt(d.dataset.i)===s.idx);});
+    }
+    function saveSlides(id){localStorage.setItem('mission_slides_'+id,JSON.stringify(state[id].slides));}
+    window.uploadSlide=function(id){
+      var inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.multiple=true;
+      inp.onchange=function(){
+        var files=Array.from(inp.files),pending=files.length;if(!pending)return;
+        files.forEach(function(f){var rd=new FileReader();rd.onload=function(ev){state[id].slides.push(ev.target.result);if(--pending===0){saveSlides(id);renderCarousel(id);}};rd.readAsDataURL(f);});
+      };inp.click();
+    };
+
+    /* ── Lightbox ──────────────────────────────────────── */
+    var lb=document.getElementById('mission-lightbox');
+    var lbImg=document.getElementById('lb-img');
+    var lbPrev=document.getElementById('lb-prev');
+    var lbNext=document.getElementById('lb-next');
+    var lbId=null,lbIdx=0;
+    function openLightbox(id,idx){lbId=id;lbIdx=idx;lbImg.src=state[id].slides[idx];lb.classList.add('open');updateLbNav();}
+    function updateLbNav(){lbPrev.disabled=lbIdx===0;lbNext.disabled=!state[lbId]||lbIdx>=state[lbId].slides.length-1;}
+    document.getElementById('lb-close').addEventListener('click',function(){lb.classList.remove('open');lbImg.src='';});
+    lb.addEventListener('click',function(e){if(e.target===lb){lb.classList.remove('open');lbImg.src='';}});
+    lbPrev.addEventListener('click',function(){if(lbIdx>0){lbIdx--;lbImg.src=state[lbId].slides[lbIdx];updateLbNav();}});
+    lbNext.addEventListener('click',function(){if(state[lbId]&&lbIdx<state[lbId].slides.length-1){lbIdx++;lbImg.src=state[lbId].slides[lbIdx];updateLbNav();}});
+    document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='ArrowLeft')lbPrev.click();if(e.key==='ArrowRight')lbNext.click();});
+  })();
+  </script>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-brand">Reda Bouali</span>
+      <nav class="footer-nav">
+        <a href="about.html">À propos</a>
+        <a href="missions.html">Missions</a>
+        <a href="cv.html">CV</a>
+        <a href="pix.html">Certifications</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2026 — Reda Bouali</span>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Retour en haut">↑</button>
+<script src="script.js"></script>
+</body>
+</html>
