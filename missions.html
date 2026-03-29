@@ -13,6 +13,43 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
+    /* ── E5 Banner ───────────────────────────────────────── */
+    .e5-banner {
+      display: flex; align-items: center; gap: 1.1rem;
+      padding: 1.2rem 1.5rem;
+      border-radius: 18px;
+      text-decoration: none;
+      transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 4px 24px rgba(0,0,0,.18);
+    }
+    .e5-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,149,0,.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .e5-banner:hover { transform: translateY(-3px) scale(1.008); box-shadow: 0 10px 40px rgba(0,0,0,.28); }
+    .e5-banner:active { transform: scale(.98); transition-duration: .07s; }
+    .e5-icon {
+      width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      background: rgba(255,149,0,.2);
+      border: 1px solid rgba(255,149,0,.3);
+    }
+    .e5-text { flex: 1; min-width: 0; }
+    .e5-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,149,0,.9); margin-bottom: .2rem; }
+    .e5-title { font-size: 1rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: .25rem; }
+    .e5-sub { font-size: .76rem; color: rgba(255,255,255,.45); font-weight: 500; }
+    .e5-arrow {
+      font-size: 1.3rem; color: rgba(255,255,255,.4); flex-shrink: 0;
+      transition: transform .18s, color .18s;
+    }
+    .e5-banner:hover .e5-arrow { transform: translate(3px,-3px); color: rgba(255,149,0,.9); }
+
     /* ── Grid overview ───────────────────────────────────── */
     .missions-overview {
       display: grid;
@@ -261,6 +298,21 @@
 </aside>
 
 <section class="page-hero"><div class="container"><div class="page-hero-inner reveal"><p class="section-eyebrow">Stage &amp; AP</p><h1 class="page-title">Missions</h1><p class="page-subtitle">Cliquez sur une mission pour l'ouvrir en détail.</p></div></div></section>
+
+<!-- ── E5 Tableau de synthèse ── -->
+<section class="section" style="padding-bottom:0">
+  <div class="container">
+    <a href="E5 - Tableau de synthèse.pdf" target="_blank" rel="noopener" class="e5-banner reveal">
+      <div class="e5-icon">📋</div>
+      <div class="e5-text">
+        <div class="e5-label">Épreuve E5 — BTS SIO</div>
+        <div class="e5-title">Tableau de synthèse des missions</div>
+        <div class="e5-sub">Cliquez pour ouvrir le PDF</div>
+      </div>
+      <div class="e5-arrow">↗</div>
+    </a>
+  </div>
+</section>
 
 <section class="section"><div class="container"><div class="missions-overview">
 
