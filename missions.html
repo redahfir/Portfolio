@@ -139,6 +139,16 @@
       opacity: .85;
     }
 
+    /* Schema réseau */
+    .mm-schema { border-radius: 14px; overflow: hidden; border: 1px solid var(--separator); background: var(--fill-4); margin: 0; }
+    .mm-schema img { width: 100%; display: block; cursor: zoom-in; transition: transform .25s; }
+    .mm-schema:hover img { transform: scale(1.01); }
+    .mm-schema figcaption { padding: 0.6rem 0.9rem; font-size: 0.83rem; color: var(--text-2); line-height: 1.55; }
+
+    /* Lightbox single-image mode (pas de nav prev/next) */
+    #mission-lightbox.lb-single #lb-prev,
+    #mission-lightbox.lb-single #lb-next { display: none; }
+
     /* Screenshots gallery */
     .mm-screenshots { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
     .mm-shot { border-radius: 14px; overflow: hidden; border: 1px solid var(--separator); background: var(--fill-4); margin: 0; }
@@ -340,16 +350,13 @@
         context:'AP (Atelier Professionnel) — Formation BTS SIO SISR',
         realise:[
           'Configuration du relais DHCP sur le pare-feu interne OPNsense pour acheminer les requêtes du réseau sans-fil vers le serveur DHCP interne.',
-          'Identification des interfaces concernées : réseau SANSFIL → interface DMZ → SrvDHCP.',
-          'Création de la règle de relais DHCP (UDP ports 67-68) depuis SANSFIL vers l\'IP du SrvDHCP.',
-          'Tests de validation : vérification de l\'attribution d\'adresse IP aux équipements Wi-Fi invités.'
+          'Identification des interfaces concernées : réseau SANSFIL → interface DMZ du pare-feu interne → SrvDHCP sur le réseau SRV.',
+          'Création de la règle de relais DHCP (UDP ports 67-68) depuis SANSFIL vers l\'IP du SrvDHCP sur l\'interface DMZ.',
+          'Tests de validation : vérification de l\'attribution d\'adresse IP aux équipements Wi-Fi invités depuis le serveur DHCP interne.'
         ],
         outils:['OPNsense','DHCP Relay','BSD'],
         resultat:'Distribution IP fonctionnelle depuis le serveur DHCP interne vers les équipements Wi-Fi invités. Réseau stable et isolé du réseau de production.',
-        screenshots:[
-          { type:'interne', iface:'DMZ', src:'opnsense/interne/dmz interne.PNG',
-            caption:'<strong>Interface DMZ — Pare-feu interne (Poste 1).</strong> 4 règles actives : relais DHCP (ports 67-68) depuis le réseau SANSFIL vers le SrvDHCP ; autorisation MySQL entre SrvWEB et SrvBDD (port 3306) ; SMB inter-serveurs (port 445) ; trafic sortant autorisé vers les réseaux SRV, EMP et INF.' }
-        ]
+        schema:{ src:'schema-reseau-ap.png', caption:'Schéma réseau GSB — Infrastructure SIO. Ce schéma présente l\'architecture complète de l\'AP : Poste 1 (pare-feu interne), Poste 2 (pare-feu externe), Poste 3 (figure libre) et la zone DMZ avec les serveurs. Le relais DHCP est configuré sur l\'interface DMZ du pare-feu interne (Poste 1) pour acheminer les requêtes du réseau SANSFIL vers le SrvDHCP.' }
       },
       'opnsense-filtrage': {
         icon:'🔥', gradient:'linear-gradient(145deg,#BF360C,#7F0000)',
@@ -358,25 +365,28 @@
         context:'AP (Atelier Professionnel) — Formation BTS SIO SISR',
         realise:[
           'Création des règles de filtrage par interface sur les deux pare-feux OPNsense (interne Poste 1, externe Poste 2).',
-          'Pare-feu interne : règles sur les interfaces SRV (serveurs), EMP (employés) et INF (informatique).',
-          'Pare-feu externe : règles entrantes WAN (HTTP port 80, SSH port 22, HTTPS) et règle sortante provisoire sur la DMZ.',
+          'Pare-feu interne : règles sur les interfaces DMZ, SRV (serveurs), EMP (employés) et INF (informatique).',
+          'Pare-feu externe : règles entrantes WAN (HTTP port 80, SSH port 22, HTTPS) et règle sortante provisoire sur la DMZ et SANSFIL.',
           'Isolation du réseau sans-fil invités (SANSFIL) du reste de l\'infrastructure de production.'
         ],
         outils:['OPNsense','Pare-feu','BSD'],
         resultat:'Réseau sécurisé avec trafic contrôlé entre les segments. Accès filtrés selon les profils (employés, serveurs, invités Wi-Fi).',
+        schema:{ src:'schema-reseau-ap.png', caption:'Schéma réseau GSB — Infrastructure SIO. Ce schéma présente l\'architecture complète de l\'AP : Poste 1 (pare-feu interne segmentant les réseaux EMP, INF, SRV et DMZ), Poste 2 (pare-feu externe contrôlant WAN, DMZ et SANSFIL) et Poste 3 (figure libre avec un switch reliant les deux pare-feux). Les règles de filtrage s\'appliquent sur chaque interface de chaque pare-feu.' },
         screenshots:[
+          { type:'interne', iface:'DMZ', src:'opnsense/interne/dmz interne.PNG',
+            caption:'<strong>Interface DMZ — Pare-feu interne (Poste 1).</strong> 4 règles actives : <em>relais DHCP</em> (UDP ports 67-68) depuis le réseau SANSFIL vers le SrvDHCP ; <em>autorisation MySQL</em> entre SrvWEB et SrvBDD (port 3306) ; <em>SMB</em> inter-serveurs (port 445) ; <em>trafic sortant</em> autorisé vers les réseaux SRV, EMP et INF. Ces règles permettent aux serveurs de la DMZ de communiquer avec les autres segments tout en contrôlant les ports autorisés.' },
           { type:'interne', iface:'EMP (Employés)', src:'opnsense/interne/emp interne.PNG',
-            caption:'<strong>Interface EMP — Pare-feu interne (Poste 1).</strong> Aucune règle personnalisée configurée. Seules les règles générées automatiquement par OPNsense sont actives.' },
+            caption:'<strong>Interface EMP — Pare-feu interne (Poste 1).</strong> Aucune règle personnalisée configurée. Les postes employés fonctionnent uniquement avec les règles auto-générées par OPNsense. À affiner pour restreindre l\'accès aux seuls services nécessaires et appliquer le principe du moindre privilège.' },
           { type:'interne', iface:'INF (Service informatique)', src:'opnsense/interne/inf interne.PNG',
-            caption:'<strong>Interface INF — Pare-feu interne (Poste 1).</strong> Aucune règle personnalisée configurée. Fonctionne avec les règles auto-générées d\'OPNsense.' },
+            caption:'<strong>Interface INF — Pare-feu interne (Poste 1).</strong> Aucune règle personnalisée configurée. Le service informatique bénéficie des règles auto-générées permettant un accès large pour les interventions de maintenance. Une politique de filtrage dédiée reste à définir pour sécuriser ce segment privilégié.' },
           { type:'interne', iface:'SRV (Serveurs)', src:'opnsense/interne/srv interne.PNG',
-            caption:'<strong>Interface SRV — Pare-feu interne (Poste 1).</strong> Règle par défaut autorisant tout le trafic IPv4 depuis le réseau serveurs (à restreindre selon le principe du moindre privilège).' },
+            caption:'<strong>Interface SRV — Pare-feu interne (Poste 1).</strong> Une règle "Default allow LAN to any" autorise tout le trafic IPv4 sortant depuis le réseau serveurs vers n\'importe quelle destination. Configuration large en phase initiale — à restreindre pour ne permettre que les flux serveurs légitimes (DNS, NTP, mises à jour) et limiter la surface d\'attaque.' },
           { type:'externe', iface:'DMZ', src:'opnsense/externe/dmz externe.PNG',
-            caption:'<strong>Interface DMZ — Pare-feu externe (Poste 2).</strong> Règle permissive provisoire IPv4 sortant de la DMZ vers Internet, à restreindre aux flux légitimes.' },
+            caption:'<strong>Interface DMZ — Pare-feu externe (Poste 2).</strong> Une règle permissive autorise tout le trafic IPv4 sortant de la DMZ vers Internet. Configuration provisoire à restreindre : seuls les flux HTTP/HTTPS (80, 443) et DNS (53) devraient être autorisés depuis les serveurs exposés pour limiter les risques d\'exfiltration.' },
           { type:'externe', iface:'SANSFIL (Invités Wi-Fi)', src:'opnsense/externe/sansfil externe.PNG',
-            caption:'<strong>Interface SANSFIL — Pare-feu externe (Poste 2).</strong> Réseau invités Wi-Fi fonctionnant avec les règles auto-générées d\'OPNsense.' },
+            caption:'<strong>Interface SANSFIL — Pare-feu externe (Poste 2).</strong> Aucune règle personnalisée configurée. Le réseau invités Wi-Fi fonctionne avec les règles auto-générées d\'OPNsense. Ce réseau est physiquement isolé du réseau de production, mais une politique de filtrage sortant reste à définir pour limiter l\'accès à Internet depuis ce segment.' },
           { type:'externe', iface:'WAN', src:'opnsense/externe/wan externe.PNG',
-            caption:'<strong>Interface WAN — Pare-feu externe (Poste 2).</strong> 3 règles entrantes depuis l\'IP 172.21.0.22 : HTTP (80), SSH (22) et HTTPS vers les serveurs DMZ.' }
+            caption:'<strong>Interface WAN — Pare-feu externe (Poste 2).</strong> 3 règles entrantes depuis l\'IP publique 172.21.0.22 : <em>HTTP (port 80)</em> pour le site web GSB, <em>SSH (port 22)</em> pour l\'administration distante sécurisée, et <em>HTTPS</em> pour les services web chiffrés. Ces règles exposent uniquement les services nécessaires et bloquent tout autre trafic entrant par défaut.' }
         ]
       },
       glpi: {
@@ -467,8 +477,16 @@
         html+='<div class="mm-section"><div class="mm-section-label">✅ Résultat obtenu</div>'
             +'<p class="mm-desc mm-resultat">'+d.resultat+'</p></div>';
       }
+      if(d.schema){
+        html+='<div class="mm-section"><div class="mm-section-label">🗺 Schéma réseau AP</div>'
+             +'<figure class="mm-schema">'
+             +'<img src="'+d.schema.src+'" alt="Schéma réseau AP GSB" loading="lazy">'
+             +'<figcaption>'+d.schema.caption+'</figcaption>'
+             +'</figure></div>';
+      }
       if(d.screenshots&&d.screenshots.length){
-        html+='<div class="mm-screenshots">';
+        html+='<div class="mm-section"><div class="mm-section-label">🖥 Règles par interface</div>'
+             +'<div class="mm-screenshots">';
         d.screenshots.forEach(function(s){
           var cls=s.type==='interne'?'mm-shot-interne':'mm-shot-externe';
           var lbl=s.type==='interne'?'🔒 Pare-feu Interne':'🌐 Pare-feu Externe';
@@ -481,7 +499,7 @@
                +'<figcaption>'+s.caption+'</figcaption>'
                +'</figure>';
         });
-        html+='</div>';
+        html+='</div></div>';
       }
       html+='<div class="mm-carousel-section">'
           +'<div class="mm-carousel-label">Captures &amp; preuves</div>'
@@ -508,7 +526,7 @@
     modal.addEventListener('click',function(e){if(e.target===modal)closeModal();});
     document.addEventListener('keydown',function(e){
       if(e.key==='Escape'){
-        if(lb.classList.contains('open')){lb.classList.remove('open');lbImg.src='';}
+        if(lb.classList.contains('open')){closeLightbox();}
         else closeModal();
       }
     });
@@ -527,6 +545,11 @@
       if(del){e.stopPropagation();var id=del.dataset.mission,i=parseInt(del.dataset.idx);if(state[id]&&confirm('Supprimer cette image ?')){state[id].slides.splice(i,1);state[id].idx=Math.max(0,state[id].idx-1);saveSlides(id);renderCarousel(id);}return;}
       var slide=e.target.closest('.carousel-slide');
       if(slide&&!e.target.closest('.slide-del')){openLightbox(slide.dataset.mission,parseInt(slide.dataset.idx));return;}
+      /* Zoom screenshot ou schéma */
+      var shotImg=e.target.closest('.mm-shot img');
+      if(shotImg){openSingleLightbox(shotImg.src);return;}
+      var schemaImg=e.target.closest('.mm-schema img');
+      if(schemaImg){openSingleLightbox(schemaImg.src);return;}
     });
 
     /* ── Carousel engine ───────────────────────────────── */
@@ -574,10 +597,12 @@
     var lbPrev=document.getElementById('lb-prev');
     var lbNext=document.getElementById('lb-next');
     var lbId=null,lbIdx=0;
-    function openLightbox(id,idx){lbId=id;lbIdx=idx;lbImg.src=state[id].slides[idx];lb.classList.add('open');updateLbNav();}
+    function openLightbox(id,idx){lb.classList.remove('lb-single');lbId=id;lbIdx=idx;lbImg.src=state[id].slides[idx];lb.classList.add('open');updateLbNav();}
+    function openSingleLightbox(src){lb.classList.add('lb-single');lbId=null;lbImg.src=src;lb.classList.add('open');}
+    function closeLightbox(){lb.classList.remove('open','lb-single');lbImg.src='';}
     function updateLbNav(){lbPrev.disabled=lbIdx===0;lbNext.disabled=!state[lbId]||lbIdx>=state[lbId].slides.length-1;}
-    document.getElementById('lb-close').addEventListener('click',function(){lb.classList.remove('open');lbImg.src='';});
-    lb.addEventListener('click',function(e){if(e.target===lb){lb.classList.remove('open');lbImg.src='';}});
+    document.getElementById('lb-close').addEventListener('click',closeLightbox);
+    lb.addEventListener('click',function(e){if(e.target===lb)closeLightbox();});
     lbPrev.addEventListener('click',function(){if(lbIdx>0){lbIdx--;lbImg.src=state[lbId].slides[lbIdx];updateLbNav();}});
     lbNext.addEventListener('click',function(){if(state[lbId]&&lbIdx<state[lbId].slides.length-1){lbIdx++;lbImg.src=state[lbId].slides[lbIdx];updateLbNav();}});
     document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='ArrowLeft')lbPrev.click();if(e.key==='ArrowRight')lbNext.click();});
