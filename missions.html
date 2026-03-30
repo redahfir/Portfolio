@@ -193,6 +193,7 @@
     .mm-shot-badge { font-size: 0.7rem; font-weight: 700; padding: 0.18rem 0.5rem; border-radius: 6px; white-space: nowrap; }
     .mm-shot-interne { background: rgba(var(--accent-rgb),.12); color: var(--accent); }
     .mm-shot-externe { background: rgba(245,158,11,.12); color: #D97706; }
+    .mm-shot-config  { background: rgba(52,199,89,.12);  color: #34C759; }
     .mm-shot-iface { font-size: 0.82rem; font-weight: 600; color: var(--text-1); }
     .mm-shot img { width: 100%; display: block; cursor: zoom-in; transition: transform .2s; }
     .mm-shot figcaption { padding: 0.65rem 0.9rem; font-size: 0.83rem; color: var(--text-2); line-height: 1.55; }
@@ -408,7 +409,13 @@
         ],
         outils:['OPNsense','DHCP Relay','BSD'],
         resultat:'Distribution IP fonctionnelle depuis le serveur DHCP interne vers les équipements Wi-Fi invités. Réseau stable et isolé du réseau de production.',
-        schema:{ src:'schema-reseau-ap.png', caption:'Schéma réseau GSB — Infrastructure SIO. Ce schéma présente l\'architecture complète de l\'AP : Poste 1 (pare-feu interne), Poste 2 (pare-feu externe), Poste 3 (figure libre) et la zone DMZ avec les serveurs. Le relais DHCP est configuré sur l\'interface DMZ du pare-feu interne (Poste 1) pour acheminer les requêtes du réseau SANSFIL vers le SrvDHCP.' }
+        schema:{ src:'schema-reseau-ap.png', caption:'Schéma réseau GSB — Infrastructure SIO. Ce schéma présente l\'architecture complète de l\'AP : Poste 1 (pare-feu interne), Poste 2 (pare-feu externe), Poste 3 (figure libre) et la zone DMZ avec les serveurs. Le relais DHCP est configuré sur l\'interface DMZ du pare-feu interne (Poste 1) pour acheminer les requêtes du réseau SANSFIL vers le SrvDHCP.' },
+        screenshots:[
+          { type:'config', lbl:'⚙️ DHCPRelay', iface:'Configuration du service', src:'dhcp-relais.png',
+            caption:'<strong>Configuration du relais DHCP — OPNsense (Poste 1).</strong> Le service DHCPRelay est activé sur l\'interface DMZ avec le SrvDHCP (172.13.0.2) comme serveur cible. Deux relais sont actifs : un sur l\'interface INF et un sur l\'interface DMZ, permettant aux équipements du réseau SANSFIL d\'obtenir leur adresse IP depuis le serveur DHCP du réseau SRV.' },
+          { type:'config', lbl:'🖥 Console', iface:'Interfaces réseau', src:'opnsense-interne.png',
+            caption:'<strong>Console OPNsense — Pare-feu interne (Poste 1).</strong> Vue des interfaces réseau configurées sur le pare-feu interne : DMZ (em1) → 172.22.69.6/29, EMP (em2) → 172.22.65.254/23, INF (em3) → 172.22.66.254/24, SRV (em0) → 172.22.68.6/29. Ces adresses confirment la segmentation réseau en 4 sous-réseaux distincts gérés par le pare-feu interne.' }
+        ]
       },
       'opnsense-filtrage': {
         icon:'🔥', gradient:'linear-gradient(145deg,#BF360C,#7F0000)',
@@ -438,7 +445,9 @@
           { type:'externe', iface:'SANSFIL (Invités Wi-Fi)', src:'opnsense/externe/sansfil externe.PNG',
             caption:'<strong>Interface SANSFIL — Pare-feu externe (Poste 2).</strong> Aucune règle personnalisée configurée. Le réseau invités Wi-Fi fonctionne avec les règles auto-générées d\'OPNsense. Ce réseau est physiquement isolé du réseau de production, mais une politique de filtrage sortant reste à définir pour limiter l\'accès à Internet depuis ce segment.' },
           { type:'externe', iface:'WAN', src:'opnsense/externe/wan externe.PNG',
-            caption:'<strong>Interface WAN — Pare-feu externe (Poste 2).</strong> 3 règles entrantes depuis l\'IP publique 172.21.0.22 : <em>HTTP (port 80)</em> pour le site web GSB, <em>SSH (port 22)</em> pour l\'administration distante sécurisée, et <em>HTTPS</em> pour les services web chiffrés. Ces règles exposent uniquement les services nécessaires et bloquent tout autre trafic entrant par défaut.' }
+            caption:'<strong>Interface WAN — Pare-feu externe (Poste 2).</strong> 3 règles entrantes depuis l\'IP publique 172.21.0.22 : <em>HTTP (port 80)</em> pour le site web GSB, <em>SSH (port 22)</em> pour l\'administration distante sécurisée, et <em>HTTPS</em> pour les services web chiffrés. Ces règles exposent uniquement les services nécessaires et bloquent tout autre trafic entrant par défaut.' },
+          { type:'config', lbl:'🖥 Console', iface:'Interfaces réseau', src:'opnsense-interne.png',
+            caption:'<strong>Console OPNsense — Pare-feu interne (Poste 1).</strong> Vue des interfaces réseau configurées : DMZ (em1) → 172.22.69.6/29, EMP (em2) → 172.22.65.254/23, INF (em3) → 172.22.66.254/24, SRV (em0) → 172.22.68.6/29. Cette console confirme la segmentation réseau appliquée : 4 interfaces distinctes correspondant aux 4 zones de l\'infrastructure GSB.' }
         ]
       },
       glpi: {
@@ -537,17 +546,23 @@
              +'</figure></div>';
       }
       if(d.screenshots&&d.screenshots.length){
-        html+='<div class="mm-section"><div class="mm-section-label">🖥 Règles par interface</div>'
+        var sectionLbl = d.screenshots.some(function(s){return s.type==='interne'||s.type==='externe';}) ? '🖥 Règles par interface' : '📸 Captures';
+        html+='<div class="mm-section"><div class="mm-section-label">'+sectionLbl+'</div>'
              +'<div class="mm-screenshots">';
         d.screenshots.forEach(function(s){
-          var cls=s.type==='interne'?'mm-shot-interne':'mm-shot-externe';
-          var lbl=s.type==='interne'?'🔒 Pare-feu Interne':'🌐 Pare-feu Externe';
+          var cls, lbl, iface='';
+          if(s.type==='interne'){cls='mm-shot-interne';lbl='🔒 Pare-feu Interne';}
+          else if(s.type==='externe'){cls='mm-shot-externe';lbl='🌐 Pare-feu Externe';}
+          else if(s.type==='config'){cls='mm-shot-config';lbl='⚙️ Configuration';}
+          else{cls='mm-shot-config';lbl='📸 Capture';}
+          if(s.lbl) lbl=s.lbl;
+          if(s.iface) iface='<span class="mm-shot-iface">'+s.iface+'</span>';
           html+='<figure class="mm-shot">'
                +'<div class="mm-shot-header">'
                +'<span class="mm-shot-badge '+cls+'">'+lbl+'</span>'
-               +'<span class="mm-shot-iface">Interface '+s.iface+'</span>'
+               +iface
                +'</div>'
-               +'<img src="'+s.src+'" alt="Règles '+s.iface+' '+s.type+'" loading="lazy">'
+               +'<img src="'+s.src+'" alt="'+(s.iface||lbl)+'" loading="lazy">'
                +'<figcaption>'+s.caption+'</figcaption>'
                +'</figure>';
         });
