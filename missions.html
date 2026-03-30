@@ -464,14 +464,28 @@
         icon:'🖥️', gradient:'linear-gradient(145deg,#2196F3,#1565C0)',
         title:'Mise en place du serveur GLPI',
         tags:'<span class="tag tag-stage1">Stage</span><span class="tag tag-tech">GLPI</span><span class="tag tag-tech">Ubuntu</span><span class="tag tag-tech">GPO</span>',
-        context:'Stage en entreprise',
+        context:'Stage en entreprise — Imagix (Cinéma, Belgique)',
         realise:[
-          'Installation du serveur GLPI sur une VM Ubuntu (Apache, MySQL, PHP).',
-          'Déploiement de l\'agent de collecte sur les postes via un script .bat distribué par GPO Active Directory.',
-          'Configuration des comptes utilisateurs (admin, technicien, utilisateur final), des tickets d\'incident et de l\'inventaire automatique.'
+          'Installation du serveur GLPI sur une VM Ubuntu (Apache, MySQL, PHP) pour centraliser la gestion du parc informatique.',
+          'Rédaction d\'un script .bat de déploiement silencieux de l\'agent GLPI (msiexec /qn) distribué via GPO Active Directory sur l\'ensemble des postes.',
+          'Installation et configuration du plugin GLPI Inventory pour la remontée automatique des informations matérielles (modèle, OS, CPU, IP…).',
+          'Réalisation d\'un audit matériel complet du parc : 76 ordinateurs, 91 moniteurs, 4 imprimantes, caisses enregistreuses (Tyl Electronics) et bornes ATM (Saféa) inventoriées.',
+          'Note : le ticketing est géré par ClickUp, déjà en place chez Imagix — GLPI a été utilisé exclusivement pour l\'inventaire et l\'audit matériel.'
         ],
-        outils:['GLPI','Ubuntu','GPO','Script .bat'],
-        resultat:'Parc informatique centralisé et inventorié automatiquement. Portail de ticketing opérationnel pour les techniciens et les utilisateurs.'
+        outils:['GLPI','Ubuntu','GPO','Script .bat','GLPI Inventory'],
+        resultat:'382 équipements inventoriés automatiquement (76 ordinateurs, 91 moniteurs, caisses, bornes ATM…). Audit matériel complet du parc réparti sur 3 sites.',
+        screenshots:[
+          { type:'config', lbl:'🏠 Tableau de bord', iface:'Accueil GLPI', src:'glpi/acceuil-glpi.png',
+            caption:'<strong>Tableau de bord GLPI.</strong> Vue synthétique du parc après inventaire automatique via le plugin GLPI Inventory : 76 ordinateurs, 3 000+ logiciels détectés, 91 moniteurs, 4 imprimantes inventoriées. Les graphiques montrent la répartition par statut, fabricant et type des équipements remontés automatiquement.' },
+          { type:'config', lbl:'💻 Ordinateurs', iface:'Liste des postes', src:'glpi/atm.png',
+            caption:'<strong>Inventaire des ordinateurs — GLPI.</strong> Liste des postes de travail remontés automatiquement par l\'agent GLPI Inventory : modèle (ThinkCentre M70s, M710s…), OS (Windows 10/11 Pro/Professionnel), dates de dernière remontée, localisation (Mairie Lafecy, Mairie Candy). Chaque fiche est alimentée sans saisie manuelle grâce au script .bat déployé par GPO.' },
+          { type:'config', lbl:'🏧 Caisses & bornes', iface:'Équipements Imagix', src:'glpi/caisse-candy.png',
+            caption:'<strong>Inventaire des caisses et bornes ATM — GLPI.</strong> Caisses enregistreuses Tyl Electronics et bornes Saféa inventoriées sur le site Candy. Chaque équipement est répertorié avec son numéro de série, son fabricant et sa date de dernière synchronisation. Cet inventaire couvre l\'ensemble des équipements métiers des cinémas Imagix.' },
+          { type:'config', lbl:'⚙️ Script', iface:'Déploiement silencieux', src:'glpi/deploy-glpi.bat.png',
+            caption:'<strong>Script .bat de déploiement silencieux de l\'agent GLPI.</strong> Le script utilise <code>msiexec /i ... /qn</code> pour installer l\'agent GLPI-Agent 1.7 x64 en arrière-plan sans aucune interaction utilisateur, en pointant directement vers le serveur GLPI (<code>SERVER="http://..."</code>). Ce script est distribué via une GPO Active Directory pour couvrir l\'ensemble du parc automatiquement.' },
+          { type:'config', lbl:'🔌 Plugin', iface:'GLPI Inventory', src:'glpi/plugin-glpiinventory.png',
+            caption:'<strong>Plugin GLPI Inventory — Tableau de bord agent.</strong> 76 agents actifs remontant les données de 382 équipements au total (ordinateurs, imprimantes, matériels réseau, téléphones). 0 tâche en attente, ce qui confirme que tous les agents sont opérationnels et synchronisés avec le serveur GLPI.' }
+        ]
       },
       aide: {
         icon:'🙋', gradient:'linear-gradient(145deg,#00BCD4,#0097A7)',
