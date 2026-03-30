@@ -505,15 +505,26 @@
         icon:'📡', gradient:'linear-gradient(145deg,#E02020,#B01010)',
         title:'Supervision du parc informatique — Serveur Zabbix',
         tags:'<span class="tag tag-stage1">Stage</span><span class="tag tag-tech">Zabbix</span><span class="tag tag-tech">GPO</span><span class="tag tag-tech">Script .bat</span>',
-        context:'Stage en entreprise',
+        context:'Stage en entreprise — Imagix (Cinéma, Belgique)',
         realise:[
           'Installation du serveur Zabbix sur une VM Ubuntu 24.04 LTS déployée sur VMware.',
-          'Déploiement de l\'agent Zabbix sur les postes via un script .bat distribué par GPO Active Directory.',
+          '<strong>1ère approche — Script Python :</strong> développement d\'un script Python interrogeant la base MySQL de GLPI pour récupérer les hôtes du parc et les intégrer automatiquement dans Zabbix via l\'API REST. Solution abandonnée car non satisfaisante pour le déploiement de masse.',
+          '<strong>Solution finale — Script .bat + GPO :</strong> rédaction d\'un script .bat qui désinstalle l\'ancien agent Zabbix v1 si présent, puis installe silencieusement Zabbix Agent 2 (v7.0.23) via msiexec /qn avec les paramètres SERVER, HOSTNAME=%COMPUTERNAME% et HOSTMETADATA. Distribué via GPO Active Directory sur l\'ensemble du parc.',
           'Configuration des templates de supervision et création des tableaux de bord en temps réel.',
-          'Supervision de 400 machines réparties sur 3 sites.'
+          'Supervision des machines réparties sur 3 sites d\'Imagix.'
         ],
-        outils:['Zabbix','Ubuntu','GPO','Script .bat','VMware'],
-        resultat:'Parc informatique supervisé en temps réel (400 machines / 3 sites). Alertes configurées et tableau de bord accessible pour le service informatique.'
+        outils:['Zabbix','Ubuntu 24.04','VMware','GPO','Script .bat','Python','MySQL'],
+        resultat:'Parc informatique supervisé en temps réel sur 3 sites. Agents déployés silencieusement via GPO sans intervention manuelle sur les postes.',
+        screenshots:[
+          { type:'config', lbl:'🖥 Hôtes supervisés', iface:'Tableau Zabbix', src:'zabbix/hotes-zabbix-supervisé.png',
+            caption:'<strong>Liste des hôtes supervisés — Zabbix.</strong> Vue de l\'ensemble des machines remontées dans Zabbix après déploiement de l\'agent. Les indicateurs verts/rouges reflètent l\'état de disponibilité de chaque hôte en temps réel. Chaque machine est identifiée par son nom réseau (%COMPUTERNAME%) transmis automatiquement par le script .bat lors de l\'installation de l\'agent.' },
+          { type:'config', lbl:'⚙️ Script final', iface:'Deploy Zabbix Agent 2', src:'zabbix/deployzabbix.bat.png',
+            caption:'<strong>Script .bat — Déploiement silencieux Zabbix Agent 2 (solution finale).</strong> Le script supprime d\'abord l\'ancien agent Zabbix v1 si présent (sc stop / sc delete), puis installe Zabbix Agent 2 v7.0.23 en mode silencieux via <code>msiexec /qn</code> avec les paramètres SERVER, SERVERACTIVE, HOSTNAME=%COMPUTERNAME%, HOSTMETADATA=windows. Distribué par GPO Active Directory, il s\'exécute sans aucune interaction utilisateur.' },
+          { type:'config', lbl:'🐍 Python — Partie 1', iface:'Script MySQL → Zabbix', src:'zabbix/script-pythonmysqlpart1.png',
+            caption:'<strong>Script Python — 1ère approche (partie 1).</strong> Le script se connecte à la base MySQL de GLPI pour extraire la liste des hôtes du parc (IP, nom, localisation). Il utilise ensuite l\'API REST de Zabbix pour créer automatiquement les hôtes correspondants. Cette approche a été explorée avant d\'être abandonnée au profit du déploiement par GPO, plus fiable et plus adapté à l\'environnement Active Directory d\'Imagix.' },
+          { type:'config', lbl:'🐍 Python — Partie 2', iface:'Script MySQL → Zabbix', src:'zabbix/script-pythonmysqlpart2.png',
+            caption:'<strong>Script Python — 1ère approche (partie 2).</strong> Suite du script : création des hôtes dans Zabbix avec affectation des groupes, templates et interfaces réseau. Bien que fonctionnel, ce script nécessitait une synchronisation manuelle et ne gérait pas le déploiement de l\'agent sur les postes. La solution .bat + GPO a été retenue comme solution finale pour son déploiement automatisé et transparent.' }
+        ]
       }
     };
 
