@@ -484,7 +484,9 @@
           { type:'config', lbl:'⚙️ Script', iface:'Déploiement silencieux', src:'glpi/deploy-glpi.bat.png',
             caption:'<strong>Script .bat de déploiement silencieux de l\'agent GLPI.</strong> Le script utilise <code>msiexec /i ... /qn</code> pour installer l\'agent GLPI-Agent 1.7 x64 en arrière-plan sans aucune interaction utilisateur, en pointant directement vers le serveur GLPI (<code>SERVER="http://..."</code>). Ce script est distribué via une GPO Active Directory pour couvrir l\'ensemble du parc automatiquement.' },
           { type:'config', lbl:'🔌 Plugin', iface:'GLPI Inventory', src:'glpi/plugin-glpiinventory.png',
-            caption:'<strong>Plugin GLPI Inventory — Tableau de bord agent.</strong> 76 agents actifs remontant les données de 382 équipements au total (ordinateurs, imprimantes, matériels réseau, téléphones). 0 tâche en attente, ce qui confirme que tous les agents sont opérationnels et synchronisés avec le serveur GLPI.' }
+            caption:'<strong>Plugin GLPI Inventory — Tableau de bord agent.</strong> 76 agents actifs remontant les données de 382 équipements au total (ordinateurs, imprimantes, matériels réseau, téléphones). 0 tâche en attente, ce qui confirme que tous les agents sont opérationnels et synchronisés avec le serveur GLPI.' },
+          { type:'config', lbl:'📋 ClickUp', iface:'Tâche — Mise en place GLPI', src:'glpi/clickup tache.jpeg',
+            caption:'<strong>Tâche ClickUp — "Mise en place serveur GLPI".</strong> Statut <em>FAIT</em>, assignée à Reda Bouali. Suivi de la mission via ClickUp, l\'outil de gestion de tâches utilisé chez Imagix. La tâche couvre l\'installation du serveur, la configuration du plugin Inventory et le déploiement de l\'agent via GPO — preuve de la traçabilité des interventions IT au sein du service ICT.' }
         ]
       },
       aide: {
@@ -498,8 +500,28 @@
           'Résolution d\'incidents : pannes matérielles, messagerie, imprimantes, accès VPN, suite Office.',
           'Accompagnement des utilisateurs et traçabilité des interventions dans les tickets.'
         ],
-        outils:['ClickUp','Assistance directe','Support N1/N2'],
-        resultat:'Utilisateurs accompagnés et incidents résolus efficacement. Traçabilité des interventions assurée via ClickUp.'
+        outils:['ClickUp','VNC Viewer','Assistance directe','Support N1/N2'],
+        resultat:'Utilisateurs accompagnés et incidents résolus efficacement. Traçabilité complète des interventions assurée via ClickUp — imprimantes ATM, caisses Candy, carte Magritte.',
+        screenshots:[
+          { type:'externe', lbl:'⚠️ Incident caisse', iface:'Erreur application', src:'aide-utilisateurs/caisseprobleme.jpg',
+            caption:'<strong>Incident sur caisse enregistreuse Candy.</strong> Message d\'erreur "Erreur d\'application. Veuillez contacter un membre du personnel." affiché lors du paiement. Type d\'incident récurrent sur les caisses Candy nécessitant une intervention rapide pour éviter de bloquer les files et impacter l\'expérience client en salle.' },
+          { type:'interne', lbl:'✅ Caisse résolue', iface:'Caisse Candy opérationnelle', src:'aide-utilisateurs/caissecandyenmarche.JPG',
+            caption:'<strong>Caisse Candy opérationnelle après intervention.</strong> L\'interface d\'accueil Imagix (promotion Chèques-Ciné) s\'affiche correctement sur l\'écran de la caisse suite à la résolution de l\'incident. Preuve de la remise en service réussie de l\'équipement après diagnostic et intervention technique.' },
+          { type:'config', lbl:'🖥 VNC Viewer', iface:'Support à distance', src:'aide-utilisateurs/vncviewer.png',
+            caption:'<strong>VNC Viewer — prise en main à distance des caisses Candy.</strong> Outil utilisé pour accéder à distance aux équipements (site CANDY visible dans le panneau gauche) et diagnostiquer les incidents sans déplacement physique. Permet une intervention rapide sur les caisses enregistreuses et postes répartis sur plusieurs sites.' },
+          { type:'config', lbl:'🍿 Carte Magritte', iface:'Back-office Magritte', src:'aide-utilisateurs/magritte carte.jpeg',
+            caption:'<strong>Interface back-office Magritte — gestion de la carte du bar.</strong> Vue de la carte des articles (RAMDAM, HAPPY HOUR, BIÈRES FUT, MOCKTAILS, APÉRITIFS…) avec les produits associés (Coca-Cola, Sprite, Chaudfontaine…). Intervention pour mise à jour ou reconfiguration de la carte des consommations — par exemple lors d\'un changement de menu ou d\'un événement.' },
+          { type:'config', lbl:'📋 Mes tâches', iface:'ClickUp — Vue d\'ensemble', src:'aide-utilisateurs/tache-assigné.png',
+            caption:'<strong>ClickUp — Vue "Assigné à moi".</strong> Liste complète des tâches affectées à Reda Bouali durant le stage : installation caisse Candy, déploiement agents Zabbix, carte Magritte, installation Zabbix, mise en place GLPI… Chaque tâche est tracée avec statut (FAIT / EN COURS) et priorité, assurant la traçabilité de toutes les interventions ICT.' },
+          { type:'config', lbl:'📋 Projets ICT', iface:'ClickUp — Tableau de bord', src:'aide-utilisateurs/clickup vue d\'ensemble.png',
+            caption:'<strong>ClickUp — Tableau de bord ICT Imagix.</strong> Vue d\'ensemble des projets et tâches du service ICT répartis par site (SUIVI MONS, SUIVI ICT TOURNAI…). Chaque tâche est assignée, priorisée et suivie jusqu\'à résolution. ClickUp remplace le système de ticketing traditionnel chez Imagix pour l\'ensemble de la gestion des incidents et projets IT.' },
+          { type:'config', lbl:'📋 Imprimantes ATM', iface:'ClickUp — Tâche assignée', src:'aide-utilisateurs/clcikup imprimantes atm.jpeg',
+            caption:'<strong>Tâche ClickUp — "Vérifier les imprimantes des ATMs portrait 8 et 9".</strong> Statut <em>FAIT</em>, priorité <em>Élevée</em>, assignée à Reda Bouali. Intervention sur les imprimantes de tickets des bornes ATM (ATM 8 et 9 — tickets se pliant). Diagnostic et résolution du dysfonctionnement tracés dans ClickUp.' },
+          { type:'config', lbl:'📋 Caisse Candy', iface:'ClickUp — Tâche assignée', src:'aide-utilisateurs/clickup caisse candy.jpeg',
+            caption:'<strong>Tâche ClickUp — "Installer la caisse au Candy" (site Tournai).</strong> Statut <em>FAIT</em>, priorité <em>Élevée</em>, assignée à Reda Bouali. Installation et mise en service d\'une nouvelle caisse enregistreuse dans la boutique Candy. Tâche clôturée après configuration et test de la caisse en conditions réelles.' },
+          { type:'config', lbl:'📋 Carte Magritte', iface:'ClickUp — Tâche assignée', src:'aide-utilisateurs/clickup carte magritte.jpeg',
+            caption:'<strong>Tâche ClickUp — "Refaire la carte du Magritte pour le Ramdam" (site Magritte).</strong> Statut <em>FAIT</em>, priorité <em>Urgente</em>, assignée à Reda Bouali. Mise à jour d\'urgence de la carte du bar Magritte pour l\'événement Ramdam — modification des articles et tarifs dans le back-office Magritte avec délai serré.' }
+        ]
       },
       zabbix: {
         icon:'📡', gradient:'linear-gradient(145deg,#E02020,#B01010)',
@@ -523,7 +545,13 @@
           { type:'config', lbl:'🐍 Python — Partie 1', iface:'Script MySQL → Zabbix', src:'zabbix/script-pythonmysqlpart1.png',
             caption:'<strong>Script Python — 1ère approche (partie 1).</strong> Le script se connecte à la base MySQL de GLPI pour extraire la liste des hôtes du parc (IP, nom, localisation). Il utilise ensuite l\'API REST de Zabbix pour créer automatiquement les hôtes correspondants. Cette approche a été explorée avant d\'être abandonnée au profit du déploiement par GPO, plus fiable et plus adapté à l\'environnement Active Directory d\'Imagix.' },
           { type:'config', lbl:'🐍 Python — Partie 2', iface:'Script MySQL → Zabbix', src:'zabbix/script-pythonmysqlpart2.png',
-            caption:'<strong>Script Python — 1ère approche (partie 2).</strong> Suite du script : création des hôtes dans Zabbix avec affectation des groupes, templates et interfaces réseau. Bien que fonctionnel, ce script nécessitait une synchronisation manuelle et ne gérait pas le déploiement de l\'agent sur les postes. La solution .bat + GPO a été retenue comme solution finale pour son déploiement automatisé et transparent.' }
+            caption:'<strong>Script Python — 1ère approche (partie 2).</strong> Suite du script : création des hôtes dans Zabbix avec affectation des groupes, templates et interfaces réseau. Bien que fonctionnel, ce script nécessitait une synchronisation manuelle et ne gérait pas le déploiement de l\'agent sur les postes. La solution .bat + GPO a été retenue comme solution finale pour son déploiement automatisé et transparent.' },
+          { type:'config', lbl:'📋 Installation', iface:'ClickUp — Tâche Zabbix', src:'zabbix/installation clickup.jpeg',
+            caption:'<strong>Tâche ClickUp — "Installation de Zabbix".</strong> Statut <em>FAIT</em>, priorité <em>Élevée</em>. La tâche regroupe les 4 étapes clés de l\'installation : déploiement de la VM Ubuntu 24.04 sur VMware, installation du serveur Zabbix, configuration de la base de données et activation de l\'interface web. Suivi assuré via ClickUp, outil de gestion de projet du service ICT Imagix.' },
+          { type:'config', lbl:'📋 Déploiement', iface:'ClickUp — Agents Zabbix', src:'zabbix/deploiement clickup.jpeg',
+            caption:'<strong>Tâche ClickUp — "Déploiement des agents Zabbix".</strong> Statut <em>FAIT</em>, priorité <em>Élevée</em>. Regroupe les étapes de création du script .bat, test en environnement local, configuration de la GPO Active Directory et vérification de la remontée des hôtes dans Zabbix. Le déploiement silencieux via GPO a permis de couvrir l\'ensemble du parc sans intervention manuelle sur les postes.' },
+          { type:'config', lbl:'📋 Configuration', iface:'ClickUp — Supervision', src:'zabbix/configuration clickup.jpeg',
+            caption:'<strong>Tâche ClickUp — "Configuration de la supervision".</strong> Statut <em>FAIT</em>. Regroupe 5 sous-tâches : affectation des hôtes aux groupes, application des templates de supervision, création des items de métriques, définition des triggers d\'alerte et paramétrage des notifications. Chaque étape tracée dans ClickUp pour assurer la traçabilité complète de la mise en place.' }
         ]
       }
     };
