@@ -186,17 +186,33 @@
     #mission-lightbox.lb-single #lb-prev,
     #mission-lightbox.lb-single #lb-next { display: none; }
 
-    /* Screenshots gallery */
-    .mm-screenshots { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
-    .mm-shot { border-radius: 14px; overflow: hidden; border: 1px solid var(--separator); background: var(--fill-4); margin: 0; }
-    .mm-shot-header { display: flex; align-items: center; gap: 0.55rem; padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--separator); }
-    .mm-shot-badge { font-size: 0.7rem; font-weight: 700; padding: 0.18rem 0.5rem; border-radius: 6px; white-space: nowrap; }
+    /* Image carousel inside modal */
+    .mm-imgcarousel { border-radius: 16px; overflow: hidden; border: 1px solid rgba(128,128,128,.12); background: var(--fill-4); }
+    [data-theme="light"] .mm-imgcarousel { background: #f7f7f8; }
+    [data-theme="dark"]  .mm-imgcarousel { background: rgba(255,255,255,.04); }
+    .mm-ic-header { display: flex; align-items: center; justify-content: space-between; padding: .5rem .9rem; border-bottom: 1px solid rgba(128,128,128,.1); }
+    .mm-ic-badge-row { display: flex; align-items: center; gap: .45rem; }
+    .mm-shot-badge { font-size: .7rem; font-weight: 700; padding: .18rem .5rem; border-radius: 6px; white-space: nowrap; }
     .mm-shot-interne { background: rgba(var(--accent-rgb),.12); color: var(--accent); }
     .mm-shot-externe { background: rgba(245,158,11,.12); color: #D97706; }
     .mm-shot-config  { background: rgba(52,199,89,.12);  color: #34C759; }
-    .mm-shot-iface { font-size: 0.82rem; font-weight: 600; color: var(--text-1); }
-    .mm-shot img { width: 100%; display: block; cursor: zoom-in; transition: transform .2s; }
-    .mm-shot figcaption { padding: 0.65rem 0.9rem; font-size: 0.83rem; color: var(--text-2); line-height: 1.55; }
+    .mm-shot-iface { font-size: .8rem; font-weight: 600; }
+    .mm-ic-counter { font-size: .72rem; font-weight: 600; opacity: .38; white-space: nowrap; }
+    .mm-ic-img-wrap { position: relative; overflow: hidden; background: rgba(0,0,0,.04); cursor: zoom-in; }
+    .mm-ic-img-wrap img { width: 100%; display: block; transition: transform .25s; }
+    .mm-ic-img-wrap:hover img { transform: scale(1.015); }
+    .mm-ic-caption { padding: .7rem 1rem .6rem; font-size: .84rem; line-height: 1.6; min-height: 3.5rem; }
+    [data-theme="light"] .mm-ic-caption { color: #444; }
+    [data-theme="dark"]  .mm-ic-caption { color: rgba(255,255,255,.65); }
+    .mm-ic-nav { display: flex; align-items: center; justify-content: space-between; padding: .45rem .75rem .6rem; border-top: 1px solid rgba(128,128,128,.1); }
+    .mm-ic-btn { width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: background .15s, opacity .15s; }
+    [data-theme="light"] .mm-ic-btn { background: rgba(0,0,0,.07); color: #333; }
+    [data-theme="dark"]  .mm-ic-btn { background: rgba(255,255,255,.1); color: #fff; }
+    .mm-ic-btn:hover:not(:disabled) { opacity: .7; }
+    .mm-ic-btn:disabled { opacity: .2; cursor: default; }
+    .mm-ic-dots { display: flex; gap: 5px; align-items: center; }
+    .mm-ic-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(128,128,128,.3); transition: background .2s, transform .2s; border: none; padding: 0; cursor: pointer; }
+    .mm-ic-dot.active { background: var(--accent); transform: scale(1.4); }
 
     /* Carousel */
     .mm-carousel-section { border-top: 1px solid rgba(128,128,128,.1); padding-top: 1.1rem; }
@@ -440,12 +456,6 @@
             caption:'<strong>Interface INF — Pare-feu interne (Poste 1).</strong> Aucune règle personnalisée configurée. Le service informatique bénéficie des règles auto-générées permettant un accès large pour les interventions de maintenance. Une politique de filtrage dédiée reste à définir pour sécuriser ce segment privilégié.' },
           { type:'interne', iface:'SRV (Serveurs)', src:'opnsense/interne/srv interne.PNG',
             caption:'<strong>Interface SRV — Pare-feu interne (Poste 1).</strong> Une règle "Default allow LAN to any" autorise tout le trafic IPv4 sortant depuis le réseau serveurs vers n\'importe quelle destination. Configuration large en phase initiale — à restreindre pour ne permettre que les flux serveurs légitimes (DNS, NTP, mises à jour) et limiter la surface d\'attaque.' },
-          { type:'externe', iface:'DMZ', src:'opnsense/externe/dmz externe.PNG',
-            caption:'<strong>Interface DMZ — Pare-feu externe (Poste 2).</strong> Une règle permissive autorise tout le trafic IPv4 sortant de la DMZ vers Internet. Configuration provisoire à restreindre : seuls les flux HTTP/HTTPS (80, 443) et DNS (53) devraient être autorisés depuis les serveurs exposés pour limiter les risques d\'exfiltration.' },
-          { type:'externe', iface:'SANSFIL (Invités Wi-Fi)', src:'opnsense/externe/sansfil externe.PNG',
-            caption:'<strong>Interface SANSFIL — Pare-feu externe (Poste 2).</strong> Aucune règle personnalisée configurée. Le réseau invités Wi-Fi fonctionne avec les règles auto-générées d\'OPNsense. Ce réseau est physiquement isolé du réseau de production, mais une politique de filtrage sortant reste à définir pour limiter l\'accès à Internet depuis ce segment.' },
-          { type:'externe', iface:'WAN', src:'opnsense/externe/wan externe.PNG',
-            caption:'<strong>Interface WAN — Pare-feu externe (Poste 2).</strong> 3 règles entrantes depuis l\'IP publique 172.21.0.22 : <em>HTTP (port 80)</em> pour le site web GSB, <em>SSH (port 22)</em> pour l\'administration distante sécurisée, et <em>HTTPS</em> pour les services web chiffrés. Ces règles exposent uniquement les services nécessaires et bloquent tout autre trafic entrant par défaut.' },
           { type:'config', lbl:'🖥 Console', iface:'Interfaces réseau', src:'opnsense-interne.png',
             caption:'<strong>Console OPNsense — Pare-feu interne (Poste 1).</strong> Vue des interfaces réseau configurées : DMZ (em1) → 172.22.69.6/29, EMP (em2) → 172.22.65.254/23, INF (em3) → 172.22.66.254/24, SRV (em0) → 172.22.68.6/29. Cette console confirme la segmentation réseau appliquée : 4 interfaces distinctes correspondant aux 4 zones de l\'infrastructure GSB.' }
         ]
@@ -548,25 +558,16 @@
       if(d.screenshots&&d.screenshots.length){
         var sectionLbl = d.screenshots.some(function(s){return s.type==='interne'||s.type==='externe';}) ? '🖥 Règles par interface' : '📸 Captures';
         html+='<div class="mm-section"><div class="mm-section-label">'+sectionLbl+'</div>'
-             +'<div class="mm-screenshots">';
-        d.screenshots.forEach(function(s){
-          var cls, lbl, iface='';
-          if(s.type==='interne'){cls='mm-shot-interne';lbl='🔒 Pare-feu Interne';}
-          else if(s.type==='externe'){cls='mm-shot-externe';lbl='🌐 Pare-feu Externe';}
-          else if(s.type==='config'){cls='mm-shot-config';lbl='⚙️ Configuration';}
-          else{cls='mm-shot-config';lbl='📸 Capture';}
-          if(s.lbl) lbl=s.lbl;
-          if(s.iface) iface='<span class="mm-shot-iface">'+s.iface+'</span>';
-          html+='<figure class="mm-shot">'
-               +'<div class="mm-shot-header">'
-               +'<span class="mm-shot-badge '+cls+'">'+lbl+'</span>'
-               +iface
-               +'</div>'
-               +'<img src="'+s.src+'" alt="'+(s.iface||lbl)+'" loading="lazy">'
-               +'<figcaption>'+s.caption+'</figcaption>'
-               +'</figure>';
-        });
-        html+='</div></div>';
+             +'<div class="mm-imgcarousel" id="mm-ic">'
+             +'<div class="mm-ic-header"><div class="mm-ic-badge-row" id="mm-ic-badge"></div><span class="mm-ic-counter" id="mm-ic-counter"></span></div>'
+             +'<div class="mm-ic-img-wrap" id="mm-ic-imgwrap"><img id="mm-ic-img" src="" alt="" loading="lazy"></div>'
+             +'<div class="mm-ic-caption" id="mm-ic-caption"></div>'
+             +'<div class="mm-ic-nav">'
+             +'<button class="mm-ic-btn" id="mm-ic-prev">&#8249;</button>'
+             +'<div class="mm-ic-dots" id="mm-ic-dots"></div>'
+             +'<button class="mm-ic-btn" id="mm-ic-next">&#8250;</button>'
+             +'</div>'
+             +'</div></div>';
       }
       html+='<div class="mm-carousel-section">'
           +'<div class="mm-carousel-label">Captures &amp; preuves</div>'
@@ -578,9 +579,52 @@
           +'<button class="carousel-upload-btn" onclick="uploadSlide(\''+id+'\')">&#43; Ajouter une image</button>'
           +'</div>';
       mmBody.innerHTML = html;
+      if(d.screenshots&&d.screenshots.length){ initShotCarousel(d.screenshots); }
       renderCarousel(id);
       modal.classList.add('open');
       document.body.style.overflow='hidden';
+    }
+
+    /* ── Shot carousel ────────────────────────────────── */
+    function initShotCarousel(shots){
+      var idx=0;
+      function badgeInfo(s){
+        var cls,lbl;
+        if(s.type==='interne'){cls='mm-shot-interne';lbl='🔒 Pare-feu Interne';}
+        else if(s.type==='externe'){cls='mm-shot-externe';lbl='🌐 Pare-feu Externe';}
+        else{cls='mm-shot-config';lbl='⚙️ Config';}
+        if(s.lbl) lbl=s.lbl;
+        return {cls:cls,lbl:lbl};
+      }
+      function render(){
+        var s=shots[idx];
+        var bi=badgeInfo(s);
+        var badge=document.getElementById('mm-ic-badge');
+        var counter=document.getElementById('mm-ic-counter');
+        var img=document.getElementById('mm-ic-img');
+        var cap=document.getElementById('mm-ic-caption');
+        var dots=document.getElementById('mm-ic-dots');
+        var prev=document.getElementById('mm-ic-prev');
+        var next=document.getElementById('mm-ic-next');
+        if(!badge) return;
+        badge.innerHTML='<span class="mm-shot-badge '+bi.cls+'">'+bi.lbl+'</span>'+(s.iface?'<span class="mm-shot-iface">'+s.iface+'</span>':'');
+        counter.textContent=(idx+1)+' / '+shots.length;
+        img.src=s.src; img.alt=s.iface||bi.lbl;
+        cap.innerHTML=s.caption;
+        dots.innerHTML=shots.map(function(_,i){ return '<button class="mm-ic-dot'+(i===idx?' active':'')+'" data-i="'+i+'" aria-label="Image '+(i+1)+'"></button>'; }).join('');
+        prev.disabled=(idx===0);
+        next.disabled=(idx===shots.length-1);
+        dots.querySelectorAll('.mm-ic-dot').forEach(function(d){
+          d.addEventListener('click',function(){idx=parseInt(d.dataset.i);render();});
+        });
+      }
+      render();
+      document.getElementById('mm-ic-prev').addEventListener('click',function(){if(idx>0){idx--;render();}});
+      document.getElementById('mm-ic-next').addEventListener('click',function(){if(idx<shots.length-1){idx++;render();}});
+      document.getElementById('mm-ic-imgwrap').addEventListener('click',function(){
+        var img=document.getElementById('mm-ic-img');
+        if(img) openSingleLightbox(img.src);
+      });
     }
 
     function closeModal(){
@@ -612,9 +656,7 @@
       if(del){e.stopPropagation();var id=del.dataset.mission,i=parseInt(del.dataset.idx);if(state[id]&&confirm('Supprimer cette image ?')){state[id].slides.splice(i,1);state[id].idx=Math.max(0,state[id].idx-1);saveSlides(id);renderCarousel(id);}return;}
       var slide=e.target.closest('.carousel-slide');
       if(slide&&!e.target.closest('.slide-del')){openLightbox(slide.dataset.mission,parseInt(slide.dataset.idx));return;}
-      /* Zoom screenshot ou schéma */
-      var shotImg=e.target.closest('.mm-shot img');
-      if(shotImg){openSingleLightbox(shotImg.src);return;}
+      /* Zoom schéma réseau */
       var schemaImg=e.target.closest('.mm-schema img');
       if(schemaImg){openSingleLightbox(schemaImg.src);return;}
     });
